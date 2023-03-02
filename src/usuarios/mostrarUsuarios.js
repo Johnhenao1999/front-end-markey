@@ -33,26 +33,30 @@ const CompShowUsuarios = () => {
                     <table className='table'>
                         <thead className='table-primary'>
                             <tr>
+                                <th>Cedula</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
-                                <th>Email</th>
+                                <th>Edad</th>
+                                <th>Ciudad</th>
+                                <th>Direccion</th>
                                 <th>Telefono</th>
-                                <th>Horas trabajadas</th>
-                                <th>Precio hora</th>
-                                <th>Total a pagar</th>
-                                <th>Actions</th>
+                                <th>Estado civil</th>
+                                <th>Enfasis operacional</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             { usuarios.map ( (usuario) => (
                                 <tr key={ usuario.id}>
+                                    <td> { usuario.cedula } </td>
                                     <td> { usuario.nombre } </td>
                                     <td> { usuario.apellido } </td>
-                                    <td> { usuario.email } </td>
+                                    <td> { usuario.edad } </td>
+                                    <td> { usuario.ciudad } </td>
+                                    <td> { usuario.direccion } </td>
                                     <td> { usuario.telefono } </td>
-                                    <td> { usuario.total_horas } </td>
-                                    <td> { usuario.precio_hora } </td>
-                                    <td> { usuario.total_horas * usuario.precio_hora} </td>
+                                    <td> { usuario.estado_civil } </td>
+                                    <td> { usuario.enfasis_operacional} </td>
                                     <td>
                                         <Link to={`/edit/${usuario.id}`} className='btn btn-info'><i className="fas fa-edit"></i></Link>
                                        <button onClick={ ()=>deleteUsuarios(usuario.id) } className='btn btn-danger'><i className="fas fa-trash-alt"></i></button>
