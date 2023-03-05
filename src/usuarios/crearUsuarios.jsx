@@ -17,12 +17,36 @@ const CompCreateUsuarios = () => {
     const [estado_civil, setEstadoCivil] = useState('');
     const [enfasis_operacional, setEnfasisOperacional] = useState('');
     const [showModal, setShowModal] = useState(false);
+
+    const [errorCedula, setErrorCedula] = useState(false);
+    const [errorTelefono, setErrorTelefono] = useState(false);
     const navigate = useNavigate();
+
+    const handleTelefonoChange = (e) => {
+        const inputTelefono = e.target.value;
+
+        // Validar que solamente se ingresen números
+        if (!/^\d*$/.test(inputTelefono)) {
+            setErrorTelefono(true);
+        } else {
+            setErrorTelefono(false);
+            setTelefono(inputTelefono);
+        }
+    };
+
 
     // Procedimiento para guardar ha un usuario
 
     const guardar = async (e) => {
         e.preventDefault();
+
+        if (!cedula || !telefono) {
+            // Muestra un mensaje de error si se omitió la cédula o el teléfono
+            setErrorCedula(true);
+            setErrorTelefono(true);
+            return;
+          }
+   
         await axios.post(URI, {
             cedula,
             nombre,
@@ -45,10 +69,24 @@ const CompCreateUsuarios = () => {
                         <label className='form-label'>Cedula</label>
                         <input
                             value={cedula}
-                            onChange={(e) => setCedula(e.target.value)}
+                            onChange={(e) => {
+                                setCedula(e.target.value);
+                                setErrorCedula(false);
+                            }}
                             type="text"
                             className='form-control'
+                            maxLength={10}
+                            pattern="[0-9]{10}"
+                            title="Debe contener exactamente 10 dígitos numéricos"
+                            onKeyPress={(e) => {
+                                const onlyNumbers = /[0-9]/;
+                                const key = String.fromCharCode(e.keyCode || e.which);
+                                if (!onlyNumbers.test(key)) {
+                                    e.preventDefault();
+                                }
+                            }}
                         />
+                        {errorCedula && <p className='text-danger'>Ingresa una cedula valida</p>}
                     </div>
                     <div >
                         <label className='form-label'>Nombre</label>
@@ -90,10 +128,16 @@ const CompCreateUsuarios = () => {
                         <label className='form-label'>Telefono</label>
                         <input
                             value={telefono}
-                            onChange={(e) => setTelefono(e.target.value)}
+                            onChange={handleTelefonoChange}
                             type="text"
                             className='form-control'
+                            pattern="\d*"
+                            maxLength={10}
+                            onInvalid={() => setErrorTelefono(true)}
                         />
+                        {errorTelefono && (
+                            <p className='text-danger'>Ingresa un número de teléfono válido</p>
+                        )}
                     </div>
                     <div>
                         <label className='form-label'>Edad</label>
