@@ -19,6 +19,7 @@ const CompCreateUsuarios = () => {
     const [showModal, setShowModal] = useState(false);
 
     const [errorCedula, setErrorCedula] = useState(false);
+    const [errorCampos, setErrorCampos] = useState(false);
     const [errorTelefono, setErrorTelefono] = useState(false);
     const navigate = useNavigate();
 
@@ -40,13 +41,12 @@ const CompCreateUsuarios = () => {
     const guardar = async (e) => {
         e.preventDefault();
 
-        if (!cedula || !telefono) {
+        if (!cedula) {
             // Muestra un mensaje de error si se omitió la cédula o el teléfono
             setErrorCedula(true);
-            setErrorTelefono(true);
             return;
-          }
-   
+        }
+
         await axios.post(URI, {
             cedula,
             nombre,
@@ -86,7 +86,9 @@ const CompCreateUsuarios = () => {
                                 }
                             }}
                         />
-                        {errorCedula && <p className='text-danger'>Ingresa una cedula valida</p>}
+                          {errorCedula && (
+                            <p className='text-danger'>Este campo es obligatorio</p>
+                        )}
                     </div>
                     <div >
                         <label className='form-label'>Nombre</label>
@@ -96,6 +98,9 @@ const CompCreateUsuarios = () => {
                             type="text"
                             className='form-control'
                         />
+                        {errorCampos && (
+                            <p className='text-danger'>Este campo es obligatorio</p>
+                        )}
                     </div>
                     <div>
                         <label className='form-label'>Apellido</label>
@@ -105,6 +110,9 @@ const CompCreateUsuarios = () => {
                             type="text"
                             className='form-control'
                         />
+                        {errorCampos && (
+                            <p className='text-danger'>Este campo es obligatorio</p>
+                        )}
                     </div>
                     <div>
                         <label className='form-label'>Ciudad</label>
@@ -114,6 +122,9 @@ const CompCreateUsuarios = () => {
                             type="text"
                             className='form-control'
                         />
+                        {errorCampos && (
+                            <p className='text-danger'>Este campo es obligatorio</p>
+                        )}
                     </div>
                     <div>
                         <label className='form-label'>Direccion</label>
@@ -123,11 +134,15 @@ const CompCreateUsuarios = () => {
                             type="text"
                             className='form-control'
                         />
+                        {errorCampos && (
+                            <p className='text-danger'>Este campo es obligatorio</p>
+                        )}
                     </div>
                     <div>
                         <label className='form-label'>Telefono</label>
                         <input
                             value={telefono}
+                            /*   onChange={(e) => setTelefono(e.target.value)} */
                             onChange={handleTelefonoChange}
                             type="text"
                             className='form-control'
@@ -136,7 +151,7 @@ const CompCreateUsuarios = () => {
                             onInvalid={() => setErrorTelefono(true)}
                         />
                         {errorTelefono && (
-                            <p className='text-danger'>Ingresa un número de teléfono válido</p>
+                            <p className='text-danger'>Ingresa el numero de telefono</p>
                         )}
                     </div>
                     <div>
@@ -147,6 +162,9 @@ const CompCreateUsuarios = () => {
                             type="text"
                             className='form-control'
                         />
+                        {errorCampos && (
+                            <p className='text-danger'>Este campo es obligatorio</p>
+                        )}
                     </div>
                     <div>
                         <label className='form-label'>Estado civil</label>
@@ -156,6 +174,9 @@ const CompCreateUsuarios = () => {
                             <option value="Casado">Casado</option>
                             <option value="Union Libre">Unión Libre</option>
                         </select>
+                        {errorCampos && (
+                            <p className='text-danger'>Este campo es obligatorio</p>
+                        )}
                     </div>
                     <div>
                         <label className='form-label'>Enfasis operacional</label>
@@ -165,6 +186,9 @@ const CompCreateUsuarios = () => {
                             <option value="Collarin">Collarin</option>
                             <option value="Filetiadora">Filetiadora</option>
                         </select>
+                        {errorCampos && (
+                            <p className='text-danger'>Este campo es obligatorio</p>
+                        )}
                     </div>
                 </div>
 
