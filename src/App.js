@@ -10,12 +10,14 @@ import CompHomePrincipalAdministrador from './home_administrador/homePrincipalAd
 import CompMostrarInventario from './gestion_inventario/mostrarInventario';
 import CompHomePrincipal from './home_principal/homePrincipal';
 import CompPruebaRegistro from './registro_horas_empleados/registrarHorasEmpleados';
+import CompMostrarHorasEmpleado from './usuarios/mostrarUsuarioHoras';
+import CompIngresarHora from './usuarios/agregarHoraEmpleado';
 
-
+  
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
+    <div className="App"> 
+      <BrowserRouter> 
         <Routes>
         <Route path='/' element={<CompHomePrincipal />} />
           <Route path='/homeAdministrador' element={<CompHomePrincipalAdministrador />} />
@@ -24,7 +26,9 @@ function App() {
           <Route path='/create' element={<CompCreateUsuarios />} />
           <Route path='/pruebaRegistro/:id' element={<CompPruebaRegistro />} />
           <Route path='/edit/:id' element={<CompEditarUsuarios />} />
-        </Routes>
+          <Route path='/empleados-ingresos/:idEmpleado' element={<CompMostrarHorasEmpleado />} />
+          <Route path='/ingresar_fecha/:idEmpleado' element={<CompIngresarHora />} />
+        </Routes> 
       </BrowserRouter>
     </div>
   );

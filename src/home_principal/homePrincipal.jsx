@@ -6,7 +6,7 @@ import './homePrincipal.css'
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
 
 
-const URI = 'http://localhost:8000/holamundo/'
+
 
 const CompHomePrincipal = () => {
     const [username, setUsername] = useState("");
