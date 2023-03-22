@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const URI = 'http://localhost:8000/holamundo/'
+const URI = 'http://localhost:8000/empleados'
 
 const CompShowUsuarios = () => {
 
@@ -24,8 +24,8 @@ const CompShowUsuarios = () => {
     }
 
     //procedimineto para eliminar un blog
-    const deleteUsuarios = async (id) => {
-        await axios.delete(`${URI}${id}`)
+    const deleteUsuarios = async (idcedula) => {
+        await axios.delete(`${URI}${idcedula}`)
         getUsuarios()
     }
 
@@ -46,15 +46,16 @@ const CompShowUsuarios = () => {
                         </thead>
                         <tbody>
                             {usuarios.map((usuario) => (
-                                <tr key={usuario.idempleado}>
+                                <tr key={usuario.idcedula}>
                                     <td> {usuario.nombre} </td>
                                     <td> {usuario.apellido} </td>
-                                    <td> {usuario.cedula} </td>
+                                    <td> {usuario.idcedula} </td>
+                                    <td> {usuario.telefono} </td>
                                     <td>
-                                        <Link to={`/edit/${usuario.idempleado}`} className='btn btn-info'><i className="fas fa-edit"></i></Link>
-                                        <button onClick={() => deleteUsuarios(usuario.idempleado)} className='btn btn-danger'><i className="fas fa-trash-alt"></i></button>
-                                        <Link to={`/empleados-ingresos/${usuario.idempleado}`} className="btn btn-success"><i className="fas fa-dollar-sign"></i></Link>
-                                        <Link to={`/ingresar_fecha/${usuario.idempleado}`} className="btn btn-success"><i className="fas fa-dollar-sign"></i></Link>
+                                        <Link to={`/edit/${usuario.idcedula}`} className='btn btn-info'><i className="fas fa-edit"></i></Link>
+                                        <button onClick={() => deleteUsuarios(usuario.idcedula)} className='btn btn-danger'><i className="fas fa-trash-alt"></i></button>
+                                        <Link to={`/registro-horas-empleado/${usuario.idcedula}`} className="btn btn-success"><i className="fas fa-dollar-sign"></i></Link>
+                                        <Link to={`/ingresar_fecha/${usuario.idcedula}`} className="btn btn-success"><i className="fas fa-dollar-sign"></i></Link>
                                     </td>
                                 </tr>
                             ))}

@@ -10,10 +10,12 @@ import { useParams } from 'react-router-dom';
 const URI = 'http://localhost:8000/holamundo/'
 
 const CompIngresarHora = () => {
+    const [horaEntradaManana, setHoraIngresoManana] = useState('');
+    const [horaSalidaManana, setHoraSalidaManana] = useState('');
     const [horaIngreso, setHoraIngreso] = useState('');
     const [horaSalida, setHoraSalida] = useState('');
-    const { idEmpleado } = useParams();
 
+    const { idEmpleado } = useParams();
 
 
 
@@ -21,21 +23,25 @@ const CompIngresarHora = () => {
 
     const submitData = async () => {
         const data = {
+            horaEntradaManana: horaEntradaManana,
+            horaSalidaManana: horaSalidaManana,
             horaIngreso: horaIngreso,
             horaSalida: horaSalida,
-            totalPagar: 0 // Este campo no está en los inputs, así que lo dejamos en 0 por ahora
         };
 
         const prueba = await axios.post(`${URI}ingresar_fecha/${idEmpleado}`, data); // aquí agregamos el idEmpleado a la URL
-
         console.log('Datos enviados correctamente');
         console.log("que trae data", prueba)
     };
     return (
         <div>
-            <input type="text" placeholder="Hora de ingreso" value={horaIngreso} onChange={(e) => setHoraIngreso(e.target.value)} />
-            <input type="text" placeholder="Hora de salida" value={horaSalida} onChange={(e) => setHoraSalida(e.target.value)} />
-            <button onClick={submitData}>Enviar</button>
+            <input type="text" placeholder="Hora de ingreso mañana" value={horaEntradaManana} onChange={(e) => setHoraIngresoManana(e.target.value)} />
+            <input type="text" placeholder="Hora de salida mañana" value={horaSalidaManana} onChange={(e) => setHoraSalidaManana(e.target.value)} />
+            <input type="text" placeholder="Hora de ingreso tarde" value={horaIngreso} onChange={(e) => setHoraIngreso(e.target.value)} />
+            <input type="text" placeholder="Hora de salida tarde" value={horaSalida} onChange={(e) => setHoraSalida(e.target.value)} />
+            <Link to="/empleados">
+                <button onClick={submitData}>Guardar</button>
+            </Link>
         </div>
     );
 };

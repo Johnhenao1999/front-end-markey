@@ -21,12 +21,12 @@ function App() {
         <Routes>
         <Route path='/' element={<CompHomePrincipal />} />
           <Route path='/homeAdministrador' element={<CompHomePrincipalAdministrador />} />
-          <Route path='/mostrarUsuarios' element={<CompShowUsuarios />} />
+          <Route path='/empleados' element={<CompShowUsuarios />} />
           <Route path='/prueba' element={<CompMostrarInventario />} />
           <Route path='/create' element={<CompCreateUsuarios />} />
           <Route path='/pruebaRegistro/:id' element={<CompPruebaRegistro />} />
           <Route path='/edit/:id' element={<CompEditarUsuarios />} />
-          <Route path='/empleados-ingresos/:idEmpleado' element={<CompMostrarHorasEmpleado />} />
+          <Route path='/registro-horas-empleado/:idEmpleado' element={<CompMostrarHorasEmpleado />} />
           <Route path='/ingresar_fecha/:idEmpleado' element={<CompIngresarHora />} />
         </Routes> 
       </BrowserRouter>
