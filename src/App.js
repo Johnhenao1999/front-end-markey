@@ -12,6 +12,12 @@ import CompHomePrincipal from './home_principal/homePrincipal';
 import CompPruebaRegistro from './registro_horas_empleados/registrarHorasEmpleados';
 import CompMostrarHorasEmpleado from './usuarios/mostrarUsuarioHoras';
 import CompIngresarHora from './usuarios/agregarHoraEmpleado';
+import CompCreateCliente from './gestion_clientes/crearClientes';
+import CompShowClientes from './gestion_clientes/mostrarClientes';
+import CompRegistroPedido from './gestion_clientes/crearPedido';
+import CompPedidoCliente from './gestion_clientes/mostrarPedidos';
+import CompRegistroItemsPedido from './gestion_clientes/registroItemsPedido';
+import CompMostrarDetallePedidos from './gestion_clientes/mostrarDetallePedido';
 
   
 function App() {
@@ -28,6 +34,13 @@ function App() {
           <Route path='/edit/:id' element={<CompEditarUsuarios />} />
           <Route path='/registro-horas-empleado/:idEmpleado' element={<CompMostrarHorasEmpleado />} />
           <Route path='/ingresar_fecha/:idEmpleado' element={<CompIngresarHora />} />
+          <Route path='/create-cliente' element={<CompCreateCliente />} />
+          <Route path='/clientes' element={<CompShowClientes />} />
+          <Route path='/registro-pedidos/:id_cliente' element={<CompRegistroPedido />} />
+          <Route path='/pedidos/:id_cliente' element={<CompPedidoCliente />} />
+          <Route path='/registro-items/:id_pedido' element={<CompRegistroItemsPedido />} />
+          <Route path='/mostrar-items-pedido/:id_cliente' element={<CompMostrarDetallePedidos />} />
+
         </Routes> 
       </BrowserRouter>
     </div>
