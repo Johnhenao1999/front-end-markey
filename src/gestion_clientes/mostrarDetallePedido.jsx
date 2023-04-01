@@ -20,6 +20,20 @@ const CompMostrarDetallePedidos = () => {
     console.log(resprueba)
   };
 
+  
+
+  // Calcula la suma de los totales de todos los items
+  const total = pedidos.length
+  ? pedidos.reduce((total, pedido) => {
+      return (
+        total +
+        pedido.items.reduce((totalItems, item) => {
+          return totalItems + parseFloat(item.total);
+        }, 0)
+      );
+    }, 0)
+  : 0;
+
   return (
     <div className='container'>
       <div className='row'>
@@ -45,8 +59,8 @@ const CompMostrarDetallePedidos = () => {
                           <tr key={`${pedido.id_pedido}-${item.producto}`}>
                             <td>{item.producto}</td>
                             <td>{item.cantidad}</td>
-                            <td>{item.precio_unitario}</td>
-                            <td>{item.total}</td>
+                            <td>{parseFloat(item.precio_unitario).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
+                            <td>{parseFloat(item.total).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -54,6 +68,7 @@ const CompMostrarDetallePedidos = () => {
                   </td>
                 </tr>
               ))}
+                <td>Total: {total.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
             </tbody>
           </table>
         </div>

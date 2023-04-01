@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import './mostrarClientes.css'
+import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 
 const URI = 'http://localhost:8000/clientes'
 
@@ -21,16 +23,12 @@ const CompShowClientes = () => {
         console.log("Que trae res", res)
     }
 
-    //procedimineto para eliminar un cliente
-    const deleteClientes = async (id_cliente) => {
-        await axios.delete(`${URI}${id_cliente}`)
-        getClientes()
-    }
-
 
     return (
-        <div className='container'>
-            <div className='row'>
+
+        <div className='cmp-container-markey-mostrarUsuarios'>
+            <CompNavegacionVertical />
+            <div className='cmp-container-markey-tabla-empleados'>
                 <div className='col'>
                     {<Link to="/create" className='btn btn-primary mt-2 mb-2'><i className="fas fa-plus"></i></Link>}
                     <table className='table'>
@@ -52,10 +50,10 @@ const CompShowClientes = () => {
                                     <td> {cliente.ciudad} </td>
                                     <td> {cliente.direccion} </td>
                                     {<td>
-{/*                                         <Link to={`/edit/${cliente.id_cliente}`} className='btn btn-info'><i className="fas fa-edit"></i></Link> */}
+                                        {/*                                         <Link to={`/edit/${cliente.id_cliente}`} className='btn btn-info'><i className="fas fa-edit"></i></Link> */}
                                         <Link to={`/registro-pedidos/${cliente.id_cliente}`} className="btn btn-success"><i className="fas fa-dollar-sign">REGISTRAR PEDIDO</i></Link>
                                         <Link to={`/pedidos/${cliente.id_cliente}`} className='btn btn-info'><i className="fas fa-edit"></i>VER PEDIDO</Link>
-              {/*                           <button onClick={() => deleteClientes(cliente.id_cliente)} className='btn btn-danger'><i className="fas fa-trash-alt"></i></button> */}
+                                        {/*                           <button onClick={() => deleteClientes(cliente.id_cliente)} className='btn btn-danger'><i className="fas fa-trash-alt"></i></button> */}
                                         <Link to={`/mostrar-items-pedido/${cliente.id_cliente}`} className="btn btn-success"><i className="fas fa-dollar-sign">VER DETALLE PEDIDO</i></Link>
                                     </td>}
                                 </tr>

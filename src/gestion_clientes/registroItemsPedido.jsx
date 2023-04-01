@@ -10,10 +10,19 @@ const CompRegistroItemsPedido = () => {
   const { id_pedido } = useParams();
   const navigate = useNavigate();
 
+  const calculateTotal = (index) => {
+    const item = items[index];
+    const total = item.cantidad * item.precio_unitario;
+    const values = [...items];
+    values[index].total = total;
+    setItems(values);
+  }
+
   const handleItemChange = (index, event) => {
     const values = [...items];
     values[index][event.target.name] = event.target.value;
     setItems(values);
+    calculateTotal(index);
   };
 
   const handleAddItem = () => {
@@ -36,7 +45,7 @@ const CompRegistroItemsPedido = () => {
           <input type="text" name="cantidad" placeholder="Ingresa la cantidad" value={item.cantidad} onChange={event => handleItemChange(index, event)} />
           <input type="text" name="producto" placeholder="Producto" value={item.producto} onChange={event => handleItemChange(index, event)} />
           <input type="text" name="precio_unitario" placeholder="Precio unitario del producto" value={item.precio_unitario} onChange={event => handleItemChange(index, event)} />
-          <input type="text" name="total" placeholder="Total" value={item.total} onChange={event => handleItemChange(index, event)} />
+          <input type="text" name="total" placeholder="Total" value={item.total.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })} onChange={event => handleItemChange(index, event)} />
         </div>
       ))}
       <button onClick={handleAddItem}>Agregar ítem</button>

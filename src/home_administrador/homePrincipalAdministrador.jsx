@@ -3,8 +3,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import './home.css'
+import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 
-const URI = 'http://localhost:8000/holamundo/'
 
 
 const CompHomePrincipalAdministrador = () => {
@@ -14,9 +14,7 @@ const CompHomePrincipalAdministrador = () => {
             <header className="header-home">
                 Bienvenido administrador
             </header>
-            <div className="boton-usuarios">
-            {<Link className="boton-usuarios" to="/prueba">CLICK AQUI</Link>}  
-            </div>
+            <CompNavegacionVertical />
         </div>
     )
 

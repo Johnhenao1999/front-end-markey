@@ -1,33 +1,34 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 
 const URI = 'http://localhost:8000/pedidos/'
 
-const CompPedidoCliente = () => {
-  const [pedidos, setPedidos] = useState([]);
-  const { id_cliente } = useParams(); // obtiene el parámetro de la URL (el ID del empleado)
+const CompShowPedidos = () => {
+  
+    const [pedidos, setPedidos] = useState([])
+    useEffect(() => {
+        getAllPedidos()
+    }, [])
 
-  useEffect(() => {
-    if (id_cliente) {
-      getPedidos(id_cliente);
-    }
-  }, [id_cliente]);
 
-  const getPedidos = async (id_cliente) => {
-    const resprueba = await axios.get(`${URI}${id_cliente}`);
+  const getAllPedidos = async () => {
+    const resprueba = await axios.get(URI);
     setPedidos(resprueba.data);
     console.log("Que trae resprueba" ,resprueba)
   };
 
   return (
-    <div className='container'>
+    <div className='cmp-markey-container-all-pedidos'>
+             <CompNavegacionVertical />
         <div className='row'>
             <div className='col'>
                 {<Link to="/create" className='btn btn-primary mt-2 mb-2'><i className="fas fa-plus"></i></Link>}
                 <table className='table'>
                     <thead className='table-primary'>
                         <tr>
+                            <th>Nombre del cliente</th>
                             <th>Descripcion del pedido</th>
                             <th>Fecha registro del pedido</th>
                             <th>Fecha prevista finalizacion del pedido</th>
@@ -37,12 +38,13 @@ const CompPedidoCliente = () => {
                     {<tbody>
                         {pedidos.map((pedido) => (
                             <tr key={pedido.id_pedido}>
+                                <td>{pedido.nombre_comercial}</td>
                                 <td>{pedido.descripcion_pedido}</td>
                                 <td> {pedido.fecha ? new Date(pedido.fecha).toLocaleDateString('es-ES') : ''} </td>
                                 <td>{pedido.fecha_finalizacion  ? new Date(pedido.fecha_finalizacion).toLocaleDateString('es-ES') : ''}</td>
                                 <td> {pedido.estado_pedido} </td>
                                 {<td>
-                                    <Link to={`/registro-items/${pedido.id_pedido}`} className='btn btn-info'><i className="fas fa-edit"></i></Link>
+                                    <Link to={`/items-pedido/${pedido.id_pedido}`} className='btn btn-info'><i className="fas fa-edit"></i></Link>
 {/*                                     <Link to={`/pedidos/${cliente.id_cliente}`} className='btn btn-info'><i className="fas fa-edit"></i></Link> */}
 {/*                                     <button onClick={() => deleteClientes(cliente.id_cliente)} className='btn btn-danger'><i className="fas fa-trash-alt"></i></button>
                                     <Link to={`/registro-pedidos/${cliente.id_cliente}`} className="btn btn-success"><i className="fas fa-dollar-sign"></i></Link>
@@ -60,4 +62,4 @@ const CompPedidoCliente = () => {
 
 };
 
-export default CompPedidoCliente;
+export default CompShowPedidos;

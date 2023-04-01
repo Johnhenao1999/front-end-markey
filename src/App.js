@@ -18,6 +18,9 @@ import CompRegistroPedido from './gestion_clientes/crearPedido';
 import CompPedidoCliente from './gestion_clientes/mostrarPedidos';
 import CompRegistroItemsPedido from './gestion_clientes/registroItemsPedido';
 import CompMostrarDetallePedidos from './gestion_clientes/mostrarDetallePedido';
+import CompShowPedidos from './gestion_pedidos/CompShowPedidos';
+import CompShowPedidosFinalizados from './gestion_pedidos/CompShowPedidosFinalizados';
+import CompShowItemsPedido from './gestion_pedidos/CompShowItemsPedido';
 
   
 function App() {
@@ -40,6 +43,9 @@ function App() {
           <Route path='/pedidos/:id_cliente' element={<CompPedidoCliente />} />
           <Route path='/registro-items/:id_pedido' element={<CompRegistroItemsPedido />} />
           <Route path='/mostrar-items-pedido/:id_cliente' element={<CompMostrarDetallePedidos />} />
+          <Route path='/pedidos-activos' element={<CompShowPedidos />} />
+          <Route path='/pedidos-finalizados' element={<CompShowPedidosFinalizados />} />
+          <Route path='/items-pedido/:id_pedido' element={<CompShowItemsPedido />} />
 
         </Routes> 
       </BrowserRouter>

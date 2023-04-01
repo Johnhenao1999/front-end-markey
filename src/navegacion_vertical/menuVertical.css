@@ -1,0 +1,33 @@
+.cmp-markey-container-menu-vertical {
+    width: 200px;
+    height: 100%;
+    background-color: #033E78;
+}
+
+.cmp-markey-container-menu-vertical ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cmp-markey-container-menu-vertical li {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.cmp-markey-container-menu-vertical a {
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.cmp-markey-container-menu-vertical a:hover {
+    background-color: #ddd;
+}
+
+.active {
+    background-color: #009F87;
+  }
