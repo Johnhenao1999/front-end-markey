@@ -94,11 +94,6 @@ import { Link } from "react-router-dom";
 import './homePrincipal.css'
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
 
-//Imports assets
-import logo from '../assets/logo.png';
-import bgWaves from '../assets/wave.png';
-import imgDecor from '../assets/im1.svg';
-
 const CompHomePrincipal = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -138,48 +133,7 @@ const CompHomePrincipal = () => {
 
   return (
     <div className="container-login-markey">
-      <img class="cmp-loggin-bg-wave" src={bgWaves}></img>
-      <div className="cmp-loggin-container">
-        <div className="imgDecor">
-          <img src={ imgDecor }></img>
-        </div>
-        <div className="login-content">
-          <div className="content">
-            <img src={ logo } alt="" />
-            <h2 class="title">Bienvenido</h2>
-            <div class="input-div one">
-              <div class="i">
-                <i class="fas fa-user"></i>
-              </div>
-              <div class="div">
-                <h5>Username</h5>
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </div>
-            </div>
-            <div class="input-div pass">
-              <div class="i">
-                <i class="fas fa-lock"></i>
-              </div>
-              <div class="div">
-                <h5>Password</h5>
-                <input 
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-            </div>
-            <input type="submit" onClick={handleLogin} className="cmp-loggin-btn" value="Login"></input>
-          </div>
-        </div>
-      </div>
-      {/* <div className="login-container">
+      <div className="login-container">
         <div className="login-card">
           <h2>Welcome</h2>
           <div className="cmp-container-input-login">
@@ -204,7 +158,7 @@ const CompHomePrincipal = () => {
             <button onClick={handleLogin} className="btn-iniciar-sesion">Iniciar sesión</button>
           </div>
         </div>
-      </div> */}
+      </div>
 
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Error de inicio de sesión</DialogTitle>
