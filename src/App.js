@@ -2,16 +2,16 @@ import logo from './logo.svg';
 import './App.css';
 
 //Importamos el componente 
-import CompShowUsuarios from './usuarios/mostrarUsuarios';
+import CompShowUsuarios from './employees/CompShowEmployees';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import CompCreateUsuarios from './usuarios/crearUsuarios';
-import CompEditarUsuarios from './usuarios/editarUsuarios';
+import CompCreateUsuarios from './employees/CompCreateEmployees';
+import CompEditarUsuarios from './employees/CompEditEmployees';
 import CompHomePrincipalAdministrador from './home_administrador/homePrincipalAdministrador';
 import CompMostrarInventario from './gestion_inventario/mostrarInventario';
 import CompHomePrincipal from './home_principal/homePrincipal';
 import CompPruebaRegistro from './registro_horas_empleados/registrarHorasEmpleados';
-import CompMostrarHorasEmpleado from './usuarios/mostrarUsuarioHoras';
-import CompIngresarHora from './usuarios/agregarHoraEmpleado';
+import CompMostrarHorasEmpleado from './employees/CompShowEmployeesTime';
+import CompIngresarHora from './employees/CompNewHourEmployees';
 import CompCreateCliente from './gestion_clientes/crearClientes';
 import CompShowClientes from './gestion_clientes/mostrarClientes';
 import CompRegistroPedido from './gestion_clientes/crearPedido';
