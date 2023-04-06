@@ -25,8 +25,9 @@ const CompShowUsuarios = () => {
 
     //procedimineto para eliminar un blog
     const deleteUsuarios = async (idcedula) => {
-        await axios.delete(`${URI}${idcedula}`)
+       const pruebadelete = await axios.delete(`${URI}/${idcedula}`)
         getUsuarios()
+        console.log("A ver", pruebadelete)
     }
 
 

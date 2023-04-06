@@ -117,7 +117,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
-const URI = 'http://localhost:8000/mostrar-items-pedidos/'
+const URI = 'http://localhost:8000/detalle-pedido/'
 
 const CompShowItemsPedido = () => {
   const [itemsPedido, setItemsPedido] = useState([]);
