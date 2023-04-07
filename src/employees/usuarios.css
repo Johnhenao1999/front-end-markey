@@ -1,71 +1,154 @@
 .modal {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    z-index: 999999999999 !important;
-    width: 100% !important;
-    height: 100% !important;
-    overflow: hidden !important;
-    outline: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background-color: rgba(0, 0, 0, 0.5) !important;
-    display: block !important;
-  }
-  
-  .modal-dialog {
-    position: relative;
-    width: auto;
-    margin: 0.5rem;
-    pointer-events: none;
-  }
-  
-  .modal-content {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin: 1.75rem auto;
-    pointer-events: auto;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 0.3rem;
-    outline: 0;
-  }
-  
-  .modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-    border-bottom: 1px solid #dee2e6;
-  }
-  
-  .modal-body {
-    position: relative;
-    flex: 1 1 auto;
-    padding: 1rem;
-  }
-  
-  .modal-footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 0.75rem;
-    border-top: 1px solid #dee2e6;
-  }
-  
-  .modal-title {
-    margin-bottom: 0;
-    line-height: 1.5;
-  }
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 999999999999 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  outline: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  display: block !important;
+}
 
-  
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 0.5rem;
+  pointer-events: none;
+}
 
-  .text-danger{
-    color: red !important;
-    font-size: 14px !important;
-    margin-top: 5px !important;
-  }
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 1.75rem auto;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  outline: 0;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 1rem;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.75rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.modal-title {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+
+
+.text-danger {
+  color: red !important;
+  font-size: 14px !important;
+  margin-top: 5px !important;
+}
+
+/* ------------  ESTILOS PANTALLA CREAR USUARIO  -------------*/
+.markey-title-create-employees {
+  font-size: 30px;
+}
+
+.cmp-markey-container-create-employees {
+  display: flex;
+}
+
+.cmp-markey-form-create-employees{
+  width: 100%;
+}
+
+.cmp-markey-datos-input-employees {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 24px;
+}
+
+.markey-input-form {
+  background-color: #f7f7f8;
+  border: 0;
+  height: 44px;
+  padding-left: 10px;
+  width: 290px;
+  margin-right: 24px;
+  font-weight: 700;
+}
+
+.markey-input-form::placeholder {
+  color: black;
+}
+
+.markey-container-form-input {
+  font-size: 16px;
+  line-height: 20px;
+  border-bottom: 1px solid #05141f33;
+  padding-bottom: 10px;
+  margin: 20px 0 28px !important;
+}
+
+.cmp-markey-container-input-employees {
+  background: #fafafb;
+  padding: 40px 5pc 65px;
+  width: 100%;
+}
+
+.cmp-markey-select {
+  background: #f7f7f8 0 0 no-repeat padding-box;
+  border-color: #f7f7f8;
+  font-weight: 700;
+  height: 40px;
+  left: 935px;
+  margin: 2px;
+  opacity: 1;
+  padding-left: 6px;
+  top: 365px;
+  width: 290px;
+  margin-right: 24px;
+}
+
+.button-create-employees {
+  display: block;
+  width: 290px;
+  height: 50px;
+  outline: none;
+  border: none;
+  background-image: linear-gradient(to right, #4481eb, #38d39f, #32be8f);
+  background-size: 200%;
+  font-size: 1.2rem;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.button-create-employees:hover {
+  background-position: right;
+}

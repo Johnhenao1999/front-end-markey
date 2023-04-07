@@ -32,7 +32,7 @@ function App() {
           <Route path='/homeAdministrador' element={<CompHomePrincipalAdministrador />} />
           <Route path='/empleados' element={<CompShowUsuarios />} />
           <Route path='/prueba' element={<CompMostrarInventario />} />
-          <Route path='/create' element={<CompCreateUsuarios />} />
+          <Route path='/create-employees' element={<CompCreateUsuarios />} />
           <Route path='/pruebaRegistro/:id' element={<CompPruebaRegistro />} />
           <Route path='/edit/:id' element={<CompEditarUsuarios />} />
           <Route path='/registro-horas-empleado/:idEmpleado' element={<CompMostrarHorasEmpleado />} />

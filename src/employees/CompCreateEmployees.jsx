@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './usuarios.css'
+import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 
 
 const URI = 'http://localhost:8000/holamundo/'
@@ -11,7 +12,13 @@ const CompCreateUsuarios = () => {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [telefono, setTelefono] = useState('');
-    const  [showModal, setShowModal] = useState('');
+    const [edad, setEdad] = useState('');
+    const [ciudad, setCiudad] = useState('');
+    const [direccion, setDireccion] = useState('');
+    const [especialidad, setEspecialidad] = useState('');
+    const [estado_civil, setEstadoCivil] = useState('');
+    const [numero_emergencia, setNumeroEmergencia] = useState('');
+    const [showModal, setShowModal] = useState('');
 
 
     const [errorCedula, setErrorCedula] = useState(false);
@@ -43,88 +50,174 @@ const CompCreateUsuarios = () => {
             return;
         }
 
-        await axios.post(URI, {
+        const hey = await axios.post(URI, {
             idcedula,
             nombre,
             apellido,
             telefono
         });
         setShowModal(true);
+        console.log(hey)
     };
     return (
-        <div>
-            <h3>Crear usuario</h3>
-            <form onSubmit={guardar}>
-                <div className='cmp-container-crear-usuarios'>
-                    <div>
-                        <label className='form-label'>Cedula</label>
-                        <input
-                            value={idcedula}
-                            onChange={(e) => {
-                                setCedula(e.target.value);
-                                setErrorCedula(false);
-                            }}
-                            type="text"
-                            className='form-control'
-                            maxLength={10}
-                            pattern="[0-9]{10}"
-                            title="Debe contener exactamente 10 dígitos numéricos"
-                            onKeyPress={(e) => {
-                                const onlyNumbers = /[0-9]/;
-                                const key = String.fromCharCode(e.keyCode || e.which);
-                                if (!onlyNumbers.test(key)) {
-                                    e.preventDefault();
-                                }
-                            }}
-                        />
-                          {errorCedula && (
-                            <p className='text-danger'>Este campo es obligatorio</p>
-                        )}
+        <div className='cmp-markey-container-create-employees'>
+            <CompNavegacionVertical />
+            <div className='cmp-markey-container-input-employees'>
+                <p className='markey-title-create-employees'>Ingresa los datos para registrar un nuevo empleado</p>
+                <form onSubmit={guardar} className='cmp-markey-form-create-employees'>
+                    <div className='markey-container-form-input'>
+                        <ul className='cmp-markey-datos-input-employees'>
+                            <li>
+                                <input
+                                    value={idcedula}
+                                    onChange={(e) => {
+                                        setCedula(e.target.value);
+                                        setErrorCedula(false);
+                                    }}
+                                    type="text"
+                                    className='markey-input-form'
+                                    maxLength={10}
+                                    placeholder='Cedula'
+                                    pattern="[0-9]{10}"
+                                    title="Debe contener exactamente 10 dígitos numéricos"
+                                    onKeyPress={(e) => {
+                                        const onlyNumbers = /[0-9]/;
+                                        const key = String.fromCharCode(e.keyCode || e.which);
+                                        if (!onlyNumbers.test(key)) {
+                                            e.preventDefault();
+                                        }
+                                    }}
+                                />
+                                {errorCedula && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
+                                )}
+                            </li>
+                        </ul>
+                        <ul className='cmp-markey-datos-input-employees'>
+                            <li>
+                                <input
+                                    value={nombre}
+                                    onChange={(e) => setNombre(e.target.value)}
+                                    type="text"
+                                    placeholder='Nombre'
+                                    className='markey-input-form'
+                                />
+                                {errorCampos && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
+                                )}
+                            </li>
+                            <li>
+                                <input
+                                    value={apellido}
+                                    onChange={(e) => setApellido(e.target.value)}
+                                    type="text"
+                                    className='markey-input-form'
+                                    placeholder='Apellido'
+                                />
+                                {errorCampos && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
+                                )}
+                            </li>
+                        </ul>
+                        <ul className='cmp-markey-datos-input-employees'>
+                            <li>
+                                <input
+                                    value={telefono}
+                                    /*   onChange={(e) => setTelefono(e.target.value)} */
+                                    onChange={handleTelefonoChange}
+                                    type="text"
+                                    placeholder='Celular'
+                                    className='markey-input-form'
+                                    pattern="\d*"
+                                    maxLength={10}
+                                    onInvalid={() => setErrorTelefono(true)}
+                                />
+                                {errorTelefono && (
+                                    <p className='text-danger'>Ingresa el numero de telefono</p>
+                                )}
+                            </li>
+                            <li>
+                                <input
+                                    value={edad}
+                                    /*   onChange={(e) => setTelefono(e.target.value)} */
+                                    type="text"
+                                    className='markey-input-form'
+                                    pattern="\d*"
+                                    maxLength={10}
+                                    placeholder='Edad'
+                                />
+                                {errorTelefono && (
+                                    <p className='text-danger'>Ingresa el numero de telefono</p>
+                                )}
+                            </li>
+                        </ul>
                     </div>
-                    <div >
-                        <label className='form-label'>Nombre</label>
-                        <input
-                            value={nombre}
-                            onChange={(e) => setNombre(e.target.value)}
-                            type="text"
-                            className='form-control'
-                        />
-                        {errorCampos && (
-                            <p className='text-danger'>Este campo es obligatorio</p>
-                        )}
-                    </div>
-                    <div>
-                        <label className='form-label'>Apellido</label>
-                        <input
-                            value={apellido}
-                            onChange={(e) => setApellido(e.target.value)}
-                            type="text"
-                            className='form-control'
-                        />
-                        {errorCampos && (
-                            <p className='text-danger'>Este campo es obligatorio</p>
-                        )}
-                    </div>
-                    <div>
-                        <label className='form-label'>Telefono</label>
-                        <input
-                            value={telefono}
-                            /*   onChange={(e) => setTelefono(e.target.value)} */
-                            onChange={handleTelefonoChange}
-                            type="text"
-                            className='form-control'
-                            pattern="\d*"
-                            maxLength={10}
-                            onInvalid={() => setErrorTelefono(true)}
-                        />
-                        {errorTelefono && (
-                            <p className='text-danger'>Ingresa el numero de telefono</p>
-                        )}
-                    </div>
-                </div>
+                    <div className='markey-container-form-input'>
+                        <ul className='cmp-markey-datos-input-employees'>
+                            <li>
+                                <input
+                                    value={ciudad}
+                                    onChange={(e) => setCiudad(e.target.value)}
+                                    type="text"
+                                    placeholder='Ciudad'
+                                    className='markey-input-form'
+                                />
+                                {errorCampos && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
+                                )}
+                            </li>
+                            <li>
+                                <input
+                                    value={direccion}
+                                    onChange={(e) => setDireccion(e.target.value)}
+                                    type="text"
+                                    className='markey-input-form'
+                                    placeholder='Dirección'
+                                />
+                                {errorCampos && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
+                                )}
+                            </li>
+                        </ul>
+                        <ul className='cmp-markey-datos-input-employees'>
+                            <li>
+                                <select value={especialidad} onChange={(e) => setEspecialidad(e.target.value)} className='cmp-markey-select'>
+                                    <option value="">Especialidad</option>
+                                    <option value="Maquinaria plana">Maquinara plana</option>
+                                    <option value="Collarin">Collarin</option>
+                                    <option value="Filetiadora">Filetiadora</option>
+                                </select>
+                            </li>
+                            <li>
+                                <select value={estado_civil} onChange={(e) => setEstadoCivil(e.target.value)} className='cmp-markey-select'>
+                                    <option value="">Estado civil</option>
+                                    <option value="Soltero">Soltero</option>
+                                    <option value="Casado">Casado</option>
+                                    <option value="Union Libre">Unión Libre</option>
+                                </select>
+                            </li>
+                        </ul>
+                        <ul className='cmp-markey-datos-input-employees'>
+                            <li>
+                                <input
+                                    value={numero_emergencia}
+                                    onChange={(e) => setNumeroEmergencia(e.target.value)}
+                                    type="text"
+                                    className='markey-input-form'
+                                    placeholder='Número de emergencia'
+                                />
+                                {errorCampos && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
+                                )}
+                            </li>
+                        </ul>
 
-                <button type='submit' className='btn btn-primary'>Guardar</button>
-            </form>
+                    </div>
+                    <button type='submit' className='button-create-employees'>Confirmar</button>
+
+
+                </form>
+            </div>
             {showModal && (
                 <div className="modal" tabIndex="-1" role="dialog">
                     <div className="modal-dialog" role="document">

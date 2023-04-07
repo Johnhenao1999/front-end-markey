@@ -1,0 +1,79 @@
+.cmp-markey-container-add-pedido{
+    display: flex;
+}
+
+.cmp-container-input-add-pedido{
+    background: #fafafb;
+    height: auto;
+    padding: 40px 5pc 65px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.cmp-markey-title-add-pedido{
+    font-size: 20px;
+}
+
+.cmp-markey-text-observacion-pedido{
+    min-height: 100px;
+    width: 470px;
+}
+
+.cmp-markey-container-text-calendario{
+    display: flex;
+}
+
+.cmp-markey-textarea{
+    border-bottom: 1px solid #05141f33;
+    padding-bottom: 10px;
+    margin: 20px 0 28px !important;
+}
+
+.cmp-markey-container-calendario{
+    border-bottom: 1px solid #05141f33;
+    padding-bottom: 10px;
+    margin: 20px 0 28px !important;
+}
+
+.cmp-markey-container-estado-pedido{
+    border-bottom: 1px solid #05141f33;
+    padding-bottom: 10px;
+    margin: 20px 0 28px !important;
+}
+
+.cmp-markey-select-estado{
+    background: #f7f7f8 0 0 no-repeat padding-box;
+    border-color: #f7f7f8;
+    font-weight: 700;
+    height: 40px;
+    left: 935px;
+    margin: 2px;
+    opacity: 1;
+    padding-left: 6px;
+    top: 365px;
+    width: 290px;
+    margin-right: 24px;
+}
+
+
+.cmp-markey-button-guardar-pedido{
+    display: block;
+    width: 290px;
+    height: 50px;
+    outline: none;
+    border: none;
+    background-image: linear-gradient(to right, #4481eb, #38d39f, #32be8f);
+    background-size: 200%;
+    font-size: 1.2rem;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    margin: 1rem 0;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.cmp-markey-button-guardar-pedido:hover {
+    background-position: right;
+  }
+  
