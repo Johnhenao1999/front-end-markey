@@ -1,123 +1,110 @@
-/* import { Link } from "react-router-dom";
-import { useState } from "react";
-import './menuVertical.css'
-
-const CompNavegacionVertical = () => {
-    const [showPedidoOptions, setShowPedidoOptions] = useState(false);
-
-    const handlePedidoMouseEnter = () => {
-        setShowPedidoOptions(true);
-    };
-
-    const handlePedidoMouseLeave = () => {
-        setShowPedidoOptions(false);
-    };
-
-    return (
-        <div>
-            <nav className="cmp-markey-container-menu-vertical">
-                <ul>
-                    <li><Link to="/empleados">Empleados</Link></li>
-                    <li><Link to="/clientes">Clientes</Link></li>
-                    <li>
-                        <div onMouseEnter={handlePedidoMouseEnter} onMouseLeave={handlePedidoMouseLeave}>
-                            <Link to="#">Pedidos</Link>
-                            {showPedidoOptions && (
-                                <ul>
-                                    <li><Link to="/pedidos">Ver todos los pedidos</Link></li>
-                                </ul>
-                            )}
-                        </div>
-                    </li>
-                    <li><Link to="/proveedores">Proveedores</Link></li>
-                    <li><Link to="/inventario">Inventario</Link></li>
-                </ul>
-            </nav>
-        </div>
-    );
-};
-
-export default CompNavegacionVertical; */
-
-/* import { NavLink } from "react-router-dom";
-import './menuVertical.css'
-
-const CompNavegacionVertical = () => {
-
-    return (
-        <div>
-            <nav className="cmp-markey-container-menu-vertical">
-                <ul>
-                    <li><NavLink to="/empleados" activeClassName="active">Empleados</NavLink></li>
-                    <li><NavLink to="/clientes" activeClassName="active">Clientes</NavLink></li>
-                    <li>
-                        <NavLink to="/pedidos" activeClassName="active">
-                            Pedidos
-                        </NavLink>
-                        <ul>
-                            <li><NavLink to="/pedidos" activeClassName="active">Ver todos los pedidos</NavLink></li>
-                        </ul>
-                    </li>
-                    <li><NavLink to="/proveedores" activeClassName="active">Proveedores</NavLink></li>
-                    <li><NavLink to="/inventario" activeClassName="active">Inventario</NavLink></li>
-
-                </ul>
-            </nav>
-        </div>
-    )
-
-}
-
-export default CompNavegacionVertical; */
-
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import './menuVertical.css'
 
+import imagesBarNav from './script';
+
 const CompNavegacionVertical = () => {
-    const [showPedidoOptions, setShowPedidoOptions] = useState(false);
-    const [showAllPedidos, setShowAllPedidos] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
 
-    const handlePedidoMouseEnter = () => {
-        setShowPedidoOptions(true);
+    const toggleSidebar = () => {
+        document.body.classList.toggle("open");
     };
 
-    const handlePedidoMouseLeave = () => {
-        setShowPedidoOptions(false);
+    const [activeSubNav, setActiveSubNav] = useState('');
+
+    const resetSidebar = () => {
+        setActiveSubNav('');
     };
 
-    const handleShowAllPedidosClick = () => {
-        setShowAllPedidos(true);
+    const handleHeaderClicked = (subNav) => {
+        setIsExpanded(!isExpanded);
+        if (subNav === activeSubNav) {
+        resetSidebar();
+        return;
+        }
+
+        resetSidebar();
+        setActiveSubNav(subNav);
     };
 
     return (
-        <div>
-            <nav className="cmp-markey-container-menu-vertical">
-                <ul>
-                    <li><NavLink to="/empleados" activeClassName="active">Empleados</NavLink></li>
-                    <li><NavLink to="/clientes" activeClassName="active">Clientes</NavLink></li>
-                    <li onMouseEnter={handlePedidoMouseEnter} onMouseLeave={handlePedidoMouseLeave}>
-                        <NavLink to="/pedidos" activeClassName="active">
-                            Pedidos
-                        </NavLink>
-                        {showPedidoOptions && (
-                            <ul>
-                                <li>
-                                    <NavLink to="/pedidos-activos" activeClassName={showAllPedidos ? "active" : ""} onClick={handleShowAllPedidosClick}>
-                                        Pedidos activos
-                                    </NavLink>
-                                    <NavLink to="/pedidos-finalizados" activeClassName={showAllPedidos ? "active" : ""} onClick={handleShowAllPedidosClick}>
-                                        Pedidos finalizados
-                                    </NavLink>
-                                </li>
-                            </ul>
-                        )}
-                    </li>
-                    <li><NavLink to="/proveedores" activeClassName="active">Proveedores</NavLink></li>
-                    <li><NavLink to="/inventario" activeClassName="active">Inventario</NavLink></li>
-                </ul>
-            </nav>
-        </div>
+        <aside>
+            <button type="button" class="cmp-sidebar-burger" onClick={ toggleSidebar }></button>
+            <div class="cmp-sidebar-toolbar">
+                <nav>
+                    <button type="button">
+                        <img src={ imagesBarNav.iconoHome } />
+                    </button>
+                    <button type="button">
+                        <img src={ imagesBarNav.iconSettings } />
+                    </button>
+                    <button type="button">
+                        <img src={ imagesBarNav.iconFolders } />
+                    </button>
+                </nav>
+            </div>
+            <div class="cmp-sidebar-nav">
+                <nav>
+                    <NavLink to="/empleados" className="cmp-sidebar-custom-link">
+                        <button type="button" to="/empleados">
+                            <img src={ imagesBarNav.iconTest } />
+                            <span className="cmp-sidebar-text-item">Empleados</span>
+                        </button>
+                    </NavLink>
+
+                    <NavLink to="/clientes" className="cmp-sidebar-custom-link">
+                        <button type="button">
+                            <img src={ imagesBarNav.iconTest } />
+                            <span className="cmp-sidebar-text-item">Clientes</span>
+                        </button>
+                    </NavLink>
+
+                    <NavLink className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('pedidos')}>    
+                        <button type="button">
+                            <img src={ imagesBarNav.iconTest } />
+                            <span className="cmp-sidebar-text-item">Pedidos</span>
+                            <span className={`material-symbols-outlined cmp-sidebar-text-item ${isExpanded ? 'active' : ''}`}>
+                                expand_more
+                            </span>
+                        </button>
+                    </NavLink>
+
+                    <div 
+                        id="pedidos" className={`subnav ${activeSubNav === 'pedidos' ? 'active' : ''}`}
+                        style={{ height: activeSubNav === 'pedidos' ? '120px' : '0' }}>
+                        <div className="cmp-sidebar-subnav-inner">
+                            <NavLink to="/pedidos-activos" className="cmp-sidebar-custom-link">
+                                <button type="button">
+                                    <span className="cmp-sidebar-text-item">Pedidos activos</span>
+                                </button>
+                            </NavLink>
+
+                            <NavLink to="/pedidos-finalizados" className="cmp-sidebar-custom-link">
+                                <button type="button">
+                                    <span className="cmp-sidebar-text-item">Pedidos finalizados</span>
+                                </button>
+                            </NavLink>
+                        </div>
+                    </div>
+
+                    <NavLink to="/proveedores" className="cmp-sidebar-custom-link">
+                        <button type="button">
+                            <img src={ imagesBarNav.iconTest } />
+                            <span className="cmp-sidebar-text-item">Proveedores</span>
+                        </button>
+                    </NavLink>
+
+                    <NavLink to="/inventario" className="cmp-sidebar-custom-link">
+                        <button type="button">
+                            <img src={ imagesBarNav.iconTest } />
+                            <span className="cmp-sidebar-text-item">Inventario</span>
+                        </button>
+                    </NavLink>
+
+                </nav>
+            </div>
+        </aside>
     );
 };
 
