@@ -17,6 +17,7 @@ const CompCreateUsuarios = () => {
     const [direccion, setDireccion] = useState('');
     const [especialidad, setEspecialidad] = useState('');
     const [estado_civil, setEstadoCivil] = useState('');
+    const [estado_empleado, setEstadoEmpleado] = useState('');
     const [numero_emergencia, setNumeroEmergencia] = useState('');
     const [showModal, setShowModal] = useState('');
 
@@ -139,7 +140,7 @@ const CompCreateUsuarios = () => {
                             <li>
                                 <input
                                     value={edad}
-                                    /*   onChange={(e) => setTelefono(e.target.value)} */
+                                    onChange={(e) => setEdad(e.target.value)}
                                     type="text"
                                     className='markey-input-form'
                                     pattern="\d*"
@@ -198,6 +199,13 @@ const CompCreateUsuarios = () => {
                             </li>
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
+                        <li>
+                                <select value={estado_empleado} onChange={(e) => setEstadoEmpleado(e.target.value)} className='cmp-markey-select'>
+                                    <option value="">Estado del empleado</option>
+                                    <option value="Soltero">Activo</option>
+                                    <option value="Casado">Inactivo</option>
+                                </select>
+                            </li>
                             <li>
                                 <input
                                     value={numero_emergencia}
