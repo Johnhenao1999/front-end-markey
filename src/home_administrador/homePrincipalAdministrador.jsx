@@ -3,7 +3,10 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import './home.css'
+
+import CompHeader from "../header/header";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
+
 
 
 
@@ -11,9 +14,7 @@ const CompHomePrincipalAdministrador = () => {
 
     return (
         <div>
-            <header className="header-home">
-                Bienvenido administrador
-            </header>
+            <CompHeader />
             <CompNavegacionVertical />
         </div>
     )
