@@ -78,7 +78,7 @@ const CompRegistroItemsPedido = () => {
               <li>
                 <input
                   type="text"
-                  className='markey-input-form'
+                  className='markey-input-form-items'
                   name="cantidad"
                   placeholder="Ingresa la cantidad"
                   value={item.cantidad} onChange={event => handleItemChange(index, event)} />
@@ -87,17 +87,15 @@ const CompRegistroItemsPedido = () => {
                 <input
                   type="text"
                   name="producto"
-                  className='markey-input-form'
+                  className='markey-input-form-items'
                   placeholder="Producto"
                   value={item.producto}
                   onChange={event => handleItemChange(index, event)} />
               </li>
-            </ul>
-            <ul className='cmp-markey-datos-input-employees'>
               <li>
                 <input
                   type="text"
-                  className='markey-input-form'
+                  className='markey-input-form-items'
                   name="precio_unitario"
                   placeholder="Precio unitario del producto"
                   value={formatoValor(item.precio_unitario)}
@@ -106,14 +104,14 @@ const CompRegistroItemsPedido = () => {
               <li>
                 <input
                   type="text"
-                  className='markey-input-form'
+                  className='markey-input-form-items'
                   name="total"
                   readOnly
                   placeholder="Total"
                   value={item.total.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })} onChange={event => handleItemChange(index, event)} />
               </li>
             </ul>
-            <button className='button-agregar-item' onClick={() => handleDeleteItem(index)}>Eliminar ítem</button>
+            <button className='button-delete-item' onClick={() => handleDeleteItem(index)}>Eliminar</button>
           </div>
         ))}
         <div className='cmp-container-button-item'>
