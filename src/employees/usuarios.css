@@ -127,9 +127,11 @@
 
 .cmp-markey-container-input-employees {
   background: #fafafb;
-  padding: 40px 5pc 65px;
+  padding: 80px 5pc 65px;
   width: 100%;
   margin-left: 330px;
+  height: 600px;
+  overflow-y: scroll;
 }
 
 .cmp-markey-select {
@@ -184,7 +186,6 @@
   background: #fafafb;
   padding: 80px 5pc 65px;
   width: 100%;
-  margin-left: 320px;
-
+  margin-left: 330px;
 }
 

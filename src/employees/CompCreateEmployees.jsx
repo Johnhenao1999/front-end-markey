@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './usuarios.css'
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
+import CompHeader from "../header/header";
 
 
 const URI = 'http://localhost:8000/holamundo/'
@@ -62,6 +63,7 @@ const CompCreateUsuarios = () => {
     };
     return (
         <div className='cmp-markey-container-create-employees'>
+            <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-markey-container-input-employees'>
                 <p className='markey-title-create-employees'>Ingresa los datos para registrar un nuevo empleado</p>
@@ -199,7 +201,7 @@ const CompCreateUsuarios = () => {
                             </li>
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
-                        <li>
+                            <li>
                                 <select value={estado_empleado} onChange={(e) => setEstadoEmpleado(e.target.value)} className='cmp-markey-select'>
                                     <option value="">Estado del empleado</option>
                                     <option value="Soltero">Activo</option>
