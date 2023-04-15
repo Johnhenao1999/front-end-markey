@@ -177,3 +177,14 @@
   padding: 40px 5pc 65px;
   width: 100%;
 }
+
+/*---------------- MOSTRAR EMPLEADOS -------------*/
+
+.cmp-container-show-employees{
+  background: #fafafb;
+  padding: 80px 5pc 65px;
+  width: 100%;
+  margin-left: 320px;
+
+}
+

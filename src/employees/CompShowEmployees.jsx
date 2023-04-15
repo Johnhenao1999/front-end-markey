@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import CompHeader from "../header/header";
+import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 
 const URI = 'http://localhost:8000/empleados'
 
@@ -25,7 +27,7 @@ const CompShowUsuarios = () => {
 
     //procedimineto para eliminar un blog
     const deleteUsuarios = async (idcedula) => {
-       const pruebadelete = await axios.delete(`${URI}/${idcedula}`)
+        const pruebadelete = await axios.delete(`${URI}/${idcedula}`)
         getUsuarios()
         console.log("A ver", pruebadelete)
     }
@@ -33,7 +35,9 @@ const CompShowUsuarios = () => {
 
     return (
         <div className='container'>
-            <div className='row'>
+            <CompHeader />
+            <CompNavegacionVertical />
+            <div className='cmp-container-show-employees'>
                 <div className='col'>
                     {<Link to="/create-employees" className='btn btn-primary mt-2 mb-2'><i className="fas fa-plus"></i></Link>}
                     <table className='table'>

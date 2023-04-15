@@ -127,7 +127,7 @@ const CompHomePrincipal = () => {
       const response = await axios.post('http://localhost:8000/login/', { username, password });
       if (response.status === 200) {
         // redireccionar a otra ruta
-        window.location.href = "/empleados";
+        window.location.href = "/homeAdministrador";
       } else {
         setOpen(true);
       }
