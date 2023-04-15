@@ -21,6 +21,7 @@ import CompMostrarDetallePedidos from './gestion_clientes/mostrarDetallePedido';
 import CompShowPedidos from './gestion_pedidos/CompShowPedidos';
 import CompShowPedidosFinalizados from './gestion_pedidos/CompShowPedidosFinalizados';
 import CompShowItemsPedido from './gestion_pedidos/CompShowItemsPedido';
+import CompCreateProveedores from './proveedores/CompCreateProveedores';
 
   
 function App() {
@@ -46,6 +47,8 @@ function App() {
           <Route path='/pedidos-activos' element={<CompShowPedidos />} />
           <Route path='/pedidos-finalizados' element={<CompShowPedidosFinalizados />} />
           <Route path='/items-pedido/:id_pedido' element={<CompShowItemsPedido />} />
+          <Route path='/create-proveedores' element={<CompCreateProveedores />} />
+
 
         </Routes> 
       </BrowserRouter>

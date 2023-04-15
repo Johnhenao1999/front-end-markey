@@ -1,8 +1,8 @@
-.cmp-markey-container-add-pedido{
+.cmp-markey-container-add-pedido {
     display: flex;
 }
 
-.cmp-container-input-add-pedido{
+.cmp-container-input-add-pedido {
     background: #fafafb;
     height: 600px;
     padding: 80px 5pc 65px;
@@ -11,35 +11,35 @@
     margin-left: 320px;
 }
 
-.cmp-markey-title-add-pedido{
+.cmp-markey-title-add-pedido {
     font-size: 30px;
     border-bottom: 1px solid #05141f33;
     padding-bottom: 10px;
     margin: 20px 0 28px !important;
 }
 
-.cmp-markey-nombreCliente{
+.cmp-markey-nombreCliente {
     color: #4481eb;
     font-weight: 700;
     display: contents;
 }
 
-.cmp-markey-text-observacion-pedido{
+.cmp-markey-text-observacion-pedido {
     min-height: 100px;
     width: 470px;
 }
 
-.cmp-markey-container-text-calendario{
+.cmp-markey-container-text-calendario {
     display: flex;
 }
 
-.cmp-markey-container-pedido{
+.cmp-markey-container-pedido {
     border-bottom: 1px solid #05141f33;
     padding-bottom: 10px;
     margin: 20px 0 28px !important;
 }
 
-.cmp-markey-select-estado{
+.cmp-markey-select-estado {
     background: #f7f7f8 0 0 no-repeat padding-box;
     border-color: #f7f7f8;
     font-weight: 700;
@@ -54,7 +54,7 @@
 }
 
 
-.cmp-markey-button-guardar-pedido{
+.cmp-markey-button-guardar-pedido {
     display: block;
     width: 290px;
     height: 50px;
@@ -73,14 +73,52 @@
 
 .cmp-markey-button-guardar-pedido:hover {
     background-position: right;
-  }
-  
+}
 
-  .cmp-container-markey-tabla-empleados{
+
+.cmp-container-markey-tabla-empleados {
     margin-left: 330px;
     height: 600px;
     overflow-y: scroll;
     background: #fafafb;
     padding: 80px 5pc 65px;
     width: 100%;
-  }
+}
+
+
+/*---------------PANTALLA AGREGAR ITEMS PEDIDO ------------ */
+.cmp-container-add-item {
+    margin-left: 330px;
+    height: 600px;
+    overflow-y: scroll;
+    background: #fafafb;
+    padding: 80px 5pc 65px;
+    width: 100%;
+}
+
+.button-agregar-item{
+    display: block;
+    width: 290px;
+    height: 44px;
+    outline: none;
+    border: none;
+    background-image: linear-gradient(to right, #4481eb, #38d39f, #32be8f);
+    background-size: 200%;
+    font-size: 1.1rem;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    margin: 1rem 0;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.cmp-container-button-item{
+    border-bottom: 1px solid #05141f33;
+    padding-bottom: 10px;
+    margin: 20px 0 28px !important;
+}
+
+.button-agregar-item:hover{
+    background-position: right;
+}
