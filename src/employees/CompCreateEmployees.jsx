@@ -56,7 +56,15 @@ const CompCreateUsuarios = () => {
             idcedula,
             nombre,
             apellido,
-            telefono
+            telefono,
+            edad,
+            ciudad,
+            direccion,
+            especialidad,
+            estado_civil,
+            estado_empleado,
+            numero_emergencia
+
         });
         setShowModal(true);
         console.log(hey)
@@ -254,7 +262,7 @@ const CompCreateUsuarios = () => {
                                     className="btn btn-primary"
                                     onClick={() => {
                                         setShowModal(false);
-                                        navigate('/mostrarUsuarios');
+                                        navigate('/empleados');
                                     }}
                                 >
                                     Aceptar

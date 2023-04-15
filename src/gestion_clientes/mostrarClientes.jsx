@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import './mostrarClientes.css'
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
+import CompHeader from "../header/header";
 
 const URI = 'http://localhost:8000/clientes'
 
@@ -27,10 +28,11 @@ const CompShowClientes = () => {
     return (
 
         <div className='cmp-container-markey-mostrarUsuarios'>
+            <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-container-markey-tabla-empleados'>
                 <div className='col'>
-                  {/*   {<Link to="/create" className='btn btn-primary mt-2 mb-2'><i className="fas fa-plus"></i></Link>} */}
+                    {/*   {<Link to="/create" className='btn btn-primary mt-2 mb-2'><i className="fas fa-plus"></i></Link>} */}
                     <table className='table'>
                         <thead className='table-primary'>
                             <tr>

@@ -22,7 +22,8 @@ const CompShowUsuarios = () => {
     const getUsuarios = async () => {
         const res = await axios.get(URI)
         setUsuarios(res.data)
-        setLoading(false) // actualizar loading a false cuando se cargan los datos
+        setLoading(false) 
+        console.log("Informacion empleado", res)
     }
 
     //procedimineto para eliminar un blog

@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
+import CompHeader from "../header/header";
 import './pedidos.css'
 
 const URI = 'http://localhost:8000/registro-pedidos/'
@@ -81,6 +82,7 @@ const CompRegistroPedido = () => {
 
     return (
         <div className='cmp-markey-container-add-pedido'>
+            <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-container-input-add-pedido'>
                 {nombreCliente.length > 0 && (
@@ -102,7 +104,7 @@ const CompRegistroPedido = () => {
                             />
                         </li>
                         <li>
-                        <p className='cmp-subtitle-create-pedido'>Escribe el valor del anticipo</p>
+                            <p className='cmp-subtitle-create-pedido'>Escribe el valor del anticipo</p>
                             <input
                                 type="text"
                                 name="anticipoPedido"
@@ -114,7 +116,7 @@ const CompRegistroPedido = () => {
                     </ul>
                     <ul className='cmp-markey-datos-input-employees'>
                         <li>
-                        <p className='cmp-subtitle-create-pedido'>Saldo faltante del pedido</p>
+                            <p className='cmp-subtitle-create-pedido'>Saldo faltante del pedido</p>
                             <input
                                 type="text"
                                 className='markey-input-form'
@@ -124,7 +126,7 @@ const CompRegistroPedido = () => {
                             />
                         </li>
                         <li>
-                        <p style={{color: "transparent"}}>Saldo faltante del pedido</p>
+                            <p style={{ color: "transparent" }}>Saldo faltante del pedido</p>
                             <select value={estado_pedido} onChange={(e) => setEstadoPedido(e.target.value)} className='cmp-markey-select-estado'>
                                 <option value="">Estado del pedido</option>
                                 <option value="Compra de materia prima">Compra de materia prima</option>

@@ -4,8 +4,8 @@
 
 .cmp-container-input-add-pedido{
     background: #fafafb;
-    height: 800px;
-    padding: 40px 5pc 65px;
+    height: 600px;
+    padding: 80px 5pc 65px;
     width: 100%;
     overflow-y: scroll;
     margin-left: 320px;
@@ -75,3 +75,12 @@
     background-position: right;
   }
   
+
+  .cmp-container-markey-tabla-empleados{
+    margin-left: 330px;
+    height: 600px;
+    overflow-y: scroll;
+    background: #fafafb;
+    padding: 80px 5pc 65px;
+    width: 100%;
+  }
