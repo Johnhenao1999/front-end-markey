@@ -59,13 +59,13 @@ const CompNavegacionVertical = () => {
                         className={`subnav ${activeNavItem === 'empleados' ? 'active' : ''}`}
                         style={{ height: activeNavItem === 'empleados' ? '120px' : '0' }}>
                         <div className="cmp-sidebar-subnav-inner">
-                            <NavLink to="/pedidos-activos" className="cmp-sidebar-custom-link">
+                            <NavLink to="/empleados" className="cmp-sidebar-custom-link">
                                 <button type="button">
                                     <span className="cmp-sidebar-text-item">Ver empleados</span>
                                 </button>
                             </NavLink>
 
-                            <NavLink to="/pedidos-finalizados" className="cmp-sidebar-custom-link">
+                            <NavLink to="/create-employees" className="cmp-sidebar-custom-link">
                                 <button type="button">
                                     <span className="cmp-sidebar-text-item">Crear empleado</span>
                                 </button>
@@ -100,9 +100,9 @@ const CompNavegacionVertical = () => {
                                 </button>
                             </NavLink>
 
-                            <NavLink to="/pedidos-activos" className="cmp-sidebar-custom-link">
+                            <NavLink to="/pedidos-finalizados" className="cmp-sidebar-custom-link">
                                 <button type="button">
-                                    <span className="cmp-sidebar-text-item">Pedidos activos</span>
+                                    <span className="cmp-sidebar-text-item">Pedidos finalizados</span>
                                 </button>
                             </NavLink>
                         </div>
