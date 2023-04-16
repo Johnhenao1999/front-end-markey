@@ -73,7 +73,7 @@ const CompRegistroItemsPedido = () => {
       <div className='cmp-container-add-item'>
         <p className='markey-title-create-employees'>Registra el detalle del pedido</p>
         {items.map((item, index) => (
-          <div className='markey-container-form-input' key={index}>
+          <div className='markey-container-form-input-items' key={index}>
             <ul className='cmp-markey-datos-input-employees'>
               <li>
                 <input
