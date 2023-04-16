@@ -34,7 +34,7 @@ button {
 }
 
 .cmp-sidebar-toolbar {
-  z-index: 3;
+  z-index: 10;
   left: 0;
   width: 72px;
   height: 100%;
@@ -43,7 +43,7 @@ button {
 }
 
 .cmp-sidebar-nav {
-  z-index: 2;
+  z-index: 9;
   left: 72px;
   width: 250px;
   height: 100%;
@@ -63,7 +63,7 @@ button {
 }
 
 .cmp-sidebar-burger {
-  z-index: 1;
+  z-index: 9;
   left: 72px;
   display: grid;
   place-items: center;

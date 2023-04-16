@@ -7,7 +7,7 @@
   width: calc(100% - 322px);
   position: absolute;
   left: 322px;
-  z-index: 999;
+  z-index: 8;
 }
 
 .cmp-header-nombre {
