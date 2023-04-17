@@ -6,7 +6,6 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
-import './pedidos.css'
 
 const URI = 'http://localhost:8000/registro-pedidos/'
 const uriInfoCliente = 'http://localhost:8000/clientes/'
@@ -84,13 +83,13 @@ const CompRegistroPedido = () => {
         <div className='cmp-markey-container-add-pedido'>
             <CompHeader />
             <CompNavegacionVertical />
-            <div className='cmp-container-input-add-pedido'>
+            <div className='cmp-screen-container'>
                 {nombreCliente.length > 0 && (
-                    <p className='cmp-markey-title-add-pedido'>
-                        Registro de pedido - <p className='cmp-markey-nombreCliente'>{nombreCliente[0].nombre_comercial} </p>
+                    <p className='cmp-title-section-scree'>
+                        Registro de pedido - <p className='cmp-markey-nombreEmpleado'>{nombreCliente[0].nombre_comercial} </p>
                     </p>)}
                 {/*   <p className='cmp-markey-title-add-pedido'>Registro de pedido - <p className='cmp-markey-nombreCliente'> {nombreCliente[0].nombre_comercial}</p>  </p>  */}
-                <div className='cmp-markey-container-pedido'>
+                <div className='markey-container-form-input'>
                     <p className='markey-subtitle-employees'>Detalles iniciales del pedido</p>
                     <ul className='cmp-markey-datos-input-employees'>
                         <li>
@@ -122,12 +121,12 @@ const CompRegistroPedido = () => {
                                 className='markey-input-form'
                                 name="precioFaltantePedido"
                                 value={precioFaltantePedido}
-                                onChange={(e) => setPrecioFaltante(e.target.value)}
+                                onChange={(e) => setPrecioFaltante(e.target.value)} readOnly
                             />
                         </li>
                         <li>
                             <p style={{ color: "transparent" }}>Saldo faltante del pedido</p>
-                            <select value={estado_pedido} onChange={(e) => setEstadoPedido(e.target.value)} className='cmp-markey-select-estado'>
+                            <select value={estado_pedido} onChange={(e) => setEstadoPedido(e.target.value)} className='cmp-markey-select'>
                                 <option value="">Estado del pedido</option>
                                 <option value="Compra de materia prima">Compra de materia prima</option>
                                 <option value="Corte">Corte</option>
@@ -139,7 +138,7 @@ const CompRegistroPedido = () => {
                         </li>
                     </ul>
                 </div>
-                <div className='cmp-markey-container-pedido'>
+                <div className='markey-container-form-input'>
                     <p className='markey-subtitle-employees'>Fecha prevista finalización del pedido</p>
                     <DatePicker
                         selected={fecha_finalizacion}
@@ -148,10 +147,10 @@ const CompRegistroPedido = () => {
                         calendarClassName="custom-calendar"
                     />
                 </div>
-                <div className='cmp-markey-container-pedido'>
+                <div className='markey-container-form-input'>
                     <p className='markey-subtitle-employees'>Ingresa una obsersavación del pedido</p>
                     <textarea
-                        className='cmp-markey-text-observacion-pedido'
+                        className='cmp-markey-textarea'
                         type="text"
                         placeholder='Escribe una obsersevación del pedido'
                         value={descripcion_pedido}
@@ -160,7 +159,7 @@ const CompRegistroPedido = () => {
                 </div>
                 <div>
                     <button
-                        className='cmp-markey-button-guardar-pedido'
+                        className='button-enviar-form'
                         onClick={() => {
                             submitData();
                             navigate(`/pedidos/${id_cliente}`);

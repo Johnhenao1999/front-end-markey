@@ -5,7 +5,7 @@ import './usuarios.css'
 import { useLocation } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
-
+import CompHeader from "../header/header";
 
 
 
@@ -76,10 +76,11 @@ const CompIngresarHora = () => {
     };
     return (
         <div className='cmp-markey-container-create-employees'>
+            <CompHeader />
             <CompNavegacionVertical />
-            <div className='cmp-markey-container-input-employees'>
+            <div className='cmp-screen-container'>
                 {nombreEmpleado.length > 0 && (
-                    <p className='markey-title-create-employees'>
+                    <p className='cmp-title-section-scree'>
                         Registro horas del empleado - <p className='cmp-markey-nombreEmpleado'>{nombreEmpleado[0].nombre} {nombreEmpleado[0].apellido} </p>
                     </p>)}
                 <div className='markey-container-form-input'>
@@ -141,7 +142,7 @@ const CompIngresarHora = () => {
                         </li>
                     </ul>
                 </div>
-                <button className='button-create-employees' onClick={() => {
+                <button className='button-enviar-form' onClick={() => {
                     submitData();
                     navigate('/empleados')
                 }}>Guardar</button>

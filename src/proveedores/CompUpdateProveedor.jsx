@@ -1,15 +1,15 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
-import ciudadesColombia from '../ciudadesColombia';
 
 
-const URI = 'http://localhost:8000/create-proveedor/'
+const URI = 'http://localhost:8000/proveedor/'
 
-const CompCreateProveedores = () => {
+const CompUpdateProveedor = () => {
 
+    const { id } = useParams();
     const [nombre_empresa, setNombreProveedor] = useState('');
     const [tipo_producto, setTipoProducto] = useState('');
     const [telefono, setTelefono] = useState('');
@@ -17,122 +17,33 @@ const CompCreateProveedores = () => {
     const [ciudad, setCiudad] = useState('');
     const [direccion, setDireccion] = useState('');
     const [email, setEmail] = useState('');
-    const [sugerencias, setSugerencias] = useState([]);
-    const [sugerenciasDepartamento, setSugerenciasDepartamento] = useState([]);
-    const [adminNames, setAdminNames] = useState([]);
-    const [adminNamesCiudades, setAdminNamesCiudades] = useState([]);
     const [showModal, setShowModal] = useState('');
 
     const navigate = useNavigate();
 
-
-
-    // Procedimiento para guardar ha un usuario
-
-    const guardar = async (e) => {
-        e.preventDefault();
-
-        const prueba = await axios.post(URI, {
-            nombre_empresa,
-            email,
-            telefono,
-            departamento,
-            ciudad,
-            direccion,
-            tipo_producto
-        });
-        setShowModal(true);
-        console.log("Que envia provee", prueba)
-    };
-
-    /*     const handleChange = (e) => {
-            const value = e.target.value;
-            setCiudad(value);
-    
-            if (value.trim() === '') {
-                setSugerencias([]);
-                return;
-            }
-    
-    
-            // filtrar ciudades que coinciden con la entrada del usuario
-            const suggestions = ciudadesColombia.filter((ciudad) =>
-                ciudad.city.toLowerCase().startsWith(value.toLowerCase())
-            );
-    
-            setSugerencias(suggestions);
-    
-    
-        };
-    
-        const handleSuggestionClick = (suggestion) => {
-            setCiudad(suggestion.city);
-            setSugerencias([]);
-        }; */
-
-
-    /*   const adminNames = ciudadesColombia.map(ciudad => ciudad.admin_name);
-      const uniqueAdminNames = [...new Set(adminNames)];
-      const sortedAdminNames = uniqueAdminNames.sort((a, b) => a.localeCompare(b));
-      console.log(sortedAdminNames); */
-
-    const handleChange = (e) => {
-        const value = e.target.value;
-        setCiudad(value);
-        if (value.trim() === '') {
-            setSugerencias([]);
-            setDepartamento(''); // Agrega esta línea para borrar el departamento
-            return;
-        }
-        const suggestions = ciudadesColombia.filter((ciudad) =>
-            ciudad.city.toLowerCase().startsWith(value.toLowerCase())
-        );
-        setSugerencias(suggestions);
-        const departamento = suggestions.length > 0 ? suggestions[0].admin_name : '';
-        setDepartamento(departamento);
-    };
-
-    const handleSuggestionClick = (suggestion) => {
-        setCiudad(suggestion.city);
-        setDepartamento(suggestion.admin_name);
-        setSugerencias([]);
-    };
-
-    const handleChangeDepartamento = (e) => {
-        const value = e.target.value;
-        setDepartamento(value);
-
-        if (value.trim() === '') {
-            setSugerenciasDepartamento([]);
-            return;
-        }
-
-        const suggestions = adminNames.filter((nombreDepartamento) =>
-            nombreDepartamento.toLowerCase().startsWith(value.toLowerCase())
-        );
-        setSugerenciasDepartamento(suggestions);
-    };
-
-    const handleSuggestionClickDepartamento = (suggestion) => {
-        setDepartamento(suggestion);
-        setSugerenciasDepartamento([]);
-    };
-
     useEffect(() => {
-        const nombresDepartamentos = Array.from(
-            new Set(ciudadesColombia.map((ciudad) => ciudad.admin_name))
-        ).sort();
-        setAdminNames(nombresDepartamentos);
-    }, []);
+        getProveedor();
+    }, [])
 
-    useEffect(() => {
-        const nombresCiudades = Array.from(
-            new Set(ciudadesColombia.map((ciudad) => ciudad.city))
-        ).sort();
-        setAdminNamesCiudades(nombresCiudades);
-    }, []);
+    const getProveedor = async () => {
+        const res = await axios.get(URI + id)
+        setNombreProveedor(res.data[0].nombre_empresa)
+        setTipoProducto(res.data[0].tipo_producto)
+        setTelefono(res.data[0].telefono)
+        setDepartamento(res.data[0].departamento)
+        setCiudad(res.data[0].ciudad)
+        setDireccion(res.data[0].direccion)
+        setEmail(res.data[0].email)
+        console.log("que tra res", res)
+    }
 
-
+    const actualizar = async (e) => {
+        e.preventDefault()
+        const empleado = { nombre_empresa, tipo_producto, telefono, departamento, ciudad, direccion, email }
+        let hola = await axios.put(URI + id, empleado)
+        window.location.href = "/proveedores"
+        console.log("Que envia actualizar", hola)
+    }
 
 
     return (
@@ -141,7 +52,7 @@ const CompCreateProveedores = () => {
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
                 <p className='cmp-title-section-scree'>Ingresa los datos para registrar un proveedor</p>
-                <form onSubmit={guardar} className='cmp-screem-section-form'>
+                <form onSubmit={actualizar} className='cmp-screem-section-form'>
                     <div className='markey-container-form-input'>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li>
@@ -166,39 +77,21 @@ const CompCreateProveedores = () => {
                         <ul className='cmp-markey-datos-input-employees'>
                             <li>
                                 <input
+                                    value={departamento}
+                                    onChange={(e) => setDepartamento(e.target.value)}
+                                    type="text"
+                                    placeholder='Departamento'
+                                    className='markey-input-form'
+                                />
+                            </li>
+                            <li>
+                                <input
                                     value={ciudad}
-                                    onChange={handleChange}
+                                    onChange={(e) => setCiudad(e.target.value)}
                                     type="text"
                                     className='markey-input-form'
                                     placeholder='Ciudad'
                                 />
-                                <ul className='suggestions'>
-                                    {sugerencias.map((suggestion) => (
-                                        <li className='suggestion-item' key={suggestion} onClick={() => handleSuggestionClick(suggestion)}>
-                                            {suggestion.city}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </li>
-                            <li>
-                                <input
-                                    value={departamento}
-                                    onChange={handleChangeDepartamento}
-                                    type="text"
-                                    placeholder="Departamento"
-                                    className="markey-input-form"
-                                />
-                                <ul className="suggestions">
-                                    {sugerenciasDepartamento.map((suggestion) => (
-                                        <li
-                                            className="suggestion-item"
-                                            key={suggestion}
-                                            onClick={() => handleSuggestionClickDepartamento(suggestion)}
-                                        >
-                                            {suggestion}
-                                        </li>
-                                    ))}
-                                </ul>
                             </li>
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
@@ -223,7 +116,7 @@ const CompCreateProveedores = () => {
                         </ul>
                     </div>
                     <div className='markey-container-form-input'>
-                        <p className='markey-subtitle-employees'>Ingresa el tipo de producto</p>
+                    <p className='markey-subtitle-employees'>Ingresa el tipo de producto</p>
                         <ul className='cmp-markey-datos-input-employees'>
                             <textarea
                                 className='cmp-markey-textarea'
@@ -279,4 +172,4 @@ const CompCreateProveedores = () => {
     );
 };
 
-export default CompCreateProveedores;
+export default CompUpdateProveedor;
