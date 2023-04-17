@@ -70,30 +70,56 @@
   margin-top: 5px !important;
 }
 
-/* ------------  ESTILOS PANTALLA CREAR USUARIO  -------------*/
-.markey-title-create-employees {
+/* ------------      SCROLL         -------------*/
+/* Para WebKit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F4F4F4;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #666666;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #333333;
+}
+
+/* ------------      CONTAINER PANTALLAS         -------------*/
+.cmp-screen-container {
+  overflow-y: auto;
+  background-color: #fafafb;
+  position: absolute;
+  top: 72px;
+  left: 322px;
+  height: calc(100% - 72px);
+  width: calc(100% - 322px);
+  padding: 10px 50px;
+}
+
+/* ------------      CONTAINER FORM         -------------*/
+.cmp-screem-section-form {
+  width: 100%;
+}
+
+.cmp-title-section-scree {
   font-size: 30px;
   border-bottom: 1px solid #05141f33;
   padding-bottom: 10px;
   margin: 20px 0 28px !important;
 }
 
-.cmp-markey-nombreEmpleado{
-  color: #4481eb;
-  font-weight: 700;
-  display: contents;
-}
-
-.markey-subtitle-employees{
-  font-size: 25px;
-}
-
-.cmp-markey-container-create-employees {
-  display: flex;
-}
-
-.cmp-markey-form-create-employees {
-  width: 100%;
+.markey-container-form-input {
+  font-size: 16px;
+  line-height: 20px;
+  border-bottom: 1px solid #05141f33;
+  padding-bottom: 10px;
+  margin: 20px 0 28px !important;
 }
 
 .cmp-markey-datos-input-employees {
@@ -117,27 +143,18 @@
   color: black;
 }
 
-.markey-container-form-input {
-  font-size: 16px;
-  line-height: 20px;
-  border-bottom: 1px solid #05141f33;
-  padding-bottom: 10px;
-  margin: 20px 0 28px !important;
-}
-
-.cmp-markey-container-input-employees {
-  background: #fafafb;
-  padding: 80px 5pc 65px;
-  width: 100%;
-  margin-left: 330px;
-  height: auto;
+.markey-input-form:focus {
+  outline: none;
+  border: 2px solid;
+  border-image: linear-gradient(to right, #4481eb, #38d39f);
+  border-image-slice: 1;
 }
 
 .cmp-markey-select {
   background: #f7f7f8 0 0 no-repeat padding-box;
   border-color: #f7f7f8;
   font-weight: 700;
-  height: 40px;
+  height: 44px;
   left: 935px;
   margin: 2px;
   opacity: 1;
@@ -147,7 +164,17 @@
   margin-right: 24px;
 }
 
-.button-create-employees {
+.cmp-markey-select:focus {
+  outline: none;
+  border: 2px solid;
+  border-image: linear-gradient(to right, #4481eb, #38d39f);
+  border-image-slice: 1;
+}
+
+
+/* ------------      BOTON ENVIO FORM         -------------*/
+
+.button-enviar-form {
   display: block;
   width: 290px;
   height: 50px;
@@ -164,9 +191,84 @@
   transition: .5s;
 }
 
-.button-create-employees:hover {
+.button-enviar-form:hover {
   background-position: right;
 }
+
+@media (width < 900px) {
+
+  .cmp-screen-container {
+    left: 71px;
+    width: calc(100% - 72px);
+  }
+
+  .cmp-markey-datos-input-container-employees {
+    width: 100%;
+  }
+
+  .markey-input-form {
+    width: 100%;
+    
+  }
+
+  .cmp-markey-select {
+    width: 100%;
+  }
+
+  .cmp-markey-datos-input-employees {
+    flex-direction: column;
+  }
+
+  .markey-input-form-alt {
+    margin-bottom: 24px;
+  }
+
+  .cmp-markey-select-alt {
+    margin-bottom: 24px;
+  }
+
+  .container-button-enviar-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}
+
+/* ------------  ESTILOS PANTALLA CREAR USUARIO  -------------*/
+
+
+
+.cmp-markey-nombreEmpleado{
+  color: #4481eb;
+  font-weight: 700;
+  display: contents;
+}
+
+.markey-subtitle-employees{
+  font-size: 25px;
+}
+
+.cmp-markey-container-create-employees {
+  display: flex;
+}
+
+.cmp-markey-form-create-employees {
+  width: 100%;
+}
+
+
+
+.cmp-markey-container-input-employees {
+  position: absolute;
+  top: 72px;
+  left: 322px;
+  width: 100%;
+  background: #fafafb;
+  padding: 80px 5pc 65px;
+  
+}
+
 
 /*---------------- FORM AGREGAR HORAS EMPLEADO  -------------*/
 
@@ -186,12 +288,4 @@
   padding: 80px 5pc 65px;
   width: 100%;
   margin-left: 330px;
-}
-
-@media(max-width: 1280px) {
-  .cmp-markey-container-input-employees{
-    height: 600px;
-    overflow-y: scroll;
-  }
-  
 }

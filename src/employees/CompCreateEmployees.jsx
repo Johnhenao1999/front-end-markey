@@ -73,14 +73,13 @@ const CompCreateUsuarios = () => {
         <div className='cmp-markey-container-create-employees'>
             <CompHeader />
             <CompNavegacionVertical />
-            <div className='cmp-markey-container-input-employees'>
-                <p className='markey-title-create-employees'>Ingresa los datos para registrar un nuevo empleado</p>
-                <form onSubmit={guardar} className='cmp-markey-form-create-employees'>
+            <div className='cmp-screen-container'>
+                <p className='cmp-title-section-scree'>Ingresa los datos para registrar un nuevo empleado</p>
+                <form  className='cmp-screem-section-form' onSubmit={ guardar }>
                     <div className='markey-container-form-input'>
                         <ul className='cmp-markey-datos-input-employees'>
-                            <li>
-                                <input
-                                    value={idcedula}
+                            <li className='cmp-markey-datos-input-container-employees'>
+                                <input value={idcedula}
                                     onChange={(e) => {
                                         setCedula(e.target.value);
                                         setErrorCedula(false);
@@ -97,27 +96,26 @@ const CompCreateUsuarios = () => {
                                         if (!onlyNumbers.test(key)) {
                                             e.preventDefault();
                                         }
-                                    }}
-                                />
-                                {errorCedula && (
+                                    }} />
+                                    {errorCedula && (
                                     <p className='text-danger'>Este campo es obligatorio</p>
                                 )}
                             </li>
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
-                            <li>
+                            <li className='cmp-markey-datos-input-container-employees'>
                                 <input
                                     value={nombre}
                                     onChange={(e) => setNombre(e.target.value)}
                                     type="text"
                                     placeholder='Nombre'
-                                    className='markey-input-form'
+                                    className='markey-input-form markey-input-form-alt'
                                 />
                                 {errorCampos && (
                                     <p className='text-danger'>Este campo es obligatorio</p>
                                 )}
                             </li>
-                            <li>
+                            <li className='cmp-markey-datos-input-container-employees'>
                                 <input
                                     value={apellido}
                                     onChange={(e) => setApellido(e.target.value)}
@@ -134,11 +132,11 @@ const CompCreateUsuarios = () => {
                             <li>
                                 <input
                                     value={telefono}
-                                    /*   onChange={(e) => setTelefono(e.target.value)} */
+                                    // onChange={(e) => setTelefono(e.target.value)} 
                                     onChange={handleTelefonoChange}
                                     type="text"
                                     placeholder='Celular'
-                                    className='markey-input-form'
+                                    className='markey-input-form markey-input-form-alt'
                                     pattern="\d*"
                                     maxLength={10}
                                     onInvalid={() => setErrorTelefono(true)}
@@ -171,7 +169,7 @@ const CompCreateUsuarios = () => {
                                     onChange={(e) => setCiudad(e.target.value)}
                                     type="text"
                                     placeholder='Ciudad'
-                                    className='markey-input-form'
+                                    className='markey-input-form markey-input-form-alt'
                                 />
                                 {errorCampos && (
                                     <p className='text-danger'>Este campo es obligatorio</p>
@@ -192,7 +190,7 @@ const CompCreateUsuarios = () => {
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li>
-                                <select value={especialidad} onChange={(e) => setEspecialidad(e.target.value)} className='cmp-markey-select'>
+                                <select value={especialidad} onChange={(e) => setEspecialidad(e.target.value)} className='cmp-markey-select cmp-markey-select-alt'>
                                     <option value="">Especialidad</option>
                                     <option value="Maquinaria plana">Maquinara plana</option>
                                     <option value="Collarin">Collarin</option>
@@ -210,7 +208,7 @@ const CompCreateUsuarios = () => {
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li>
-                                <select value={estado_empleado} onChange={(e) => setEstadoEmpleado(e.target.value)} className='cmp-markey-select'>
+                                <select value={estado_empleado} onChange={(e) => setEstadoEmpleado(e.target.value)} className='cmp-markey-select cmp-markey-select-alt'>
                                     <option value="">Estado del empleado</option>
                                     <option value="Soltero">Activo</option>
                                     <option value="Casado">Inactivo</option>
@@ -231,9 +229,9 @@ const CompCreateUsuarios = () => {
                         </ul>
 
                     </div>
-                    <button type='submit' className='button-create-employees'>Confirmar</button>
-
-
+                    <div className='container-button-enviar-form'>
+                        <button type='submit' className='button-enviar-form'>Confirmar</button>
+                    </div>
                 </form>
             </div>
             {showModal && (
