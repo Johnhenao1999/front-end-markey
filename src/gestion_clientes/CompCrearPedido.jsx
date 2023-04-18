@@ -10,7 +10,7 @@ import CompHeader from "../header/header";
 const URI = 'http://localhost:8000/registro-pedidos/'
 const uriInfoCliente = 'http://localhost:8000/clientes/'
 
-const CompRegistroPedido = () => {
+const CompCrearPedido = () => {
     const [descripcion_pedido, setDescripcionPedido] = useState('');
     const [fecha_finalizacion, setFechaFinalizacion] = useState(new Date());
     const [estado_pedido, setEstadoPedido] = useState('');
@@ -173,4 +173,4 @@ const CompRegistroPedido = () => {
     );
 };
 
-export default CompRegistroPedido;
+export default CompCrearPedido;

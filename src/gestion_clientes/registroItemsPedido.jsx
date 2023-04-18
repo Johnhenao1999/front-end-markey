@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
+import './pedidos.css'
 
 const URI = 'http://localhost:8000/registro-items/';
 
@@ -68,10 +69,10 @@ const CompRegistroItemsPedido = () => {
 
   return (
     <div className=''>
-      <CompNavegacionVertical />
       <CompHeader />
-      <div className='cmp-container-add-item'>
-        <p className='markey-title-create-employees'>Registra el detalle del pedido</p>
+      <CompNavegacionVertical />
+      <div className='cmp-screen-container'>
+        <p className='cmp-title-section-scree'>Registra el detalle del pedido</p>
         {items.map((item, index) => (
           <div className='markey-container-form-input-items' key={index}>
             <ul className='cmp-markey-datos-input-employees'>
@@ -89,8 +90,8 @@ const CompRegistroItemsPedido = () => {
                   name="producto"
                   className='markey-input-form-items'
                   placeholder="Producto"
-                  value={item.producto}
-                  onChange={event => handleItemChange(index, event)} />
+                  value={item.producto} 
+                  onChange={event => handleItemChange(index, event)}/>
               </li>
               <li>
                 <input
@@ -99,7 +100,8 @@ const CompRegistroItemsPedido = () => {
                   name="precio_unitario"
                   placeholder="Precio unitario del producto"
                   value={formatoValor(item.precio_unitario)}
-                  onChange={event => handleItemChange(index, event)} />
+                  onChange={event => handleItemChange(index, event)} 
+                  />
               </li>
               <li>
                 <input
@@ -114,16 +116,12 @@ const CompRegistroItemsPedido = () => {
             <button className='button-delete-item' onClick={() => handleDeleteItem(index)}>Eliminar</button>
           </div>
         ))}
-        <div className='cmp-container-button-item'>
-          <button className='button-agregar-item' onClick={handleAddItem}>Agregar ítem</button>
+        <div className='markey-container-form-input'>
+          <button className='button-enviar-form-items' onClick={handleAddItem}>Agregar ítem</button>
         </div>
+        <p className='cmp-title-section-scree'>Total del pedido: {getTotal().toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</p>
         <div>
-          <div>
-            <p>Total del pedido: {getTotal().toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</p>
-          </div>
-        </div>
-        <div>
-          <button onClick={() => {
+          <button className='button-enviar-form-items' onClick={() => {
             handleSubmit();
             navigate(`/clientes`);
           }}>Guardar</button>

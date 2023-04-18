@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
+import ciudadesColombia from '../ciudadesColombia';
 
 const URI = 'http://localhost:8000/empleados/'
 
@@ -19,6 +20,8 @@ const CompEditarUsuarios = () => {
     const [estado_civil, setEstadoCivil] = useState('');
     const [estado_empleado, setEstadoEmpleado] = useState('');
     const [numero_emergencia, setNumeroEmergencia] = useState('');
+    const [adminNamesCiudades, setAdminNamesCiudades] = useState([]);
+    const [sugerencias, setSugerencias] = useState([]);
     const [showModal, setShowModal] = useState('');
 
     const navigate = useNavigate();
@@ -50,13 +53,39 @@ const CompEditarUsuarios = () => {
         window.location.href = "/empleados"
     }
 
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setCiudad(value);
+        if (value.trim() === '') {
+            setSugerencias([]);
+            return;
+        }
+        const suggestions = ciudadesColombia.filter((ciudad) =>
+            ciudad.city.toLowerCase().startsWith(value.toLowerCase())
+        );
+        setSugerencias(suggestions);
+    };
+
+    const handleSuggestionClick = (suggestion) => {
+        setCiudad(suggestion.city);
+        setSugerencias([]);
+    };
+
+    useEffect(() => {
+        const nombresCiudades = Array.from(
+            new Set(ciudadesColombia.map((ciudad) => ciudad.city))
+        ).sort();
+        setAdminNamesCiudades(nombresCiudades);
+    }, []);
+
+
     return (
         <div className='cmp-markey-container-create-employees'>
             <CompHeader />
             <CompNavegacionVertical />
-            <div className='cmp-markey-container-input-employees'>
-                <p className='markey-title-create-employees'>Actualizar información del empleado</p>
-                <form onSubmit={actualizar} className='cmp-markey-form-create-employees'>
+            <div className='cmp-screen-container'>
+                <p className='cmp-title-section-scree'>Actualizar información del empleado</p>
+                <form onSubmit={actualizar} className='cmp-screem-section-form'>
                     <div className='markey-container-form-input'>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li>
@@ -137,11 +166,18 @@ const CompEditarUsuarios = () => {
                             <p className='cmp-subtitle-create-pedido'>Ciudad</p>
                                 <input
                                     value={ciudad}
-                                    onChange={(e) => setCiudad(e.target.value)}
+                                    onChange={handleChange}
                                     type="text"
                                     placeholder='Ciudad'
                                     className='markey-input-form'
                                 />
+                                    <ul className='suggestions'>
+                                    {sugerencias.map((suggestion) => (
+                                        <li className='suggestion-item' key={suggestion} onClick={() => handleSuggestionClick(suggestion)}>
+                                            {suggestion.city}
+                                        </li>
+                                    ))}
+                                </ul>
                             </li>
                             <li>
                             <p className='cmp-subtitle-create-pedido'>Dirección</p>
@@ -196,7 +232,7 @@ const CompEditarUsuarios = () => {
                         </ul>
 
                     </div>
-                    <button type='submit' className='button-create-employees'>Confirmar</button>
+                    <button type='submit' className='button-enviar-form'>Confirmar</button>
 
 
                 </form>

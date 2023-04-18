@@ -1,9 +1,10 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './usuarios.css'
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
+import ciudadesColombia from '../ciudadesColombia';
 
 
 const URI = 'http://localhost:8000/holamundo/'
@@ -20,7 +21,9 @@ const CompCreateUsuarios = () => {
     const [estado_civil, setEstadoCivil] = useState('');
     const [estado_empleado, setEstadoEmpleado] = useState('');
     const [numero_emergencia, setNumeroEmergencia] = useState('');
+    const [sugerencias, setSugerencias] = useState([]);
     const [showModal, setShowModal] = useState('');
+    const [adminNamesCiudades, setAdminNamesCiudades] = useState([]);
 
 
     const [errorCedula, setErrorCedula] = useState(false);
@@ -69,13 +72,44 @@ const CompCreateUsuarios = () => {
         setShowModal(true);
         console.log(hey)
     };
+
+
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setCiudad(value);
+        if (value.trim() === '') {
+            setSugerencias([]);
+            return;
+        }
+        const suggestions = ciudadesColombia.filter((ciudad) =>
+            ciudad.city.toLowerCase().startsWith(value.toLowerCase())
+        );
+        setSugerencias(suggestions);
+    };
+
+    const handleSuggestionClick = (suggestion) => {
+        setCiudad(suggestion.city);
+        setSugerencias([]);
+    };
+
+    useEffect(() => {
+        const nombresCiudades = Array.from(
+            new Set(ciudadesColombia.map((ciudad) => ciudad.city))
+        ).sort();
+        setAdminNamesCiudades(nombresCiudades);
+    }, []);
+
+
+
+
+
     return (
         <div className='cmp-markey-container-create-employees'>
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
                 <p className='cmp-title-section-scree'>Ingresa los datos para registrar un nuevo empleado</p>
-                <form  className='cmp-screem-section-form' onSubmit={ guardar }>
+                <form className='cmp-screem-section-form' onSubmit={guardar}>
                     <div className='markey-container-form-input'>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li className='cmp-markey-datos-input-container-employees'>
@@ -88,7 +122,7 @@ const CompCreateUsuarios = () => {
                                     className='markey-input-form'
                                     maxLength={10}
                                     placeholder='Cedula'
-                                    pattern="[0-9]{10}"
+                               /*      pattern="[0-9]{10}"
                                     title="Debe contener exactamente 10 dígitos numéricos"
                                     onKeyPress={(e) => {
                                         const onlyNumbers = /[0-9]/;
@@ -96,8 +130,8 @@ const CompCreateUsuarios = () => {
                                         if (!onlyNumbers.test(key)) {
                                             e.preventDefault();
                                         }
-                                    }} />
-                                    {errorCedula && (
+                                    }} */ />
+                                {errorCedula && (
                                     <p className='text-danger'>Este campo es obligatorio</p>
                                 )}
                             </li>
@@ -166,11 +200,18 @@ const CompCreateUsuarios = () => {
                             <li>
                                 <input
                                     value={ciudad}
-                                    onChange={(e) => setCiudad(e.target.value)}
+                                    onChange={handleChange}
                                     type="text"
                                     placeholder='Ciudad'
                                     className='markey-input-form markey-input-form-alt'
                                 />
+                                <ul className='suggestions'>
+                                    {sugerencias.map((suggestion) => (
+                                        <li className='suggestion-item' key={suggestion} onClick={() => handleSuggestionClick(suggestion)}>
+                                            {suggestion.city}
+                                        </li>
+                                    ))}
+                                </ul>
                                 {errorCampos && (
                                     <p className='text-danger'>Este campo es obligatorio</p>
                                 )}

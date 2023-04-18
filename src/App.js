@@ -12,9 +12,9 @@ import CompHomePrincipal from './home_principal/homePrincipal';
 import CompPruebaRegistro from './registro_horas_empleados/registrarHorasEmpleados';
 import CompMostrarHorasEmpleado from './employees/CompShowEmployeesTime';
 import CompIngresarHora from './employees/CompNewHourEmployees';
-import CompCreateCliente from './gestion_clientes/crearClientes';
+import CompCreateCustomer from './gestion_clientes/CompCreateCustomer';
 import CompShowClientes from './gestion_clientes/mostrarClientes';
-import CompRegistroPedido from './gestion_clientes/crearPedido';
+import CompCrearPedido from './gestion_clientes/CompCrearPedido';
 import CompPedidoCliente from './gestion_clientes/mostrarPedidos';
 import CompRegistroItemsPedido from './gestion_clientes/registroItemsPedido';
 import CompMostrarDetallePedidos from './gestion_clientes/mostrarDetallePedido';
@@ -24,6 +24,7 @@ import CompShowItemsPedido from './gestion_pedidos/CompShowItemsPedido';
 import CompCreateProveedores from './proveedores/CompCreateProveedores';
 import CompShowProveedor from './proveedores/CompShowProveedor';
 import CompUpdateProveedor from './proveedores/CompUpdateProveedor';
+import CompActualizarCliente from './gestion_clientes/CompActualizarCliente';
 
   
 function App() {
@@ -40,9 +41,9 @@ function App() {
           <Route path='/edit/:id' element={<CompEditarUsuarios />} />
           <Route path='/registro-horas-empleado/:idEmpleado' element={<CompMostrarHorasEmpleado />} />
           <Route path='/ingresar_fecha/:idEmpleado' element={<CompIngresarHora />} />
-          <Route path='/create-cliente' element={<CompCreateCliente />} />
+          <Route path='/crear-cliente' element={<CompCreateCustomer />} />
           <Route path='/clientes' element={<CompShowClientes />} />
-          <Route path='/registro-pedidos/:id_cliente' element={<CompRegistroPedido />} />
+          <Route path='/registro-pedidos/:id_cliente' element={<CompCrearPedido />} />
           <Route path='/pedidos/:id_cliente' element={<CompPedidoCliente />} />
           <Route path='/registro-items/:id_pedido' element={<CompRegistroItemsPedido />} />
           <Route path='/mostrar-items-pedido/:id_cliente' element={<CompMostrarDetallePedidos />} />
@@ -52,8 +53,7 @@ function App() {
           <Route path='/create-proveedores' element={<CompCreateProveedores />} />
           <Route path='/proveedores' element={<CompShowProveedor />} />
           <Route path='/actualizar-proveedor/:id' element={<CompUpdateProveedor />} />
-
-
+          <Route path='/editar-cliente/:id' element={<CompActualizarCliente />} />
         </Routes> 
       </BrowserRouter>
     </div>
