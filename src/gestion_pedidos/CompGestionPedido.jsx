@@ -5,7 +5,7 @@ import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import DatePicker from 'react-datepicker';
 
-const URI = 'http://localhost:8000/pedidos/'
+const URI = 'http://localhost:8000/pedidos-cliente/'
 
 const CompGestionarPedido = () => {
     const { id } = useParams();
@@ -28,6 +28,9 @@ const CompGestionarPedido = () => {
 
     const getPedido = async () => {
         const res = await axios.get(URI + id)
+        const fechaString = res.data[0].fecha;
+        const fechaDate = new Date(fechaString);
+        setFecha(fechaDate);
         setprecio_pedido(res.data[0].precio_pedido)
         setanticipo_pedido(res.data[0].anticipo_pedido)
         setEstadoPedido(res.data[0].estado_pedido)
@@ -35,6 +38,7 @@ const CompGestionarPedido = () => {
         const fechaFinalizacionString = res.data[0].fecha_finalizacion;
         const fechaFinalizacionDate = new Date(fechaFinalizacionString);
         setFechaFinalizacion(fechaFinalizacionDate);
+        console.log("Que tra gestion pedido", res)
     }
 
 
@@ -73,6 +77,10 @@ const CompGestionarPedido = () => {
         setPrecioFaltante(formatoValor(precioFaltante));
     }, [precio_pedido, anticipo_pedido]);
 
+    const diasRestantes = Math.ceil((fecha_finalizacion - fecha) / 86400000);
+    console.log(diasRestantes)
+    
+
 
     return (
         <div className='cmp-markey-container-add-pedido'>
@@ -87,6 +95,7 @@ const CompGestionarPedido = () => {
                     {/*   <p className='cmp-markey-title-add-pedido'>Registro de pedido - <p className='cmp-markey-nombreCliente'> {nombreCliente[0].nombre_comercial}</p>  </p>  */}
                     <div className='markey-container-form-input'>
                         <p className='markey-subtitle-employees'>Gestión del pedido</p>
+                        <p>Faltan <span style={{color: '#4481eb', fontWeight: 700}}>{diasRestantes}</span> días para que se cumpla con el pedido</p>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li>
                                 <p className='cmp-subtitle-create-pedido'>Escribe el valor del pedido</p>

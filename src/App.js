@@ -45,7 +45,7 @@ function App() {
           <Route path='/crear-cliente' element={<CompCreateCustomer />} />
           <Route path='/clientes' element={<CompShowClientes />} />
           <Route path='/registro-pedidos/:id_cliente' element={<CompCrearPedido />} />
-          <Route path='/pedidos/:id_pedido' element={<CompPedidoCliente />} />
+          <Route path='/pedidos/:id_cliente' element={<CompPedidoCliente />} />
           <Route path='/registro-items/:id_pedido' element={<CompRegistroItemsPedido />} />
           <Route path='/mostrar-items-pedido/:id_cliente' element={<CompMostrarDetallePedidos />} />
           <Route path='/pedidos-activos' element={<CompShowPedidos />} />
