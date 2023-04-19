@@ -39,6 +39,14 @@ const CompRegistroItemsPedido = () => {
     getTotal();
   };
 
+  const handleItemChangeProducto = (index, event) => {
+    const values = [...items];
+    values[index][event.target.name] = event.target.value;
+    setItems(values);
+    calculateTotal(index);
+    getTotal();
+  };
+
   const handleAddItem = () => {
     const values = [...items];
     values.push({ cantidad: '', producto: '', precio_unitario: '', total: '' });
@@ -91,7 +99,7 @@ const CompRegistroItemsPedido = () => {
                   className='markey-input-form-items'
                   placeholder="Producto"
                   value={item.producto} 
-                  onChange={event => handleItemChange(index, event)}/>
+                  onChange={event => handleItemChangeProducto(index, event)}/>
               </li>
               <li>
                 <input

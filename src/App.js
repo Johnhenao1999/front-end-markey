@@ -25,6 +25,7 @@ import CompCreateProveedores from './proveedores/CompCreateProveedores';
 import CompShowProveedor from './proveedores/CompShowProveedor';
 import CompUpdateProveedor from './proveedores/CompUpdateProveedor';
 import CompActualizarCliente from './gestion_clientes/CompActualizarCliente';
+import CompGestionarPedido from './gestion_pedidos/CompGestionPedido';
 
   
 function App() {
@@ -44,7 +45,7 @@ function App() {
           <Route path='/crear-cliente' element={<CompCreateCustomer />} />
           <Route path='/clientes' element={<CompShowClientes />} />
           <Route path='/registro-pedidos/:id_cliente' element={<CompCrearPedido />} />
-          <Route path='/pedidos/:id_cliente' element={<CompPedidoCliente />} />
+          <Route path='/pedidos/:id_pedido' element={<CompPedidoCliente />} />
           <Route path='/registro-items/:id_pedido' element={<CompRegistroItemsPedido />} />
           <Route path='/mostrar-items-pedido/:id_cliente' element={<CompMostrarDetallePedidos />} />
           <Route path='/pedidos-activos' element={<CompShowPedidos />} />
@@ -54,6 +55,7 @@ function App() {
           <Route path='/proveedores' element={<CompShowProveedor />} />
           <Route path='/actualizar-proveedor/:id' element={<CompUpdateProveedor />} />
           <Route path='/editar-cliente/:id' element={<CompActualizarCliente />} />
+          <Route path='/gestionar-pedido/:id' element={<CompGestionarPedido />} />
         </Routes> 
       </BrowserRouter>
     </div>
