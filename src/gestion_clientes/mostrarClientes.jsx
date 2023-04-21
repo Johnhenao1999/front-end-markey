@@ -52,7 +52,7 @@ const CompShowClientes = () => {
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
                 <div className="cmp-screen-container-title">
-                    <p className='cmp-title-section-employees'>Datos de clientes</p>
+                    <p className='cmp-title-section-employees'>Clientes</p>
                     <div className="container-search-add">
                         <div className='search-container'>
                             <input

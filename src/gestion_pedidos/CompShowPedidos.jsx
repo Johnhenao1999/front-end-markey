@@ -9,27 +9,37 @@ const URI = 'http://localhost:8000/pedidos/'
 const CompShowPedidos = () => {
     const [pedidos, setPedidos] = useState([])
     const [showModal, setShowModal] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        setLoading(true);
         getAllPedidos();
-        if (pedidos.length === 0) {
-            setShowModal(true);
+      }, []);
+    
+      useEffect(() => {
+        if (!loading && pedidos.length === 0) {
+          setShowModal(true);
         } else {
-            setShowModal(false);
+          setShowModal(false);
         }
-    }, [pedidos]);
-
-    const getAllPedidos = async () => {
-        const resprueba = await axios.get(URI);
-        setPedidos(resprueba.data);
-        console.log("Que trae resprueba", resprueba)
-    };
+      }, [pedidos, loading]);
+    
+      const getAllPedidos = async () => {
+        try {
+          const res = await axios.get(URI);
+          setPedidos(res.data);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setLoading(false);
+        }
+      };
 
     //procedimineto para eliminar un pedido
     const deletePedidos = async (id_pedido) => {
-        const pruebadelete = await axios.delete(`${URI}/${id_pedido}`)
+        const pruebadelete = await axios.delete(`${URI}${id_pedido}`)
         getAllPedidos()
         console.log("A ver", pruebadelete)
     }
