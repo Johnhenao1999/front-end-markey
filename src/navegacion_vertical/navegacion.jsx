@@ -58,29 +58,8 @@ const CompNavegacionVertical = () => {
                         <button type="button">
                             <img src={imagesBarNav.iconTest} />
                             <span className="cmp-sidebar-text-item">Clientes</span>
-                            {/* <span className={`material-symbols-outlined cmp-sidebar-text-item ${activeNavItem === 'clientes' ? 'active' : ''}`}>
-                                expand_more
-                            </span> */}
                         </button>
                     </NavLink>
-
-                    {/* <div
-                        className={`subnav ${activeNavItem === 'clientes' ? 'active' : ''}`}
-                        style={{ height: activeNavItem === 'clientes' ? '120px' : '0' }}>
-                        <div className="cmp-sidebar-subnav-inner">
-                            <NavLink  className="cmp-sidebar-custom-link">
-                                <button type="button">
-                                    <span className="cmp-sidebar-text-item">Ver clientes</span>
-                                </button>
-                            </NavLink>
-
-                            <NavLink to="/crear-cliente" className="cmp-sidebar-custom-link">
-                                <button type="button">
-                                    <span className="cmp-sidebar-text-item">Crear cliente</span>
-                                </button>
-                            </NavLink>
-                        </div>
-                    </div> */}
 
                     <NavLink className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('pedidos')}>
                         <button type="button">
@@ -110,34 +89,12 @@ const CompNavegacionVertical = () => {
                         </div>
                     </div>
 
-                    <NavLink className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('proveedores')}>
+                    <NavLink to="/proveedores" className="cmp-sidebar-custom-link">
                         <button type="button">
                             <img src={imagesBarNav.iconTest} />
                             <span className="cmp-sidebar-text-item">Proveedores</span>
-                            <span className={`material-symbols-outlined cmp-sidebar-text-item ${activeNavItem === 'proveedores' ? 'active' : ''}`}>
-                                expand_more
-                            </span>
                         </button>
                     </NavLink>
-
-                    <div
-                        className={`subnav ${activeNavItem === 'proveedores' ? 'active' : ''}`}
-                        style={{ height: activeNavItem === 'proveedores' ? '120px' : '0' }}>
-                        <div className="cmp-sidebar-subnav-inner">
-                            <NavLink to="/proveedores" className="cmp-sidebar-custom-link">
-                                <button type="button">
-                                    <span className="cmp-sidebar-text-item">Ver proveedores</span>
-                                </button>
-                            </NavLink>
-
-                            <NavLink to="/create-proveedores" className="cmp-sidebar-custom-link">
-                                <button type="button">
-                                    <span className="cmp-sidebar-text-item">Crear proveedor</span>
-                                </button>
-                            </NavLink>
-                        </div>
-                    </div>
-
 
                     <NavLink className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('inventario')}>
                         <button type="button">
