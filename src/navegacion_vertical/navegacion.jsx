@@ -47,34 +47,13 @@ const CompNavegacionVertical = () => {
             </div>
             <div class="cmp-sidebar-nav">
                 <nav>
-                    <NavLink className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('empleados')}>
+                    <NavLink to="/empleados" className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('empleados')}>
                         <button type="button">
                             <img src={imagesBarNav.iconTest} />
                             <span className="cmp-sidebar-text-item">Empleados</span>
-                            <span className={`material-symbols-outlined cmp-sidebar-text-item ${activeNavItem === 'empleados' ? 'active' : ''}`}>
-                                expand_more
-                            </span>
                         </button>
                     </NavLink>
-
-                    <div
-                        className={`subnav ${activeNavItem === 'empleados' ? 'active' : ''}`}
-                        style={{ height: activeNavItem === 'empleados' ? '120px' : '0' }}>
-                        <div className="cmp-sidebar-subnav-inner">
-                            <NavLink to="/empleados" className="cmp-sidebar-custom-link">
-                                <button type="button">
-                                    <span className="cmp-sidebar-text-item">Ver empleados</span>
-                                </button>
-                            </NavLink>
-
-                            <NavLink to="/create-employees" className="cmp-sidebar-custom-link">
-                                <button type="button">
-                                    <span className="cmp-sidebar-text-item">Crear empleado</span>
-                                </button>
-                            </NavLink>
-                        </div>
-                    </div>
-
+                    
                     <NavLink className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('clientes')}>
                         <button type="button">
                             <img src={imagesBarNav.iconTest} />

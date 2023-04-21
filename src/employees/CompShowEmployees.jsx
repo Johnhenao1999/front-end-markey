@@ -58,14 +58,17 @@ const CompShowUsuarios = () => {
             <div className='cmp-screen-container'>
                 <div className="cmp-screen-container-title">
                     <p className='cmp-title-section-employees'>Datos de empleados</p>
-                    <div className='search-container'>
-                        <input
-                            type='text'
-                            placeholder='Buscar empleado...'
-                            value={searchTerm}
-                            onChange={(event) => setSearchTerm(event.target.value)}
-                        />
-                        <button type="submit"><img src={imagesEmployees.iconSearch} alt="lupa" /></button>
+                    <div className="container-search-add">
+                        <div className='search-container'>
+                            <input
+                                type='text'
+                                placeholder='Buscar empleado...'
+                                value={searchTerm}
+                                onChange={(event) => setSearchTerm(event.target.value)}
+                            />
+                            <button type="submit"><img src={imagesEmployees.iconSearch} alt="lupa" /></button>
+                        </div>
+                        <Link className="btn-add-new-link" to="/create-employees"><button type="submit" className="btn-add-new"><img src={imagesEmployees.iconAdd} alt="lupa" /><p>Agregar empleado</p></button></Link>
                     </div>
                 </div>
                 
