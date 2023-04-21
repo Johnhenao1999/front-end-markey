@@ -41,7 +41,7 @@ const CompNavegacionVertical = () => {
                         <img src={imagesBarNav.iconSettings} />
                     </button>
                     <button type="button">
-                        <img src={imagesBarNav.iconFolders} />
+                        <img src={imagesBarNav.iconExit} />
                     </button>
                 </nav>
             </div>
