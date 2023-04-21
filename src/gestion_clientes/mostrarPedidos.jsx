@@ -10,7 +10,7 @@ const URI = 'http://localhost:8000/pedidos/'
 const CompPedidoCliente = () => {
     const [pedidos, setPedidos] = useState([]);
     const { id_cliente } = useParams(); // obtiene el parámetro de la URL (el ID del empleado)
-    const {nombre_comercial, setNombreComercial} = useState([]);
+    const [nombre, setNombre] = useState('');
 
     useEffect(() => {
         if (id_cliente) {
@@ -48,7 +48,7 @@ const CompPedidoCliente = () => {
                 <div className="cmp-screen-container-title">
                     <p className='cmp-title-section-employees'>Historial de pedidos</p>
                 </div>
-                <p className='cmp-markey-nombreCliente'>{pedidos[0].nombre_comercial}</p>
+                <p className="cmp-markey-nombreCliente">{pedidos.length > 0 && pedidos[0].nombre_comercial}</p>
                 <div className='table-empleados-container'>
                     <table className='table-empleados'>
                         <thead className='table-primary'>

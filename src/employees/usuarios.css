@@ -220,7 +220,7 @@
 
   .markey-input-form {
     width: 100%;
-    
+
   }
 
   .cmp-markey-select {
@@ -251,13 +251,22 @@
 
 
 
-.cmp-markey-nombreEmpleado{
+.cmp-markey-nombreEmpleado {
   color: #4481eb;
   font-weight: 700;
   display: contents;
 }
 
-.markey-subtitle-employees{
+.cmp-markey-nombreCliente {
+  color: #4481eb;
+  font-weight: 700;
+  border-bottom: 1px solid #05141f33;
+  padding-bottom: 10px;
+  margin-top: -15px;
+  font-size: 25px;
+}
+
+.markey-subtitle-employees {
   font-size: 25px;
 }
 
@@ -278,7 +287,7 @@
   width: 100%;
   background: #fafafb;
   padding: 80px 5pc 65px;
-  
+
 }
 
 
@@ -295,7 +304,7 @@
 
 /*---------------- MOSTRAR EMPLEADOS -------------*/
 
-.cmp-container-show-employees{
+.cmp-container-show-employees {
   background: #fafafb;
   padding: 80px 5pc 65px;
   width: 100%;
@@ -308,9 +317,12 @@
   width: 100%;
   max-width: 500px;
   height: 50px;
-  border: 2px solid transparent; /* establece un borde transparente de 2 píxeles */
-  border-image: linear-gradient(to right, #4481eb, #38d39f); /* establece un borde degradado */
-  border-image-slice: 1; /* establece el ancho de la sección de la imagen que se usa para el borde */
+  border: 2px solid transparent;
+  /* establece un borde transparente de 2 píxeles */
+  border-image: linear-gradient(to right, #4481eb, #38d39f);
+  /* establece un borde degradado */
+  border-image-slice: 1;
+  /* establece el ancho de la sección de la imagen que se usa para el borde */
   display: flex;
   align-items: center;
   border-radius: 60px;
@@ -369,7 +381,7 @@
   margin-bottom: 20px;
 }
 
-.btn-add-new > p {
+.btn-add-new>p {
   margin: 0;
   padding: 0;
 }
@@ -387,8 +399,8 @@
   .cmp-screen-container-title {
     flex-direction: column;
   }
-  
-  .search-container{
+
+  .search-container {
     max-width: 100%;
   }
 
@@ -400,14 +412,15 @@
     justify-content: center;
   }
 }
-@media (width < 394px) { 
+
+@media (width < 394px) {
   .search-container button {
     display: none;
   }
 }
 
 /*---------------- TABLA -------------*/
-.table-empleados-container{
+.table-empleados-container {
   width: 100%;
   height: 90%;
   white-space: nowrap;
@@ -417,15 +430,16 @@
 .table-empleados {
   width: inherit;
   border-collapse: collapse;
-} 
+}
 
-.table-empleados thead th{
+.table-empleados thead th {
   background-color: #38d39f;
   color: #FFFFFF;
   font-size: 20px;
 }
 
-.table-empleados th, td {
+.table-empleados th,
+td {
   border-bottom: 1px solid #dddddd;
   padding: 10px 20px;
   word-break: break-all;
@@ -452,13 +466,13 @@
   background-color: #f6f9fc;
 }
 
- ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 ::-webkit-scrollbar-thumb {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-} 
+}
 
 .colum-table-actions {
   display: flex;
@@ -476,18 +490,20 @@
   padding: 10px !important;
 }
 
-.colum-table-actions a:nth-child(1){
+.colum-table-actions a:nth-child(1) {
   background-color: #4481eb;
-  color: #FFFFFF;width: 40px;
+  color: #FFFFFF;
+  width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0px 10px;
 }
 
-.colum-table-actions a:nth-child(2){
+.colum-table-actions a:nth-child(2) {
   background-color: #F80000;
-  color: #FFFFFF;width: 40px;
+  color: #FFFFFF;
+  width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -511,23 +527,23 @@
 
 /*------------ ESTILOS CALENDARIO CUSTOM --------*/
 
-.react-datepicker__header{
-  background:#38d39f !important;
+.react-datepicker__header {
+  background: #38d39f !important;
 }
 
-.react-datepicker__current-month{
+.react-datepicker__current-month {
   color: white !important;
 }
 
-.react-datepicker__day-name{
-  color: white !important; 
+.react-datepicker__day-name {
+  color: white !important;
 }
 
-.react-datepicker__day--selected{
+.react-datepicker__day--selected {
   background: #4481eb !important;
 }
 
-.react-datepicker__year-dropdown{
+.react-datepicker__year-dropdown {
   background-color: #38d39f !important;
   height: 260px !important;
   overflow-y: auto !important;
@@ -535,7 +551,7 @@
   font-weight: 700;
 }
 
-.react-datepicker__year-read-view--selected-year{
+.react-datepicker__year-read-view--selected-year {
   color: white !important;
   font-weight: 700 !important;
 }
@@ -583,9 +599,10 @@
 }
 
 
-.colum-table-actions-hours a:nth-child(1){
+.colum-table-actions-hours a:nth-child(1) {
   background-color: #F80000;
-  color: #FFFFFF;width: 40px;
+  color: #FFFFFF;
+  width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
