@@ -49,21 +49,21 @@ const CompNavegacionVertical = () => {
                 <nav>
                     <NavLink to="/empleados" className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('empleados')}>
                         <button type="button">
-                            <img src={imagesBarNav.iconTest} />
+                            <img src={imagesBarNav.iconEmpleados} />
                             <span className="cmp-sidebar-text-item">Empleados</span>
                         </button>
                     </NavLink>
                     
                     <NavLink  to="/clientes" className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('clientes')}>
                         <button type="button">
-                            <img src={imagesBarNav.iconTest} />
+                            <img src={imagesBarNav.iconClientes} />
                             <span className="cmp-sidebar-text-item">Clientes</span>
                         </button>
                     </NavLink>
 
                     <NavLink className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('pedidos')}>
                         <button type="button">
-                            <img src={imagesBarNav.iconTest} />
+                            <img src={imagesBarNav.iconPedidos} />
                             <span className="cmp-sidebar-text-item">Pedidos</span>
                             <span className={`material-symbols-outlined cmp-sidebar-text-item ${activeNavItem === 'pedidos' ? 'active' : ''}`}>
                                 expand_more
@@ -91,14 +91,14 @@ const CompNavegacionVertical = () => {
 
                     <NavLink to="/proveedores" className="cmp-sidebar-custom-link">
                         <button type="button">
-                            <img src={imagesBarNav.iconTest} />
+                            <img src={imagesBarNav.iconProveedores} />
                             <span className="cmp-sidebar-text-item">Proveedores</span>
                         </button>
                     </NavLink>
 
                     <NavLink className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('inventario')}>
                         <button type="button">
-                            <img src={imagesBarNav.iconTest} />
+                            <img src={imagesBarNav.iconInventario} />
                             <span className="cmp-sidebar-text-item">Inventario</span>
                             <span className={`material-symbols-outlined cmp-sidebar-text-item ${activeNavItem === 'proveedores' ? 'active' : ''}`}>
                                 expand_more
