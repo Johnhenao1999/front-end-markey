@@ -54,21 +54,21 @@ const CompNavegacionVertical = () => {
                         </button>
                     </NavLink>
                     
-                    <NavLink className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('clientes')}>
+                    <NavLink  to="/clientes" className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('clientes')}>
                         <button type="button">
                             <img src={imagesBarNav.iconTest} />
                             <span className="cmp-sidebar-text-item">Clientes</span>
-                            <span className={`material-symbols-outlined cmp-sidebar-text-item ${activeNavItem === 'clientes' ? 'active' : ''}`}>
+                            {/* <span className={`material-symbols-outlined cmp-sidebar-text-item ${activeNavItem === 'clientes' ? 'active' : ''}`}>
                                 expand_more
-                            </span>
+                            </span> */}
                         </button>
                     </NavLink>
 
-                    <div
+                    {/* <div
                         className={`subnav ${activeNavItem === 'clientes' ? 'active' : ''}`}
                         style={{ height: activeNavItem === 'clientes' ? '120px' : '0' }}>
                         <div className="cmp-sidebar-subnav-inner">
-                            <NavLink to="/clientes" className="cmp-sidebar-custom-link">
+                            <NavLink  className="cmp-sidebar-custom-link">
                                 <button type="button">
                                     <span className="cmp-sidebar-text-item">Ver clientes</span>
                                 </button>
@@ -80,7 +80,7 @@ const CompNavegacionVertical = () => {
                                 </button>
                             </NavLink>
                         </div>
-                    </div>
+                    </div> */}
 
                     <NavLink className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('pedidos')}>
                         <button type="button">
