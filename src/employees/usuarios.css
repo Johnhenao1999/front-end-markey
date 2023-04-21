@@ -482,6 +482,19 @@
   background: #4481eb !important;
 }
 
+.react-datepicker__year-dropdown{
+  background-color: #38d39f !important;
+  height: 260px !important;
+  overflow-y: auto !important;
+  color: white !important;
+  font-weight: 700;
+}
+
+.react-datepicker__year-read-view--selected-year{
+  color: white !important;
+  font-weight: 700 !important;
+}
+
 /*------------ESTILOS SUBLISTA CIUDADES --------------*/
 
 .suggestions {

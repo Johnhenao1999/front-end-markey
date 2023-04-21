@@ -160,12 +160,40 @@ const CompNavegacionVertical = () => {
                     </div>
 
 
-                    <NavLink to="/inventario" className="cmp-sidebar-custom-link">
+                    <NavLink className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('inventario')}>
                         <button type="button">
                             <img src={imagesBarNav.iconTest} />
                             <span className="cmp-sidebar-text-item">Inventario</span>
+                            <span className={`material-symbols-outlined cmp-sidebar-text-item ${activeNavItem === 'proveedores' ? 'active' : ''}`}>
+                                expand_more
+                            </span>
                         </button>
                     </NavLink>
+
+                    <div
+                        className={`subnav ${activeNavItem === 'inventario' ? 'active' : ''}`}
+                        style={{ height: activeNavItem === 'inventario' ? '300px' : '0' }}>
+                        <div className="cmp-sidebar-subnav-inner">
+                            <NavLink to="/maquinaria" className="cmp-sidebar-custom-link">
+                                <button type="button">
+                                    <span className="cmp-sidebar-text-item">Maquinaria</span>
+                                </button>
+                            </NavLink>
+
+                            <NavLink to="/insumos" className="cmp-sidebar-custom-link">
+                                <button type="button">
+                                    <span className="cmp-sidebar-text-item">Insumos</span>
+                                </button>
+                            </NavLink>
+
+                            <NavLink to="/telas" className="cmp-sidebar-custom-link">
+                                <button type="button">
+                                    <span className="cmp-sidebar-text-item">Telas</span>
+                                </button>
+                            </NavLink>
+
+                        </div>
+                    </div>
 
                 </nav>
             </div>

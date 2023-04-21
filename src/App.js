@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CompCreateUsuarios from './employees/CompCreateEmployees';
 import CompEditarUsuarios from './employees/CompEditEmployees';
 import CompHomePrincipalAdministrador from './home_administrador/homePrincipalAdministrador';
-import CompMostrarInventario from './gestion_inventario/mostrarInventario';
+import CompMostrarMaquinaria from './gestion_inventario/CompMostrarMaquinaria';
 import CompHomePrincipal from './home_principal/homePrincipal';
 import CompPruebaRegistro from './registro_horas_empleados/registrarHorasEmpleados';
 import CompMostrarHorasEmpleado from './employees/CompShowEmployeesTime';
@@ -26,6 +26,8 @@ import CompShowProveedor from './proveedores/CompShowProveedor';
 import CompUpdateProveedor from './proveedores/CompUpdateProveedor';
 import CompActualizarCliente from './gestion_clientes/CompActualizarCliente';
 import CompGestionarPedido from './gestion_pedidos/CompGestionPedido';
+import CompRegistrarMaquinaria from './gestion_inventario/CompRegistrarMaquinaria';
+import CompGestionarMaquinaria from './gestion_inventario/CompGestionarMaquinaria';
 
   
 function App() {
@@ -36,7 +38,6 @@ function App() {
         <Route path='/' element={<CompHomePrincipal />} />
           <Route path='/homeAdministrador' element={<CompHomePrincipalAdministrador />} />
           <Route path='/empleados' element={<CompShowUsuarios />} />
-          <Route path='/prueba' element={<CompMostrarInventario />} />
           <Route path='/create-employees' element={<CompCreateUsuarios />} />
           <Route path='/pruebaRegistro/:id' element={<CompPruebaRegistro />} />
           <Route path='/edit/:id' element={<CompEditarUsuarios />} />
@@ -56,6 +57,9 @@ function App() {
           <Route path='/actualizar-proveedor/:id' element={<CompUpdateProveedor />} />
           <Route path='/editar-cliente/:id' element={<CompActualizarCliente />} />
           <Route path='/gestionar-pedido/:id' element={<CompGestionarPedido />} />
+          <Route path='/maquinaria' element={<CompMostrarMaquinaria />} />
+          <Route path='/registrar-maquinaria' element={<CompRegistrarMaquinaria />} />
+          <Route path='/gestionar-maquinaria/:id' element={<CompGestionarMaquinaria />} />
         </Routes> 
       </BrowserRouter>
     </div>
