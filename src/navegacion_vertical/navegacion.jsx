@@ -1,8 +1,24 @@
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import './menuVertical.css'
-
 import imagesBarNav from './script';
+import axios from 'axios';
+
+async function handleLogout() {
+    try {
+        await axios.post('/logout', {}, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        localStorage.removeItem('token');
+        window.location.href = '/';
+    } catch (error) {
+        console.error('Error al cerrar sesión:', error);
+    }
+}
+
 
 const CompNavegacionVertical = () => {
 
@@ -40,7 +56,7 @@ const CompNavegacionVertical = () => {
                     <button type="button">
                         <img src={imagesBarNav.iconSettings} />
                     </button>
-                    <button type="button">
+                    <button type="button" onClick={handleLogout}>
                         <img src={imagesBarNav.iconExit} />
                     </button>
                 </nav>
@@ -53,8 +69,8 @@ const CompNavegacionVertical = () => {
                             <span className="cmp-sidebar-text-item">Empleados</span>
                         </button>
                     </NavLink>
-                    
-                    <NavLink  to="/clientes" className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('clientes')}>
+
+                    <NavLink to="/clientes" className="cmp-sidebar-custom-link" onClick={() => handleHeaderClicked('clientes')}>
                         <button type="button">
                             <img src={imagesBarNav.iconClientes} />
                             <span className="cmp-sidebar-text-item">Clientes</span>

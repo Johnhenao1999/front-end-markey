@@ -5,39 +5,41 @@ import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import imagesEmployees from './imgEmployees';
 
-const URI = 'http://localhost:8000/maquinas/'
 
-const CompMaquinaria = () => {
+const URI = 'http://localhost:8000/telas/'
 
-    const [inventarios, setInventario] = useState([])
+const CompMostrarTelas = () => {
+
+    const [telas, setTelas] = useState([])
     useEffect(() => {
-        getInventario()
+        getTelas()
     }, [])
 
     //Busqueda
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredMaquinaria, setFilteredMaquinaria] = useState([]);
+    const [filteredTelas, setFilteredTelas] = useState([]);
 
     //procedimineto para mostrar todos los blogs
-    const getInventario = async () => {
+    const getTelas = async () => {
         const res = await axios.get(URI)
-        setInventario(res.data)
+        setTelas(res.data)
     }
 
     //procedimineto para eliminar una maquina
-    const deleteInventario = async (id_maquina) => {
-        const prueba = await axios.delete(`${URI}${id_maquina}`)
-        getInventario()
+    const deleteTelas = async (id_telas) => {
+        const prueba = await axios.delete(`${URI}${id_telas}`)
+        getTelas()
         console.log(prueba)
     }
 
     //Procedimiento para realizar busqueda de empleados
     useEffect(() => {
-        const results = inventarios.filter((inventario) =>
-            inventario.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+        const results = telas.filter((tela) =>
+            tela.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            tela.color.toLowerCase().includes(searchTerm.toLowerCase())
         );
-        setFilteredMaquinaria(results);
-    }, [searchTerm, inventarios]);
+        setFilteredTelas(results);
+    }, [searchTerm, telas]);
 
 
 
@@ -47,18 +49,18 @@ const CompMaquinaria = () => {
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
                 <div className="cmp-screen-container-title">
-                    <p className='cmp-title-section-employees'>Maquinaria</p>
+                    <p className='cmp-title-section-employees'>Telas</p>
                     <div className="container-search-add">
                         <div className='search-container'>
                             <input
                                 type='text'
-                                placeholder='Buscar máquina...'
+                                placeholder='Buscar por nombre o color...'
                                 value={searchTerm}
                                 onChange={(event) => setSearchTerm(event.target.value)}
                             />
                             <button type="submit"><img src={imagesEmployees.iconSearch} alt="lupa" /></button>
                         </div>
-                        <Link className="btn-add-new-link" to="/registrar-maquinaria"><button type="submit" className="btn-add-new"><img src={imagesEmployees.iconAdd} alt="lupa" /><p>Agregar máquina</p></button></Link>
+                        <Link className="btn-add-new-link" to="/registrar-telas"><button type="submit" className="btn-add-new"><img src={imagesEmployees.iconAdd} alt="lupa" /><p>Agregar telas</p></button></Link>
                     </div>
                 </div>
                 <div className='table-empleados-container'>
@@ -66,22 +68,22 @@ const CompMaquinaria = () => {
                         <thead className='table-primary'>
                             <tr>
                                 <th>Nombre</th>
-                                <th>Marca</th>
-                                <th>Referencia agujas</th>
-                                <th>Estado</th>
+                                <th>Color</th>
+                                <th>Cantidad (mts)</th>
+                                <th>Fecha actualización</th>
                                 <th>Operaciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredMaquinaria.map((inventario) => (
-                                <tr key={inventario.id}>
-                                    <td> {inventario.nombre} </td>
-                                    <td> {inventario.marca} </td>
-                                    <td> {inventario.referencia_agujas} </td>
-                                    <td> {inventario.estado} </td>
+                            {filteredTelas.map((tela) => (
+                                <tr key={tela.id}>
+                                    <td> {tela.nombre} </td>
+                                    <td> {tela.color} </td>
+                                    <td> {tela.metros} </td>
+                                    <td> {tela.fecha_registro ? new Date(tela.fecha_registro).getDate() + ' ' + new Date(tela.fecha_registro).toLocaleString('default', { month: 'long' }) + ' de ' + new Date(tela.fecha_registro).getFullYear() : ''} </td>
                                     <td className="colum-table-actions">
-                                        <Link to={`/gestionar-maquinaria/${inventario.id_maquina}`} className='btn-action'><i className="fas fa-edit "></i></Link>
-                                        <Link onClick={() => deleteInventario(inventario.id_maquina)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                        <Link to={`/gestionar-telas/${tela.id_telas}`} className='btn-action'><i className="fas fa-edit "></i></Link>
+                                        <Link onClick={() => deleteTelas(tela.id_telas)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
                                     </td>
                                 </tr>
                             ))}
@@ -94,4 +96,4 @@ const CompMaquinaria = () => {
 
 }
 
-export default CompMaquinaria
+export default CompMostrarTelas;

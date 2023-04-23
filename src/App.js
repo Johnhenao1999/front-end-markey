@@ -28,6 +28,12 @@ import CompActualizarCliente from './gestion_clientes/CompActualizarCliente';
 import CompGestionarPedido from './gestion_pedidos/CompGestionPedido';
 import CompRegistrarMaquinaria from './gestion_inventario/CompRegistrarMaquinaria';
 import CompGestionarMaquinaria from './gestion_inventario/CompGestionarMaquinaria';
+import CompRegistrarInsumos from './gestion_insumos/CompRegistrarInsumo';
+import CompMostrarInsumos from './gestion_insumos/CompMostrarInsumos';
+import CompGestionInsumos from './gestion_insumos/CompGestionInsumos';
+import CompRegistrarTelas from './gestion_telas/CompRegistrarTelas';
+import CompMostrarTelas from './gestion_telas/CompMostrarTelas';
+import CompGestionTelas from './gestion_telas/CompGestionarTelas';
 
   
 function App() {
@@ -60,11 +66,18 @@ function App() {
           <Route path='/maquinaria' element={<CompMostrarMaquinaria />} />
           <Route path='/registrar-maquinaria' element={<CompRegistrarMaquinaria />} />
           <Route path='/gestionar-maquinaria/:id' element={<CompGestionarMaquinaria />} />
+          <Route path='/registrar-insumos' element={<CompRegistrarInsumos />} />
+          <Route path='/insumos' element={<CompMostrarInsumos />} />
+          <Route path='/gestionar-insumos/:id' element={<CompGestionInsumos />} />
+          <Route path='/registrar-telas' element={<CompRegistrarTelas />} />
+          <Route path='/telas' element={<CompMostrarTelas />} />
+          <Route path='/gestionar-telas/:id' element={<CompGestionTelas />} />
         </Routes> 
       </BrowserRouter>
     </div>
   );
 }
+
 
 export default App;
 
