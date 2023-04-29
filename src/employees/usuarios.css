@@ -1,0 +1,653 @@
+.modal {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 999999999999 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  outline: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  display: block !important;
+}
+
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 0.5rem;
+  pointer-events: none;
+}
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 1.75rem auto;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  outline: 0;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 1rem;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.75rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.modal-title {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+
+
+.text-danger {
+  color: red !important;
+  font-size: 14px !important;
+  margin-top: 5px !important;
+}
+
+/* ------------      SCROLL         -------------*/
+/* Para WebKit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F4F4F4;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #666666;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #333333;
+}
+
+/* ------------      CONTAINER PANTALLAS         -------------*/
+.cmp-screen-container {
+  overflow-y: auto;
+  background-color: #fafafb;
+  position: absolute;
+  top: 72px;
+  left: 322px;
+  height: calc(100% - 72px);
+  width: calc(100% - 322px);
+  padding: 10px 50px;
+}
+
+.cmp-screen-container-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cmp-title-section-employees {
+  font-size: 30px;
+  margin-right: 10px;
+}
+
+/* ------------      CONTAINER FORM         -------------*/
+.cmp-screem-section-form {
+  width: 100%;
+}
+
+.cmp-title-section-scree {
+  font-size: 30px;
+  border-bottom: 1px solid #05141f33;
+  padding-bottom: 10px;
+  margin: 20px 0 28px !important;
+}
+
+.markey-container-form-input {
+  font-size: 16px;
+  line-height: 20px;
+  border-bottom: 1px solid #05141f33;
+  padding-bottom: 10px;
+  margin: 20px 0 28px !important;
+}
+
+.cmp-markey-datos-input-employees {
+  display: flex;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 24px;
+}
+
+.markey-input-form {
+  background-color: #f7f7f8;
+  border: 0;
+  height: 44px;
+  padding-left: 10px;
+  width: 290px;
+  margin-right: 24px;
+  font-weight: 700;
+}
+
+.markey-input-form::placeholder {
+  color: black;
+}
+
+.markey-input-form:focus {
+  outline: none;
+  border: 2px solid;
+  border-image: linear-gradient(to right, #4481eb, #38d39f);
+  border-image-slice: 1;
+}
+
+.cmp-markey-select {
+  background: #f7f7f8 0 0 no-repeat padding-box;
+  border-color: #f7f7f8;
+  font-weight: 700;
+  height: 44px;
+  left: 935px;
+  margin: 2px;
+  opacity: 1;
+  padding-left: 6px;
+  top: 365px;
+  width: 290px;
+  margin-right: 24px;
+}
+
+.cmp-markey-select:focus {
+  outline: none;
+  border: 2px solid;
+  border-image: linear-gradient(to right, #4481eb, #38d39f);
+  border-image-slice: 1;
+}
+
+
+/* ------------      BOTON ENVIO FORM         -------------*/
+
+.button-enviar-form {
+  display: block;
+  width: 290px;
+  height: 50px;
+  outline: none;
+  border: none;
+  background-image: linear-gradient(to right, #4481eb, #38d39f, #32be8f);
+  background-size: 200%;
+  font-size: 1.2rem;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.button-enviar-form:hover {
+  background-position: right;
+}
+
+@media (width < 900px) {
+
+  .cmp-screen-container {
+    left: 71px;
+    width: calc(100% - 72px);
+    padding: 10px 20px;
+  }
+
+  .cmp-markey-datos-input-container-employees {
+    width: 100%;
+  }
+
+  .markey-input-form {
+    width: 100%;
+
+  }
+
+  .cmp-markey-select {
+    width: 100%;
+  }
+
+  .cmp-markey-datos-input-employees {
+    flex-direction: column;
+  }
+
+  .markey-input-form-alt {
+    margin-bottom: 24px;
+  }
+
+  .cmp-markey-select-alt {
+    margin-bottom: 24px;
+  }
+
+  .container-button-enviar-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}
+
+/* ------------  ESTILOS PANTALLA CREAR USUARIO  -------------*/
+
+
+
+.cmp-markey-nombreEmpleado {
+  color: #4481eb;
+  font-weight: 700;
+  display: contents;
+}
+
+.cmp-markey-nombreCliente {
+  color: #4481eb;
+  font-weight: 700;
+  border-bottom: 1px solid #05141f33;
+  padding-bottom: 10px;
+  margin-top: -15px;
+  font-size: 25px;
+}
+
+.markey-subtitle-employees {
+  font-size: 25px;
+}
+
+.cmp-markey-container-create-employees {
+  display: flex;
+}
+
+.cmp-markey-form-create-employees {
+  width: 100%;
+}
+
+
+
+.cmp-markey-container-input-employees {
+  position: absolute;
+  top: 72px;
+  left: 322px;
+  width: 100%;
+  background: #fafafb;
+  padding: 80px 5pc 65px;
+
+}
+
+
+/*---------------- FORM AGREGAR HORAS EMPLEADO  -------------*/
+
+.cmp-markey-container-form-hour {
+  background: #fafafb;
+  border-bottom: 1px solid #05141f33;
+  padding-bottom: 10px;
+  background: #fafafb;
+  padding: 40px 5pc 65px;
+  width: 100%;
+}
+
+/*---------------- MOSTRAR EMPLEADOS -------------*/
+
+.cmp-container-show-employees {
+  background: #fafafb;
+  padding: 80px 5pc 65px;
+  width: 100%;
+  margin-left: 330px;
+}
+
+
+/*---------------- BARRA DE BUSQUEDA -------------*/
+.search-container {
+  width: 100%;
+  max-width: 500px;
+  height: 50px;
+  border: 2px solid transparent;
+  /* establece un borde transparente de 2 píxeles */
+  border-image: linear-gradient(to right, #4481eb, #38d39f);
+  /* establece un borde degradado */
+  border-image-slice: 1;
+  /* establece el ancho de la sección de la imagen que se usa para el borde */
+  display: flex;
+  align-items: center;
+  border-radius: 60px;
+  backdrop-filter: blur(4px) saturate(180%);
+  margin-bottom: 20px;
+
+}
+
+.search-container input {
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  padding: 0px 20px;
+  font-size: 20px;
+  color: #4481eb;
+  width: 100%;
+  padding: 10px;
+  border: none;
+}
+
+::placeholder {
+  color: #4481eb;
+}
+
+.search-container button img {
+  width: 25px;
+}
+
+.search-container button {
+  border: 0;
+  width: 60px;
+  height: inherit;
+  background: #4481eb;
+  cursor: pointer;
+}
+
+.container-search-add {
+  display: flex;
+  justify-content: end;
+}
+
+.container-search-add .btn-add-new-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.btn-add-new {
+  display: flex;
+  align-items: center;
+  background-color: #38d39f;
+  color: #FFFFFF;
+  height: 50px;
+  width: auto;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
+.btn-add-new>p {
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 710px) {
+
+  .btn-add-new p {
+    display: none;
+  }
+}
+
+
+
+@media (width < 700px) {
+  .cmp-screen-container-title {
+    flex-direction: column;
+  }
+
+  .search-container {
+    max-width: 100%;
+  }
+
+  .search-container input {
+    font-size: 15px;
+  }
+
+  .container-search-add {
+    justify-content: center;
+  }
+}
+
+@media (width < 394px) {
+  .search-container button {
+    display: none;
+  }
+}
+
+/*---------------- TABLA -------------*/
+.table-empleados-container {
+  width: 100%;
+  height: 90%;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.table-empleados {
+  width: inherit;
+  border-collapse: collapse;
+}
+
+.table-empleados thead th {
+  background-color: #38d39f;
+  color: #FFFFFF;
+  font-size: 20px;
+}
+
+.table-empleados th,
+td {
+  border-bottom: 1px solid #dddddd;
+  padding: 10px 20px;
+  word-break: break-all;
+  text-align: center;
+
+  /* border: 1px solid black; */
+  padding: 5px;
+}
+
+/* .table-empleados tr:first-child {
+  border-top: 2px solid black;
+}
+.table-empleados tr:last-child {
+  border-bottom: 2px solid black;
+} */
+
+.table-empleados tr {
+  border: 1px solid black;
+}
+
+.table-empleados tr:hover td {
+  color: #4481eb;
+  cursor: pointer;
+  background-color: #f6f9fc;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.colum-table-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.colum-table-actions .btn-action {
+  outline: none !important;
+  border: none !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  padding: 10px !important;
+}
+
+.colum-table-actions a:nth-child(1) {
+  background-color: #4481eb;
+  color: #FFFFFF;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 10px;
+}
+
+.colum-table-actions a:nth-child(2) {
+  background-color: #F80000;
+  color: #FFFFFF;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 10px;
+}
+
+/*-------------REGISTRO DE PEDIDOS ---------------- */
+
+.cmp-markey-textarea {
+  min-height: 100px;
+  width: 470px;
+}
+
+.cmp-markey-textarea:focus {
+  outline: none;
+  border: 2px solid;
+  border-image: linear-gradient(to right, #4481eb, #38d39f);
+  border-image-slice: 1;
+}
+
+
+/*------------ ESTILOS CALENDARIO CUSTOM --------*/
+
+.react-datepicker__header {
+  background: #38d39f !important;
+}
+
+.react-datepicker__current-month {
+  color: white !important;
+}
+
+.react-datepicker__day-name {
+  color: white !important;
+}
+
+.react-datepicker__day--selected {
+  background: #4481eb !important;
+}
+
+.react-datepicker__year-dropdown {
+  background-color: #38d39f !important;
+  height: 260px !important;
+  overflow-y: auto !important;
+  color: white !important;
+  font-weight: 700;
+}
+
+.react-datepicker__year-read-view--selected-year {
+  color: white !important;
+  font-weight: 700 !important;
+}
+
+/*------------ESTILOS SUBLISTA CIUDADES --------------*/
+
+.suggestions {
+  position: absolute;
+  z-index: 999;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 0;
+  margin-top: 2px;
+  width: 290px;
+}
+
+.suggestion-item {
+  list-style-type: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+  background-color: #f2f2f2;
+}
+
+
+/*----------ESTILO BUTTON ELIMINAR HORAS ------------ */
+
+.colum-table-actions-hours .btn-action {
+  outline: none !important;
+  border: none !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  padding: 10px !important;
+}
+
+.colum-table-actions-hours {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.colum-table-actions-hours a:nth-child(1) {
+  background-color: #F80000;
+  color: #FFFFFF;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 10px;
+}
+
+/*--------------ESTILOS HOME ADMINISTRADOR ------------------*/
+
+.cmp-container-cards {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  background-image: linear-gradient(to right, #4481eb, #38d39f, #32be8f);
+  background-position: bottom;
+  background-size: 100% 3px;
+  background-repeat: no-repeat;
+  margin: 20px 0 28px !important;
+}
+
+.cmp-section-pedidos {
+  width: 200px;
+  height: 100px;
+  background-color: #38d39f;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.cmp-title-card {
+  margin: 10px 0px 0px 10px;
+  color: #FFFFFF;
+  font-weight: 700px;
+  font-family: "Poppins";
+  font-size: 18px;
+}
+
+.cmp-valor-card {
+  margin: 10px 0px 0px 10px;
+  color: #FFFFFF;
+  font-weight: 700px;
+  font-family: "Poppins";
+  font-size: 20px;
+}
+
+.cmp-grafico {
+  width: 50%;
+  height: 300px;
+  margin: 0 auto;
+}

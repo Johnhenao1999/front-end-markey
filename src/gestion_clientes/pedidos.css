@@ -1,0 +1,157 @@
+  .button-delete-item{
+    display: block;
+    width: 80px;
+    height: 44px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, #4481eb, #38d39f, #32be8f);
+    background-size: 200%;
+    font-size: 12px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .5s;
+    text-align: center;
+  }
+
+  .markey-input-form-items {
+    background-color: #f7f7f8;
+    border: 0;
+    height: 44px;
+    padding-left: 10px;
+    width: 170px;
+    margin-right: 24px;
+    font-weight: 700;
+  }
+  
+  .markey-input-form-items::placeholder {
+    color: black;
+  }
+  
+  .markey-input-form-items:focus {
+    outline: none;
+    border: 2px solid;
+    border-image: linear-gradient(to right, #4481eb, #38d39f);
+    border-image-slice: 1;
+  }
+
+  .button-enviar-form-items {
+    display: block;
+    width: 170px;
+    height: 50px;
+    outline: none;
+    border: none;
+    background-image: linear-gradient(to right, #4481eb, #38d39f, #32be8f);
+    background-size: 200%;
+    font-size: 0.9rem;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    margin: 1rem 0;
+    cursor: pointer;
+    transition: .5s;
+  }
+  
+  .button-enviar-form-items:hover {
+    background-position: right;
+  }
+  
+  .cmp-container-form-button{
+    display: flex;
+  }
+
+  .markey-container-form-input-items{
+    font-size: 16px;
+    line-height: 20px;
+    border-bottom: 1px solid #05141f33;
+    padding-bottom: 10px;
+    margin: 20px 0 28px !important;
+    display: flex;
+  }
+
+  .modal-pedidos {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content-pedidos {
+    position: relative;
+    background-color: #fefefe;
+    border-radius: 5px;
+    padding: 20px;
+    max-width: 500px;
+    max-height: 80%;
+    overflow-y: auto;
+  }
+  
+  .modal-header-pedidos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .modal-header-pedidos h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .modal-close-pedidos {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .modal-close-pedidos:hover {
+    color: #333;
+  }
+  
+  .modal-body-pedidos {
+    margin-bottom: 20px;
+  }
+  
+  .modal-footer-pedidos {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .modal-footer-pedidos button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+  }
+  
+  .modal-footer-pedidos button:hover {
+    background-color: #3e8e41;
+  }
+
+  .cmp-detalles-pedido{
+    display: flex;
+    list-style: none;
+  }
+
+  .cmp-item-pedido{
+    padding-top: 10px;
+    margin-right: 10px;
+  }
+  
