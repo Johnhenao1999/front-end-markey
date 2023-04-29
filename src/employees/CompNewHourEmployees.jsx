@@ -12,6 +12,7 @@ import CompHeader from "../header/header";
 
 const URI = 'http://localhost:8000/holamundo/'
 const URIE = 'http://localhost:8000/empleados/'
+const URI_CONFIGURACIONES = 'http://localhost:8000/configuracion/'
 
 const CompIngresarHora = () => {
     const [horaEntradaManana, setHoraIngresoManana] = useState('');
@@ -21,6 +22,8 @@ const CompIngresarHora = () => {
     const [totalHoras, setTotalHoras] = useState(0);
     const [totalMultiplicado, setTotalMultiplicado] = useState(0);
     const [nombreEmpleado, setNombreEmpleado] = useState([]);
+    const [nombre_admin, setNombreAdmin] = useState('');
+    const [valor_hora, setValorHora] = useState('');
 
     const navigate = useNavigate();
 
@@ -32,11 +35,23 @@ const CompIngresarHora = () => {
         }
     }, [idEmpleado]);
 
+
     const getInformacionEmpleado = async (idEmpleado) => {
         const resprueba = await axios.get(`${URIE}${idEmpleado}`);
         setNombreEmpleado(resprueba.data);
         console.log("Que trae resprueba", resprueba)
     };
+
+    useEffect(() => {
+        getConfiguraciones();
+    }, [])
+
+    const getConfiguraciones = async () => {
+        const res = await axios.get(URI_CONFIGURACIONES)
+        setNombreAdmin(res.data[0].nombre_admin)
+        setValorHora(res.data[0].valor_hora)
+        console.log("que tra res", res)
+    }
 
 
     useEffect(() => {
@@ -44,7 +59,7 @@ const CompIngresarHora = () => {
         const horasTarde = calcularHoras(horaIngreso, horaSalida);
         const total = horasManana + horasTarde;
         setTotalHoras(total.toFixed(2));
-        setTotalMultiplicado(total * 4500);
+        setTotalMultiplicado(total * valor_hora);
     }, [horaEntradaManana, horaSalidaManana, horaIngreso, horaSalida]);
 
     // Función para calcular las horas entre dos tiempos en formato 'hh:mm'

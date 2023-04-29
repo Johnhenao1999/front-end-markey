@@ -608,3 +608,46 @@ td {
   justify-content: center;
   margin: 0px 10px;
 }
+
+/*--------------ESTILOS HOME ADMINISTRADOR ------------------*/
+
+.cmp-container-cards {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  background-image: linear-gradient(to right, #4481eb, #38d39f, #32be8f);
+  background-position: bottom;
+  background-size: 100% 3px;
+  background-repeat: no-repeat;
+  margin: 20px 0 28px !important;
+}
+
+.cmp-section-pedidos {
+  width: 200px;
+  height: 100px;
+  background-color: #38d39f;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.cmp-title-card {
+  margin: 10px 0px 0px 10px;
+  color: #FFFFFF;
+  font-weight: 700px;
+  font-family: "Poppins";
+  font-size: 18px;
+}
+
+.cmp-valor-card {
+  margin: 10px 0px 0px 10px;
+  color: #FFFFFF;
+  font-weight: 700px;
+  font-family: "Poppins";
+  font-size: 20px;
+}
+
+.cmp-grafico {
+  width: 50%;
+  height: 300px;
+  margin: 0 auto;
+}

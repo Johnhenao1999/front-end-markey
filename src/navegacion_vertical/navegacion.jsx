@@ -53,9 +53,11 @@ const CompNavegacionVertical = () => {
                             <img src={imagesBarNav.iconoHome} />
                         </button>
                     </NavLink>
-                    <button type="button">
-                        <img src={imagesBarNav.iconSettings} />
-                    </button>
+                    <NavLink to="/configuracion">
+                        <button type="button">
+                            <img src={imagesBarNav.iconSettings} />
+                        </button>
+                    </NavLink>
                     <button type="button" onClick={handleLogout}>
                         <img src={imagesBarNav.iconExit} />
                     </button>

@@ -133,7 +133,7 @@ const CompCrearPedido = () => {
                                 <option value="Confección">Confección</option>
                                 <option value="Control de calidad">Control de calidad</option>
                                 <option value="Empaque">Empaque</option>
-                                <option value="Entrega del producto">Pedido finalizado</option>
+                                <option value="Pedido finalizado">Pedido finalizado</option>
                             </select>
                         </li>
                     </ul>

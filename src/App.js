@@ -34,6 +34,7 @@ import CompGestionInsumos from './gestion_insumos/CompGestionInsumos';
 import CompRegistrarTelas from './gestion_telas/CompRegistrarTelas';
 import CompMostrarTelas from './gestion_telas/CompMostrarTelas';
 import CompGestionTelas from './gestion_telas/CompGestionarTelas';
+import CompConfiguraciones from './configuraciones/compConfiguraciones';
 
   
 function App() {
@@ -72,6 +73,7 @@ function App() {
           <Route path='/registrar-telas' element={<CompRegistrarTelas />} />
           <Route path='/telas' element={<CompMostrarTelas />} />
           <Route path='/gestionar-telas/:id' element={<CompGestionTelas />} />
+          <Route path='/configuracion' element={<CompConfiguraciones />} />
         </Routes> 
       </BrowserRouter>
     </div>
