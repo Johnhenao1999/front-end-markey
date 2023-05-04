@@ -20,36 +20,38 @@ const CompEditarUsuarios = () => {
     const [estado_civil, setEstadoCivil] = useState('');
     const [estado_empleado, setEstadoEmpleado] = useState('');
     const [numero_emergencia, setNumeroEmergencia] = useState('');
-    const [adminNamesCiudades, setAdminNamesCiudades] = useState([]);
+    const [, setAdminNamesCiudades] = useState([]);
     const [sugerencias, setSugerencias] = useState([]);
     const [showModal, setShowModal] = useState('');
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        getEmpleadoById();
-    }, [])
+        const getEmpleadoById = async () => {
+            const res = await axios.get(URI + id)
+            setCedula(res.data[0].idcedula)
+            setNombre(res.data[0].nombre)
+            setApellido(res.data[0].apellido)
+            setTelefono(res.data[0].telefono)
+            setEdad(res.data[0].edad)
+            setCiudad(res.data[0].ciudad)
+            setDireccion(res.data[0].direccion)
+            setEspecialidad(res.data[0].especialidad)
+            setEstadoCivil(res.data[0].estado_civil)
+            setEstadoEmpleado(res.data[0].estado_empleado)
+            setNumeroEmergencia(res.data[0].numero_emergencia)
+            console.log("que tra res", res)
+        }
 
-    const getEmpleadoById = async () => {
-        const res = await axios.get(URI + id)
-        setCedula(res.data[0].idcedula)
-        setNombre(res.data[0].nombre)
-        setApellido(res.data[0].apellido)
-        setTelefono(res.data[0].telefono)
-        setEdad(res.data[0].edad)
-        setCiudad(res.data[0].ciudad)
-        setDireccion(res.data[0].direccion)
-        setEspecialidad(res.data[0].especialidad)
-        setEstadoCivil(res.data[0].estado_civil)
-        setEstadoEmpleado(res.data[0].estado_empleado)
-        setNumeroEmergencia(res.data[0].numero_emergencia)
-        console.log("que tra res", res)
-    }
+        getEmpleadoById();
+    }, [id])
 
     const actualizar = async (e) => {
         e.preventDefault()
-        const empleado = { idcedula, nombre, apellido, telefono }
-        await axios.put(URI + id, empleado)
+        const empleado = { idcedula, nombre, apellido, telefono, edad, ciudad, direccion, especialidad, estado_civil, estado_empleado, numero_emergencia }
+        let hola = await axios.put(URI + id, empleado)
+        console.log(hola)
+
         window.location.href = "/empleados"
     }
 
@@ -84,12 +86,12 @@ const CompEditarUsuarios = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
-                <p className='cmp-title-section-scree'>Actualizar información del empleado</p>
+                <p className='cmp-title-section-scree'>Gestionar información del empleado</p>
                 <form onSubmit={actualizar} className='cmp-screem-section-form'>
                     <div className='markey-container-form-input'>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li>
-                            <p className='cmp-subtitle-create-pedido'>Cédula</p>
+                                <p className='cmp-subtitle-create-pedido'>Cédula</p>
                                 <input
                                     value={idcedula}
                                     onChange={(e) => {
@@ -98,22 +100,13 @@ const CompEditarUsuarios = () => {
                                     type="text"
                                     className='markey-input-form'
                                     maxLength={10}
-                                    placeholder='Cedula'
-                                    pattern="[0-9]{10}"
                                     title="Debe contener exactamente 10 dígitos numéricos"
-                                    onKeyPress={(e) => {
-                                        const onlyNumbers = /[0-9]/;
-                                        const key = String.fromCharCode(e.keyCode || e.which);
-                                        if (!onlyNumbers.test(key)) {
-                                            e.preventDefault();
-                                        }
-                                    }}
                                 />
                             </li>
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li>
-                            <p className='cmp-subtitle-create-pedido'>Nombre</p>
+                                <p className='cmp-subtitle-create-pedido'>Nombre</p>
                                 <input
                                     value={nombre}
                                     onChange={(e) => setNombre(e.target.value)}
@@ -123,7 +116,7 @@ const CompEditarUsuarios = () => {
                                 />
                             </li>
                             <li>
-                            <p className='cmp-subtitle-create-pedido'>Apellido</p>
+                                <p className='cmp-subtitle-create-pedido'>Apellido</p>
                                 <input
                                     value={apellido}
                                     onChange={(e) => setApellido(e.target.value)}
@@ -135,7 +128,7 @@ const CompEditarUsuarios = () => {
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li>
-                            <p className='cmp-subtitle-create-pedido'>Télefono</p>
+                                <p className='cmp-subtitle-create-pedido'>Télefono</p>
                                 <input
                                     value={telefono}
                                     onChange={(e) => setTelefono(e.target.value)}
@@ -147,7 +140,7 @@ const CompEditarUsuarios = () => {
                                 />
                             </li>
                             <li>
-                            <p className='cmp-subtitle-create-pedido'>Edad</p>
+                                <p className='cmp-subtitle-create-pedido'>Edad</p>
                                 <input
                                     value={edad}
                                     onChange={(e) => setEdad(e.target.value)}
@@ -163,7 +156,7 @@ const CompEditarUsuarios = () => {
                     <div className='markey-container-form-input'>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li>
-                            <p className='cmp-subtitle-create-pedido'>Ciudad</p>
+                                <p className='cmp-subtitle-create-pedido'>Ciudad</p>
                                 <input
                                     value={ciudad}
                                     onChange={handleChange}
@@ -171,7 +164,7 @@ const CompEditarUsuarios = () => {
                                     placeholder='Ciudad'
                                     className='markey-input-form'
                                 />
-                                    <ul className='suggestions'>
+                                <ul className='suggestions'>
                                     {sugerencias.map((suggestion) => (
                                         <li className='suggestion-item' key={suggestion} onClick={() => handleSuggestionClick(suggestion)}>
                                             {suggestion.city}
@@ -180,7 +173,7 @@ const CompEditarUsuarios = () => {
                                 </ul>
                             </li>
                             <li>
-                            <p className='cmp-subtitle-create-pedido'>Dirección</p>
+                                <p className='cmp-subtitle-create-pedido'>Dirección</p>
                                 <input
                                     value={direccion}
                                     onChange={(e) => setDireccion(e.target.value)}
@@ -192,7 +185,7 @@ const CompEditarUsuarios = () => {
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li>
-                        <p className='cmp-subtitle-create-pedido'>Especialidad</p>
+                                <p className='cmp-subtitle-create-pedido'>Especialidad</p>
                                 <select value={especialidad} onChange={(e) => setEspecialidad(e.target.value)} className='cmp-markey-select'>
                                     <option value="">Especialidad</option>
                                     <option value="Maquinaria plana">Maquinara plana</option>
@@ -201,7 +194,7 @@ const CompEditarUsuarios = () => {
                                 </select>
                             </li>
                             <li>
-                        <p className='cmp-subtitle-create-pedido'>Estado civil</p>
+                                <p className='cmp-subtitle-create-pedido'>Estado civil</p>
                                 <select value={estado_civil} onChange={(e) => setEstadoCivil(e.target.value)} className='cmp-markey-select'>
                                     <option value="">Estado civil</option>
                                     <option value="Soltero">Soltero</option>
@@ -212,7 +205,7 @@ const CompEditarUsuarios = () => {
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li>
-                        <p className='cmp-subtitle-create-pedido'>Estado del empleado</p>
+                                <p className='cmp-subtitle-create-pedido'>Estado del empleado</p>
                                 <select value={estado_empleado} onChange={(e) => setEstadoEmpleado(e.target.value)} className='cmp-markey-select'>
                                     <option value="">Estado del empleado</option>
                                     <option value="Soltero">Activo</option>
@@ -220,7 +213,7 @@ const CompEditarUsuarios = () => {
                                 </select>
                             </li>
                             <li>
-                        <p className='cmp-subtitle-create-pedido'>Número de emergencia</p>
+                                <p className='cmp-subtitle-create-pedido'>Número de emergencia</p>
                                 <input
                                     value={numero_emergencia}
                                     onChange={(e) => setNumeroEmergencia(e.target.value)}

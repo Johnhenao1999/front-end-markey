@@ -6,4 +6,4 @@ const imagesEmployees = {
 
   };
   
-  export default imagesEmployees;
+  export default imagesEmployees; 

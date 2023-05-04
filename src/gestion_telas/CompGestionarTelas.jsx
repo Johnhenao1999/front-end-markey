@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import DatePicker from 'react-datepicker';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
@@ -16,29 +15,28 @@ const CompGestionTelas = () => {
     const [precio, setPrecio] = useState('');
     const [observaciones, setObservaciones] = useState('');
     const [precio_total, setPrecioTotal] = useState('');
-    const [fechaActualiacion, setFechaActualizacion] = useState('');
-    const [precio_total_formateado, setPrecioTotalFormateado] = useState('');
-    const [diasTranscurridos, setDiasTranscurridos] = useState('');
+    const [fechaActualiacion,] = useState('');
+    const [, setDiasTranscurridos] = useState('');
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        const getTelas = async () => {
+            let infoTelas = await axios.get(URI + id);
+            setNombre(infoTelas.data[0].nombre);
+            setColor(infoTelas.data[0].color);
+            setMetros(infoTelas.data[0].metros);
+            setPrecio(infoTelas.data[0].precio);
+            setObservaciones(infoTelas.data[0].observaciones);
+            setPrecioTotal(infoTelas.data[0].precio_total);
+            const fechaActual = new Date();
+            const diasDiferencia = Math.floor((fechaActual - new Date(infoTelas.data[0].fecha_registro)) / (1000 * 60 * 60 * 24));
+            setDiasTranscurridos(diasDiferencia);
+            console.log("que tra telas", infoTelas)
+        }
+    
         getTelas();
-    }, [])
-
-    const getTelas = async () => {
-        let infoTelas = await axios.get(URI + id);
-        setNombre(infoTelas.data[0].nombre);
-        setColor(infoTelas.data[0].color);
-        setMetros(infoTelas.data[0].metros);
-        setPrecio(infoTelas.data[0].precio);
-        setObservaciones(infoTelas.data[0].observaciones);
-        setPrecioTotal(infoTelas.data[0].precio_total);
-        const fechaActual = new Date();
-        const diasDiferencia = Math.floor((fechaActual - new Date(infoTelas.data[0].fecha_registro)) / (1000 * 60 * 60 * 24));
-        setDiasTranscurridos(diasDiferencia);
-        console.log("que tra telas", infoTelas)
-    }
+    }, [id])
 
     const actualizar = async () => {
         const fechaActual = new Date(fechaActualiacion).toISOString().slice(0, 10);

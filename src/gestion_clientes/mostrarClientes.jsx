@@ -9,12 +9,12 @@ import imagesEmployees from './imgEmployees';
 
 const URI = 'http://localhost:8000/clientes'
 
-const CompShowClientes = () => {
+const CompShowClientes = () => { 
 
     const [clientes, setClientes] = useState([])
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredClientes, setFilteredClientes] = useState([]);
-    const [loading, setLoading] = useState(true) // agregar estado loading
+    const [, setLoading] = useState(true) // agregar estado loading
     useEffect(() => {
         getClientes()
     }, [])

@@ -1,5 +1,3 @@
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
 import './header.css' 
 
 /* import imagesBarNav from './script'; */

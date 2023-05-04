@@ -41,12 +41,28 @@
   justify-content: space-between;
   padding: 1rem;
   border-bottom: 1px solid #dee2e6;
+  background: #38d39f;
+}
+
+.close {
+  align-items: center;
+  width: 0;
+  font-size: 30px;
+}
+
+.btn {
+  width: 100%;
+  font-weight: 700 !important;
+  background-color: #4481eb !important;
+  color: #FFFFFF !important;
+
 }
 
 .modal-body {
   position: relative;
   flex: 1 1 auto;
   padding: 1rem;
+  font-weight: 700;
 }
 
 .modal-footer {
@@ -57,9 +73,15 @@
   border-top: 1px solid #dee2e6;
 }
 
+.cmp-nombre-modal{
+  color: #4481eb;
+  font-weight: 700;
+}
+
 .modal-title {
   margin-bottom: 0;
   line-height: 1.5;
+  font-weight: 700;
 }
 
 
@@ -68,6 +90,7 @@
   color: red !important;
   font-size: 14px !important;
   margin-top: 5px !important;
+  font-weight: 700;
 }
 
 /* ------------      SCROLL         -------------*/
@@ -362,7 +385,7 @@
 
 .container-search-add {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .container-search-add .btn-add-new-link {
@@ -650,4 +673,31 @@ td {
   width: 50%;
   height: 300px;
   margin: 0 auto;
+}
+
+.cmp-markey-graficos {
+  width: 50%;
+  height: 100%;
+}
+
+.cmp-container-graficas {
+  display: flex;
+  height: 300px;
+}
+
+.cmp-markey-nombre-admin {
+  color: #4481eb;
+  font-weight: 700;
+  font-size: 25px;
+  padding-bottom: 10px;
+  background-image: linear-gradient(to right, #4481eb, #38d39f, #32be8f);
+  background-position: bottom;
+  background-size: 100% 3px;
+  background-repeat: no-repeat;
+}
+
+.cmp-markey-title-graficos {
+  color: #4481eb;
+  font-weight: 700;
+  font-size: 20px;
 }

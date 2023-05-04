@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import DatePicker from 'react-datepicker';
@@ -9,7 +9,6 @@ const URI = 'http://localhost:8000/pedidos-cliente/'
 
 const CompGestionarPedido = () => {
     const { id } = useParams();
-    const [id_cliente, setCliente] = useState('');
     const [fecha, setFecha] = useState('');
     const [descripcion_pedido, setDescripcionPedido] = useState('');
     const [fecha_finalizacion, setFechaFinalizacion] = useState(null);
@@ -17,29 +16,26 @@ const CompGestionarPedido = () => {
     const [anticipo_pedido, setanticipo_pedido] = useState('');
     const [precio_pedido, setprecio_pedido] = useState('');
     const [precioFaltantePedido, setPrecioFaltante] = useState('');
-    const [nombreCliente, setNombreCliente] = useState([]);
-    const [showModal, setShowModal] = useState('');
 
-    const navigate = useNavigate();
 
     useEffect(() => {
+        const getPedido = async () => {
+            const res = await axios.get(URI + id)
+            const fechaString = res.data[0].fecha;
+            const fechaDate = new Date(fechaString);
+            setFecha(fechaDate);
+            setprecio_pedido(res.data[0].precio_pedido)
+            setanticipo_pedido(res.data[0].anticipo_pedido)
+            setEstadoPedido(res.data[0].estado_pedido)
+            setDescripcionPedido(res.data[0].descripcion_pedido)
+            const fechaFinalizacionString = res.data[0].fecha_finalizacion;
+            const fechaFinalizacionDate = new Date(fechaFinalizacionString);
+            setFechaFinalizacion(fechaFinalizacionDate);
+            console.log("Que tra gestion pedido", res)
+        }
+    
         getPedido();
-    }, [])
-
-    const getPedido = async () => {
-        const res = await axios.get(URI + id)
-        const fechaString = res.data[0].fecha;
-        const fechaDate = new Date(fechaString);
-        setFecha(fechaDate);
-        setprecio_pedido(res.data[0].precio_pedido)
-        setanticipo_pedido(res.data[0].anticipo_pedido)
-        setEstadoPedido(res.data[0].estado_pedido)
-        setDescripcionPedido(res.data[0].descripcion_pedido)
-        const fechaFinalizacionString = res.data[0].fecha_finalizacion;
-        const fechaFinalizacionDate = new Date(fechaFinalizacionString);
-        setFechaFinalizacion(fechaFinalizacionDate);
-        console.log("Que tra gestion pedido", res)
-    }
+    }, [id])
 
 
     const actualizar = async (e) => {

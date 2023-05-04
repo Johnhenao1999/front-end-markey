@@ -1,13 +1,12 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
-const URI = 'http://localhost:8000/registrar-maquinaria'
+const URI = 'http://localhost:8000/registrar-maquinaria' 
 
 const CompRegistrarMaquinaria = () => {
     const [nombre, setNombre] = useState('');

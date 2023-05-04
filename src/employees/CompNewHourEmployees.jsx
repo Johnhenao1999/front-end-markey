@@ -1,8 +1,7 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './usuarios.css'
-import { useLocation } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
@@ -22,7 +21,7 @@ const CompIngresarHora = () => {
     const [totalHoras, setTotalHoras] = useState(0);
     const [totalMultiplicado, setTotalMultiplicado] = useState(0);
     const [nombreEmpleado, setNombreEmpleado] = useState([]);
-    const [nombre_admin, setNombreAdmin] = useState('');
+    const [, setNombreAdmin] = useState('');
     const [valor_hora, setValorHora] = useState('');
 
     const navigate = useNavigate();
@@ -30,17 +29,16 @@ const CompIngresarHora = () => {
     const { idEmpleado } = useParams();
 
     useEffect(() => {
+        const getInformacionEmpleado = async (idEmpleado) => {
+          const resprueba = await axios.get(`${URIE}${idEmpleado}`);
+          setNombreEmpleado(resprueba.data);
+          console.log("Que trae resprueba", resprueba)
+        };
+        
         if (idEmpleado) {
-            getInformacionEmpleado(idEmpleado);
+          getInformacionEmpleado(idEmpleado);
         }
-    }, [idEmpleado]);
-
-
-    const getInformacionEmpleado = async (idEmpleado) => {
-        const resprueba = await axios.get(`${URIE}${idEmpleado}`);
-        setNombreEmpleado(resprueba.data);
-        console.log("Que trae resprueba", resprueba)
-    };
+      }, [idEmpleado]);
 
     useEffect(() => {
         getConfiguraciones();
@@ -60,7 +58,7 @@ const CompIngresarHora = () => {
         const total = horasManana + horasTarde;
         setTotalHoras(total.toFixed(2));
         setTotalMultiplicado(total * valor_hora);
-    }, [horaEntradaManana, horaSalidaManana, horaIngreso, horaSalida]);
+      }, [horaEntradaManana, horaSalidaManana, horaIngreso, horaSalida, valor_hora]);
 
     // Función para calcular las horas entre dos tiempos en formato 'hh:mm'
     const calcularHoras = (horaInicio, horaFin) => {
@@ -105,7 +103,7 @@ const CompIngresarHora = () => {
                             <input
                                 type="text"
                                 className='markey-input-form'
-                                placeholder="Hora de ingreso"
+                                placeholder="Hora de ingreso" 
                                 value={horaEntradaManana}
                                 onChange={(e) => setHoraIngresoManana(e.target.value)} />
                         </li>

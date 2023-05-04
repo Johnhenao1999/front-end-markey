@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
@@ -11,13 +10,13 @@ const URI_CONFIGURACIONES = 'http://localhost:8000/configuracion/'
 const CompConfiguraciones = () => {
     const [nombre_admin, setNombreAdmin] = useState('');
     const [valor_hora, setValorHora] = useState('');
-    const navigate = useNavigate();
+
 
     useEffect(() => {
         getConfiguraciones();
     }, [])
 
-    const getConfiguraciones = async () => {
+    const getConfiguraciones = async () => { 
         const res = await axios.get(URI_CONFIGURACIONES)
         setNombreAdmin(res.data[0].nombre_admin)
         setValorHora(res.data[0].valor_hora)
@@ -72,9 +71,9 @@ const CompConfiguraciones = () => {
                                 />
                             </li>
                         </ul>
-                    </div>
+                    </div> 
                     <div className='markey-container-form-input'>
-                        <ul className='cmp-markey-datos-input-employees'>
+                        <ul className='cmp-markey-datos-input-employees'> 
                             <li>
                                 <p className='cmp-subtitle-create-pedido'>Valor de la hora a pagar a los empleados</p>
                                 <input

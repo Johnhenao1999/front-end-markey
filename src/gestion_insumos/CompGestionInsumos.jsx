@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import DatePicker from 'react-datepicker';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
@@ -20,22 +19,22 @@ const CompGestionInsumos = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const getInsumos = async () => {
+            let infoInsumos = await axios.get(URI + id);
+            setNombre(infoInsumos.data[0].nombre);
+            setFechaActualizacion(infoInsumos.data[0].fecha_ingreso);
+            setCantidad(infoInsumos.data[0].cantidad);
+            setColor(infoInsumos.data[0].color);
+            setTamañoTela(infoInsumos.data[0].tamaño);
+            const fechaActual = new Date();
+            const diasDiferencia = Math.floor((fechaActual - new Date(infoInsumos.data[0].fecha_ingreso)) / (1000 * 60 * 60 * 24));
+            setDiasTranscurridos(diasDiferencia);
+            console.log("que tra maquinas", infoInsumos)
+            console.log("diasTranscurridos" , diasTranscurridos)
+        } 
         getInsumos();
-    }, [])
+    }, [id, diasTranscurridos])
 
-    const getInsumos = async () => {
-        let infoInsumos = await axios.get(URI + id);
-        setNombre(infoInsumos.data[0].nombre);
-        setFechaActualizacion(infoInsumos.data[0].fecha_ingreso);
-        setCantidad(infoInsumos.data[0].cantidad);
-        setColor(infoInsumos.data[0].color);
-        setTamañoTela(infoInsumos.data[0].tamaño);
-        const fechaActual = new Date();
-        const diasDiferencia = Math.floor((fechaActual - new Date(infoInsumos.data[0].fecha_ingreso)) / (1000 * 60 * 60 * 24));
-        setDiasTranscurridos(diasDiferencia);
-        console.log("que tra maquinas", infoInsumos)
-        console.log("diasTranscurridos" , diasTranscurridos)
-    } 
 
     const actualizar = async () => {
         const fechaActual = new Date(fechaActualiacion).toISOString().slice(0, 10);
@@ -79,7 +78,7 @@ const CompGestionInsumos = () => {
                                 className='markey-input-form'
                                 placeholder='Cantidad'
                                 value={cantidad}
-                                onChange={(e) => setCantidad(e.target.value)}
+                                onChange={(e) => setCantidad(e.target.value)} 
                             />
                         </li>
                     </ul>

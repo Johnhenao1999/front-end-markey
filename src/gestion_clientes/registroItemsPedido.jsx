@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
@@ -14,7 +14,7 @@ const CompRegistroItemsPedido = () => {
   const navigate = useNavigate();
 
 
-  const formatoValor = (valor) => {
+  const formatoValor = (valor) => { 
     const formatter = new Intl.NumberFormat("es-CO", {
       style: "currency",
       currency: "COP",

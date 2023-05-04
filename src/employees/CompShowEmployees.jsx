@@ -8,12 +8,12 @@ import imagesEmployees from './imgEmployees';
 
 const URI = 'http://localhost:8000/empleados'
 
-const CompShowUsuarios = () => {
+const CompShowUsuarios = () => { 
 
     const [usuarios, setUsuarios] = useState([])
-    const [loading, setLoading] = useState(true) // agregar estado loading
+    const [, setLoading] = useState(true) // agregar estado loading
 
-    //Busqueda
+    //Busqueda 
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredUsuarios, setFilteredUsuarios] = useState([]);
 
@@ -63,9 +63,19 @@ const CompShowUsuarios = () => {
 
     //procedimineto para eliminar un blog
     const deleteUsuarios = async (idcedula) => {
-        const pruebadelete = await axios.delete(`${URI}/${idcedula}`)
-        getUsuarios()
-        console.log("A ver", pruebadelete)
+        const token = localStorage.getItem('token');
+        try {
+            await axios.delete(`${URI}/${idcedula}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            // Espera a que se complete la eliminación antes de llamar a getUsuarios
+            await getUsuarios(token);
+            console.log('Usuario eliminado');
+        } catch (error) {
+            console.error(error);
+        }
     }
 
 
@@ -77,7 +87,7 @@ const CompShowUsuarios = () => {
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
                 <div className="cmp-screen-container-title">
-                    <p className='cmp-title-section-employees'>Datos de empleados</p>
+                    <p className='cmp-title-section-employees'>Empleados</p>
                     <div className="container-search-add">
                         <div className='search-container'>
                             <input
@@ -113,7 +123,7 @@ const CompShowUsuarios = () => {
                                     <td className="colum-table-actions">
                                         <Link to={`/edit/${usuario.idcedula}`} className='btn-action'><i className="fas fa-edit "></i></Link>
                                         <Link onClick={() => deleteUsuarios(usuario.idcedula)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
-                                        <Link to={`/registro-horas-empleado/${usuario.idcedula}`} className="btn-action"><i className="fas fa-dollar-sign"></i></Link>
+                                        <Link to={`/registro-horas-empleado/${usuario.idcedula}`} className="btn-action"><i className="fa-solid fa-clock"></i></Link>
                                         <Link to={`/ingresar_fecha/${usuario.idcedula}`} className="btn-action"><i className="fas fa-dollar-sign"></i></Link>
                                     </td>
                                 </tr>

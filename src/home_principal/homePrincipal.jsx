@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import './homePrincipal.css'
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from "@mui/material";
 
@@ -12,8 +11,8 @@ import imgDecor from '../assets/im1.svg';
 const CompHomePrincipal = ({token}) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [usernameError, setUsernameError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [, setUsernameError] = useState('');
+  const [, setPasswordError] = useState('');
   const [open, setOpen] = useState(false);
 
   const handleLogin = async () => {
@@ -21,7 +20,7 @@ const CompHomePrincipal = ({token}) => {
       setUsernameError('El campo de usuario es obligatorio');
     } else {
       setUsernameError('');
-    }
+    } 
 
     if (!password) {
       setPasswordError('El campo de contraseña es obligatorio');
@@ -54,10 +53,10 @@ const CompHomePrincipal = ({token}) => {
 
   return (
     <div className="container-login-markey">
-      <img class="cmp-loggin-bg-wave" src={bgWaves}></img>
+      <img class="cmp-loggin-bg-wave" src={bgWaves} alt=""></img>
       <div className="cmp-loggin-container">
         <div className="imgDecor">
-          <img src={ imgDecor }></img>
+          <img src={ imgDecor } alt=""></img>
         </div>
         <div className="login-content">
           <div className="content">

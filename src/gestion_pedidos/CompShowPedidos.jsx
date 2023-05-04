@@ -14,7 +14,7 @@ const CompShowPedidos = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        setLoading(true);
+        setLoading(true); 
         getAllPedidos();
       }, []);
     
@@ -42,10 +42,6 @@ const CompShowPedidos = () => {
         const pruebadelete = await axios.delete(`${URI}${id_pedido}`)
         getAllPedidos()
         console.log("A ver", pruebadelete)
-    }
-
-    const handleCloseModal = () => {
-        setShowModal(false);
     }
 
 

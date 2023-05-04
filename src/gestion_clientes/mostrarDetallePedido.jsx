@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import {useParams } from "react-router-dom";
 
 const URI = 'http://localhost:8000/mostrar-items-pedidos/'
 
@@ -12,7 +12,7 @@ const CompMostrarDetallePedidos = () => {
     if (id_cliente) {
       getPedidos(id_cliente);
     }
-  }, [id_cliente]);
+  }, [id_cliente]); 
 
   const getPedidos = async (id_cliente) => {
     const resprueba = await axios.get(`${URI}${id_cliente}`);

@@ -20,21 +20,20 @@ const CompGestionarMaquinaria = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const getMaquinaria = async () => {
+            let infoMaquinas = await axios.get(URI + id)
+            setNombre(infoMaquinas.data[0].nombre)
+            setModelo(infoMaquinas.data[0].modelo)
+            setMarca(infoMaquinas.data[0].marca)
+            const fechaFuncionamientoString = infoMaquinas.data[0].fecha_funcionamiento;
+            const fechaFuncionamientoDate = new Date(fechaFuncionamientoString);
+            setFechaFuncionamiento(fechaFuncionamientoDate);
+            setReferenciaAgujas(infoMaquinas.data[0].referencia_agujas)
+            setEstadoMaquina(infoMaquinas.data[0].estado)
+            console.log("que tra maquinas", infoMaquinas) 
+        }
         getMaquinaria();
-    }, [])
-
-    const getMaquinaria = async () => {
-        let infoMaquinas = await axios.get(URI + id)
-        setNombre(infoMaquinas.data[0].nombre)
-        setModelo(infoMaquinas.data[0].modelo)
-        setMarca(infoMaquinas.data[0].marca)
-        const fechaFuncionamientoString = infoMaquinas.data[0].fecha_funcionamiento;
-        const fechaFuncionamientoDate = new Date(fechaFuncionamientoString);
-        setFechaFuncionamiento(fechaFuncionamientoDate);
-        setReferenciaAgujas(infoMaquinas.data[0].referencia_agujas)
-        setEstadoMaquina(infoMaquinas.data[0].estado)
-        console.log("que tra maquinas", infoMaquinas)
-    }
+    }, [id])
 
     const actualizar = async () => {
         const fechaFuncionamientoMaquinaria = new Date(fecha_funcionamiento).toISOString().slice(0, 10);

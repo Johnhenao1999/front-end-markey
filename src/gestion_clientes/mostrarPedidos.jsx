@@ -10,11 +10,10 @@ const URI = 'http://localhost:8000/pedidos/'
 const CompPedidoCliente = () => {
     const [pedidos, setPedidos] = useState([]);
     const { id_cliente } = useParams(); // obtiene el parámetro de la URL (el ID del empleado)
-    const [nombre, setNombre] = useState('');
 
     useEffect(() => {
         if (id_cliente) {
-            getPedidos(id_cliente);
+            getPedidos(id_cliente); 
         }
     }, [id_cliente]);
 

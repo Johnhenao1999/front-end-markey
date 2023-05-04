@@ -7,7 +7,7 @@ import ciudadesColombia from '../ciudadesColombia';
 
 const URI = 'http://localhost:8000/clientes/'
 
-const CompActualizarCliente = () => {
+const CompActualizarCliente = () => { 
     const { id } = useParams();
     const [id_cliente, setCliente] = useState('');
     const [nombre_comercial, setNombreComercial] = useState('');
@@ -18,27 +18,28 @@ const CompActualizarCliente = () => {
     const [referencia_comercial, setReferenciasComerciales] = useState('');
     const [sugerenciasDepartamento, setSugerenciasDepartamento] = useState([]);
     const [adminNames, setAdminNames] = useState([]);
-    const [adminNamesCiudades, setAdminNamesCiudades] = useState([]);
+    const [, setAdminNamesCiudades] = useState([]);
     const [sugerencias, setSugerencias] = useState([]);
     const [showModal, setShowModal] = useState('');
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        const getCliente = async () => {
+            const res = await axios.get(URI + id)
+            setCliente(res.data[0].id_cliente)
+            setNombreComercial(res.data[0].nombre_comercial)
+            setDepartamento(res.data[0].departamento)
+            setCiudad(res.data[0].ciudad)
+            setDireccion(res.data[0].direccion)
+            setTelefono(res.data[0].telefono)
+            setReferenciasComerciales(res.data[0].referencia_comercial)
+            console.log("que tra res", res)
+        }
         getCliente();
-    }, [])
+    }, [id])
 
-    const getCliente = async () => {
-        const res = await axios.get(URI + id)
-        setCliente(res.data[0].id_cliente)
-        setNombreComercial(res.data[0].nombre_comercial)
-        setDepartamento(res.data[0].departamento)
-        setCiudad(res.data[0].ciudad)
-        setDireccion(res.data[0].direccion)
-        setTelefono(res.data[0].telefono)
-        setReferenciasComerciales(res.data[0].referencia_comercial)
-        console.log("que tra res", res)
-    }
+
 
     const actualizar = async (e) => {
         e.preventDefault()

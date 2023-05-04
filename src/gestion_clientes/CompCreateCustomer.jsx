@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import ciudadesColombia from '../ciudadesColombia';
@@ -10,7 +10,7 @@ const URI = 'http://localhost:8000/registro-clientes/'
 
 const CompCreateCustomer = () => {
     const [id_cliente, setCliente] = useState('');
-    const [nombre_comercial, setNombreComercial] = useState('');
+    const [nombre_comercial, setNombreComercial] = useState(''); 
     const [telefono, setTelefono] = useState('');
     const [departamento, setDepartamento] = useState('');
     const [ciudad, setCiudad] = useState('');
@@ -18,7 +18,7 @@ const CompCreateCustomer = () => {
     const [referencia_comercial, setReferenciasComerciales] = useState('');
     const [sugerenciasDepartamento, setSugerenciasDepartamento] = useState([]);
     const [adminNames, setAdminNames] = useState([]);
-    const [adminNamesCiudades, setAdminNamesCiudades] = useState([]);
+    const [, setAdminNamesCiudades] = useState([]);
     const [sugerencias, setSugerencias] = useState([]);
     const [showModal, setShowModal] = useState('');
 

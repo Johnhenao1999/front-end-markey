@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import CompNavegacionVertical from "../navegacion_vertical/navegacion";
+import CompNavegacionVertical from "../navegacion_vertical/navegacion"; 
 import CompHeader from "../header/header";
 
 const URI = 'http://localhost:8000/registro-pedidos/'
-const uriInfoCliente = 'http://localhost:8000/clientes/'
+const uriInfoCliente = 'http://localhost:8000/clientes/' 
 
 const CompCrearPedido = () => {
     const [descripcion_pedido, setDescripcionPedido] = useState('');
@@ -56,8 +56,8 @@ const CompCrearPedido = () => {
         };
 
         console.log("Que se esta enviando", data)
-
-        const prueba = await axios.post(`${URI}${id_cliente}`, data); // aquí agregamos el idEmpleado a la URL
+ 
+        await axios.post(`${URI}${id_cliente}`, data); // aquí agregamos el idEmpleado a la URL
     };
 
     function formatoValor(valor) {

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './usuarios.css'
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
@@ -19,15 +19,22 @@ const CompCreateUsuarios = () => {
     const [direccion, setDireccion] = useState('');
     const [especialidad, setEspecialidad] = useState('');
     const [estado_civil, setEstadoCivil] = useState('');
-    const [estado_empleado, setEstadoEmpleado] = useState('');
     const [numero_emergencia, setNumeroEmergencia] = useState('');
     const [sugerencias, setSugerencias] = useState([]);
     const [showModal, setShowModal] = useState('');
-    const [adminNamesCiudades, setAdminNamesCiudades] = useState([]);
-
+    const [, setAdminNamesCiudades] = useState([]);
 
     const [errorCedula, setErrorCedula] = useState(false);
-    const [errorCampos, setErrorCampos] = useState(false);
+    const [errorNombre, setErrorNombre] = useState(false);
+    const [errorApellido, setErrorApellido] = useState(false);
+    const [errorEdad, setErrorEdad] = useState(false);
+    const [errorCiudad, setErrorCiudad] = useState(false);
+    const [errorDireccion, setErrorDireccion] = useState(false);
+    const [errorEspecialidad, setErrorEspecialidad] = useState(false);
+    const [errorEstadoCivil, setErrorEstadoCivil] = useState(false);
+    const [errorNumeroEmergencia, setErrorNumeroEmergencia] = useState(false);
+
+
     const [errorTelefono, setErrorTelefono] = useState(false);
     const navigate = useNavigate();
 
@@ -49,11 +56,21 @@ const CompCreateUsuarios = () => {
     const guardar = async (e) => {
         e.preventDefault();
 
-        if (!idcedula) {
-            // Muestra un mensaje de error si se omitió la cédula o el teléfono
-            setErrorCedula(true);
+        // Verificar que todos los campos obligatorios estén llenos
+        if (!idcedula || !nombre || !apellido || !telefono || !edad || !ciudad || !direccion || !especialidad || !estado_civil || !numero_emergencia) {
+            setErrorCedula(!idcedula);
+            setErrorNombre(!nombre);
+            setErrorApellido(!apellido);
+            setErrorTelefono(!telefono)
+            setErrorEdad(!edad);
+            setErrorCiudad(!ciudad);
+            setErrorDireccion(!direccion);
+            setErrorEspecialidad(!especialidad)
+            setErrorEstadoCivil(!estado_civil);
+            setErrorNumeroEmergencia(!numero_emergencia);
             return;
         }
+
 
         const hey = await axios.post(URI, {
             idcedula,
@@ -65,7 +82,6 @@ const CompCreateUsuarios = () => {
             direccion,
             especialidad,
             estado_civil,
-            estado_empleado,
             numero_emergencia
 
         });
@@ -145,7 +161,7 @@ const CompCreateUsuarios = () => {
                                     placeholder='Nombre'
                                     className='markey-input-form markey-input-form-alt'
                                 />
-                                {errorCampos && (
+                                {errorNombre && (
                                     <p className='text-danger'>Este campo es obligatorio</p>
                                 )}
                             </li>
@@ -157,7 +173,7 @@ const CompCreateUsuarios = () => {
                                     className='markey-input-form'
                                     placeholder='Apellido'
                                 />
-                                {errorCampos && (
+                                {errorApellido && (
                                     <p className='text-danger'>Este campo es obligatorio</p>
                                 )}
                             </li>
@@ -189,8 +205,8 @@ const CompCreateUsuarios = () => {
                                     maxLength={10}
                                     placeholder='Edad'
                                 />
-                                {errorTelefono && (
-                                    <p className='text-danger'>Ingresa el numero de telefono</p>
+                                {errorEdad && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
                                 )}
                             </li>
                         </ul>
@@ -212,7 +228,7 @@ const CompCreateUsuarios = () => {
                                         </li>
                                     ))}
                                 </ul>
-                                {errorCampos && (
+                                {errorCiudad && (
                                     <p className='text-danger'>Este campo es obligatorio</p>
                                 )}
                             </li>
@@ -224,7 +240,7 @@ const CompCreateUsuarios = () => {
                                     className='markey-input-form'
                                     placeholder='Dirección'
                                 />
-                                {errorCampos && (
+                                {errorDireccion && (
                                     <p className='text-danger'>Este campo es obligatorio</p>
                                 )}
                             </li>
@@ -237,6 +253,9 @@ const CompCreateUsuarios = () => {
                                     <option value="Collarin">Collarin</option>
                                     <option value="Filetiadora">Filetiadora</option>
                                 </select>
+                                {errorEspecialidad && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
+                                )}
                             </li>
                             <li>
                                 <select value={estado_civil} onChange={(e) => setEstadoCivil(e.target.value)} className='cmp-markey-select'>
@@ -245,16 +264,12 @@ const CompCreateUsuarios = () => {
                                     <option value="Casado">Casado</option>
                                     <option value="Union Libre">Unión Libre</option>
                                 </select>
+                                {errorEstadoCivil && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
+                                )}
                             </li>
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
-                            <li>
-                                <select value={estado_empleado} onChange={(e) => setEstadoEmpleado(e.target.value)} className='cmp-markey-select cmp-markey-select-alt'>
-                                    <option value="">Estado del empleado</option>
-                                    <option value="Soltero">Activo</option>
-                                    <option value="Casado">Inactivo</option>
-                                </select>
-                            </li>
                             <li>
                                 <input
                                     value={numero_emergencia}
@@ -263,7 +278,7 @@ const CompCreateUsuarios = () => {
                                     className='markey-input-form'
                                     placeholder='Número de emergencia'
                                 />
-                                {errorCampos && (
+                                {errorNumeroEmergencia && (
                                     <p className='text-danger'>Este campo es obligatorio</p>
                                 )}
                             </li>
@@ -293,7 +308,7 @@ const CompCreateUsuarios = () => {
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <p>El usuario se ha creado exitosamente.</p>
+                                <p>El usuario <span className='cmp-nombre-modal'> {nombre} </span>se ha creado exitosamente.</p>
                             </div>
                             <div className="modal-footer">
                                 <button
