@@ -8,7 +8,7 @@ import imagesEmployees from './imgEmployees';
 
 const URI = 'http://localhost:8000/empleados'
 
-const CompShowUsuarios = () => { 
+const CompShowUsuarios = () => {
 
     const [usuarios, setUsuarios] = useState([])
     const [, setLoading] = useState(true) // agregar estado loading
@@ -29,10 +29,10 @@ const CompShowUsuarios = () => {
         }
     }, []);
 
-    
+
 
     const getUsuarios = async (token) => {
-        
+
         // Verificar si el token es válido antes de continuar
         if (!token) {
             return;
@@ -86,6 +86,12 @@ const CompShowUsuarios = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/empleados'}>Empleados</Link></li>
+                    </ul>
+                </nav>
                 <div className="cmp-screen-container-title">
                     <p className='cmp-title-section-employees'>Empleados</p>
                     <div className="container-search-add">
@@ -101,7 +107,6 @@ const CompShowUsuarios = () => {
                         <Link className="btn-add-new-link" to="/create-employees"><button type="submit" className="btn-add-new"><img src={imagesEmployees.iconAdd} alt="lupa" /><p>Agregar empleado</p></button></Link>
                     </div>
                 </div>
-
                 <div className="table-empleados-container">
                     <table className='table-empleados'>
                         <thead className='table-primary'>
@@ -118,13 +123,18 @@ const CompShowUsuarios = () => {
                                 <tr key={usuario.idcedula}>
                                     <td> {usuario.nombre} </td>
                                     <td> {usuario.apellido} </td>
-                                    <td> {usuario.telefono} </td>
+                                    <td>     {usuario.telefono} </td>
                                     <td> {usuario.especialidad} </td>
                                     <td className="colum-table-actions">
-                                        <Link to={`/edit/${usuario.idcedula}`} className='btn-action'><i className="fas fa-edit "></i></Link>
+                                        <Link to={`/edit/${usuario.idcedula}`} className='btn-action'><i className="fas fa-edit"></i></Link>
+                                        <Link to={`/ingresar_fecha/${usuario.idcedula}`} className="btn-action"><i class="fa-solid fa-share-from-square" style={{
+                                            color
+                                                : "white"
+                                        }}></i></Link>
+                                        <Link to={`/registro-horas-empleado/${usuario.idcedula}`} className="btn-action"><i class="fa-regular fa-clock"></i></Link>
+                                        {/*   <Link onClick={() => deleteUsuarios(usuario.idcedula)} className='btn-action'><i className="fas fa-trash-alt"></i></Link> */}
+                                        {/* <Link to={`/registro-horas-empleado/${usuario.idcedula}`} className="btn-action"><i class="fa-sharp fa-regular fa-clock fa-2xl"></i></Link> */}
                                         <Link onClick={() => deleteUsuarios(usuario.idcedula)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
-                                        <Link to={`/registro-horas-empleado/${usuario.idcedula}`} className="btn-action"><i className="fa-solid fa-clock"></i></Link>
-                                        <Link to={`/ingresar_fecha/${usuario.idcedula}`} className="btn-action"><i className="fas fa-dollar-sign"></i></Link>
                                     </td>
                                 </tr>
                             ))}

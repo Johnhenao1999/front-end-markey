@@ -310,30 +310,47 @@ const CompMostrarHorasEmpleado = () => {
 
       <div className='cmp-screen-container'>
         <div className='table-empleados-container'>
+          <nav class="breadcrumb">
+            <ul>
+              <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+              <li><Link to={'/empleados'}>Empleados</Link></li>
+              <li><Link to={''}>Historial de horas</Link></li>
+            </ul>
+          </nav>
           <p className='cmp-title-section-scree'>
-            Empleado - <p className='cmp-markey-nombreEmpleado'>{nombre} </p>
+            Registro horas de <p className='cmp-markey-nombreEmpleado'>{nombre} </p>
           </p>
-          <label htmlFor='fecha-inicial'>Fecha inicial: </label>
-          <input
-            type='date'
-            id='fecha-inicial'
-            value={fechaInicial}
-            onChange={(e) => setFechaInicial(e.target.value)}
-          />
-
-          <label htmlFor='fecha-final'>Fecha final: </label>
-          <input
-            type='date'
-            id='fecha-final'
-            value={fechaFinal}
-            onChange={(e) => setFechaFinal(e.target.value)}
-          />
-          <button onClick={() => {
-            setFechaInicial('');
-            setFechaFinal('');
-          }}>
-            Limpiar
-          </button>
+          <div style={{ display: "flex" }}>
+            <div>
+              <p style={{marginBottom:"4px"}}>Fecha inicial</p>
+              <input
+                type='date'
+                id='fecha-inicial'
+                value={fechaInicial}
+                onChange={(e) => setFechaInicial(e.target.value)}
+                class='input-field'
+              />
+            </div>
+            <div>
+            <p style={{marginBottom:"4px"}}>Fecha final</p>
+              <input
+                type='date'
+                id='fecha-final'
+                value={fechaFinal}
+                onChange={(e) => setFechaFinal(e.target.value)}
+                class='input-field'
+              />
+            </div>
+            <div>
+              <p style={{color:"transparent", marginBottom:"4px"}}>Hola</p>
+              <button onClick={() => {
+                setFechaInicial('');
+                setFechaFinal('');
+              }} class='clear-button'>
+                <i class='fa fa-arrow-left'></i>
+              </button>
+            </div>
+          </div>
           <table className='table-empleados'>
             <thead className='table-primary'>
               <tr>

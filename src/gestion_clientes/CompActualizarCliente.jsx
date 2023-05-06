@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import ciudadesColombia from '../ciudadesColombia';
 
 const URI = 'http://localhost:8000/clientes/'
 
-const CompActualizarCliente = () => { 
+const CompActualizarCliente = () => {
     const { id } = useParams();
     const [id_cliente, setCliente] = useState('');
     const [nombre_comercial, setNombreComercial] = useState('');
@@ -45,7 +45,7 @@ const CompActualizarCliente = () => {
         e.preventDefault()
         const cliente = { id_cliente, nombre_comercial, departamento, ciudad, direccion, telefono, referencia_comercial }
         await axios.put(URI + id, cliente)
-        window.location.href = "/clientes"
+        setShowModal(true);
     }
 
     const handleChange = (e) => {
@@ -111,11 +111,19 @@ const CompActualizarCliente = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
-                <p className='cmp-title-section-scree'>Ingresa los datos para registrar un nuevo cliente</p>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/clientes'}>Clientes</Link></li>
+                        <li><Link to={''}>Gestionar cliente</Link></li>
+                    </ul>
+                </nav>
+                <p className='cmp-title-section-scree'>Gestionar información del cliente <span className='cmp-nombre-modal'> {nombre_comercial}</span></p>
                 <form className='cmp-screem-section-form' onSubmit={actualizar}>
                     <div className='markey-container-form-input'>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li className='cmp-markey-datos-input-container-employees'>
+                                <p className='cmp-subtitle-create-pedido'>Nit o Cédula</p>
                                 <input
                                     value={id_cliente}
                                     onChange={(e) => {
@@ -137,6 +145,7 @@ const CompActualizarCliente = () => {
                                 />
                             </li>
                             <li className='cmp-markey-datos-input-container-employees'>
+                                <p className='cmp-subtitle-create-pedido'>Nombre comercial</p>
                                 <input
                                     value={nombre_comercial}
                                     onChange={(e) => setNombreComercial(e.target.value)}
@@ -148,6 +157,7 @@ const CompActualizarCliente = () => {
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li className='cmp-markey-datos-input-container-employees'>
+                                <p className='cmp-subtitle-create-pedido'>Ciudad</p>
                                 <input
                                     value={ciudad}
                                     onChange={handleChange}
@@ -164,6 +174,7 @@ const CompActualizarCliente = () => {
                                 </ul>
                             </li>
                             <li className='cmp-markey-datos-input-container-employees'>
+                                <p className='cmp-subtitle-create-pedido'>Departamento</p>
                                 <input
                                     value={departamento}
                                     onChange={handleChangeDepartamento}
@@ -186,6 +197,7 @@ const CompActualizarCliente = () => {
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li className='cmp-markey-datos-input-container-employees'>
+                                <p className='cmp-subtitle-create-pedido'>Dirección</p>
                                 <input
                                     value={direccion}
                                     onChange={(e) => setDireccion(e.target.value)}
@@ -195,6 +207,7 @@ const CompActualizarCliente = () => {
                                 />
                             </li>
                             <li className='cmp-markey-datos-input-container-employees'>
+                                <p className='cmp-subtitle-create-pedido'>Teléfono</p>
                                 <input
                                     value={telefono}
                                     onChange={(e) => setTelefono(e.target.value)}
@@ -225,7 +238,7 @@ const CompActualizarCliente = () => {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Usuario creado con éxito</h5>
+                                <h5 className="modal-title">!La información del cliente ha sido actualizada con éxito!</h5>
                                 <button
                                     type="button"
                                     className="close"
@@ -238,7 +251,7 @@ const CompActualizarCliente = () => {
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <p>El usuario se ha creado exitosamente.</p>
+                                <p>Se ha actualizado la información de <span className='cmp-nombre-modal'> {nombre_comercial}</span></p>
                             </div>
                             <div className="modal-footer">
                                 <button
@@ -246,7 +259,7 @@ const CompActualizarCliente = () => {
                                     className="btn btn-primary"
                                     onClick={() => {
                                         setShowModal(false);
-                                        navigate('/empleados');
+                                        navigate('/clientes');
                                     }}
                                 >
                                     Aceptar

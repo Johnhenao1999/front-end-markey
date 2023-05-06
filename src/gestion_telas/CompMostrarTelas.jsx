@@ -48,6 +48,12 @@ const CompMostrarTelas = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={''}>Telas</Link></li>
+                    </ul>
+                </nav>
                 <div className="cmp-screen-container-title">
                     <p className='cmp-title-section-employees'>Telas</p>
                     <div className="container-search-add">
@@ -83,7 +89,7 @@ const CompMostrarTelas = () => {
                                     <td> {tela.fecha_registro ? new Date(tela.fecha_registro).getDate() + ' ' + new Date(tela.fecha_registro).toLocaleString('default', { month: 'long' }) + ' de ' + new Date(tela.fecha_registro).getFullYear() : ''} </td>
                                     <td className="colum-table-actions">
                                         <Link to={`/gestionar-telas/${tela.id_telas}`} className='btn-action'><i className="fas fa-edit "></i></Link>
-                                        <Link onClick={() => deleteTelas(tela.id_telas)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                        <Link style={{background:"red"}} onClick={() => deleteTelas(tela.id_telas)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
                                     </td>
                                 </tr>
                             ))}

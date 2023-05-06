@@ -14,35 +14,35 @@ const CompShowPedidos = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        setLoading(true); 
+        setLoading(true);
         getAllPedidos();
-      }, []);
-    
-      useEffect(() => {
+    }, []);
+
+    useEffect(() => {
         if (!loading && pedidos.length === 0) {
-          setShowModal(true);
+            setShowModal(true);
         } else {
-          setShowModal(false);
+            setShowModal(false);
         }
-      }, [pedidos, loading]);
-    
-      const getAllPedidos = async () => {
+    }, [pedidos, loading]);
+
+    const getAllPedidos = async () => {
         try {
-          const res = await axios.get(URI);
-          setPedidos(res.data);
+            const res = await axios.get(URI);
+            setPedidos(res.data);
         } catch (error) {
-          console.error(error);
+            console.error(error);
         } finally {
-          setLoading(false);
+            setLoading(false);
         }
-      };
+    };
 
     //procedimineto para eliminar un pedido
-    const deletePedidos = async (id_pedido) => {
+/*     const deletePedidos = async (id_pedido) => {
         const pruebadelete = await axios.delete(`${URI}${id_pedido}`)
         getAllPedidos()
         console.log("A ver", pruebadelete)
-    }
+    } */
 
 
     return (
@@ -50,6 +50,12 @@ const CompShowPedidos = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/pedidos-activos'}>Pedidos activos</Link></li>
+                    </ul>
+                </nav>
                 <div className="cmp-screen-container-title">
                     <p className='cmp-title-section-employees'>Pedidos activos</p>
                 </div>
@@ -58,9 +64,10 @@ const CompShowPedidos = () => {
                         <thead className='table-primary'>
                             <tr>
                                 <th>Empresa</th>
+                                <th>Factura</th>
                                 <th>Fecha registro</th>
                                 <th>Fecha finalización</th>
-                                <th>Estado del pedido</th>
+                                <th>Estado</th>
                                 <th>Operaciones</th>
                             </tr>
                         </thead>
@@ -68,34 +75,71 @@ const CompShowPedidos = () => {
                             {pedidos.map((pedido) => (
                                 <tr key={pedido.id_pedido}>
                                     <td>{pedido.nombre_comercial}</td>
+                                    <td>{pedido.factura_venta}</td>
                                     <td> {pedido.fecha ? new Date(pedido.fecha).getDate() + ' ' + new Date(pedido.fecha).toLocaleString('default', { month: 'long' }) + ' de ' + new Date(pedido.fecha).getFullYear() : ''} </td>
                                     <td> {pedido.fecha_finalizacion ? new Date(pedido.fecha_finalizacion).getDate() + ' ' + new Date(pedido.fecha_finalizacion).toLocaleString('default', { month: 'long' }) + ' de ' + new Date(pedido.fecha_finalizacion).getFullYear() : ''} </td>
                                     <td> {pedido.estado_pedido} </td>
                                     <td className="colum-table-actions">
-                                        <Link onClick={() => deletePedidos(pedido.id_pedido)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
-                                        <Link to={`/items-pedido/${pedido.id_pedido}`} className='btn-action'><i className="fas fa-dollar-sign"></i></Link>
-                                        <Link to={`/gestionar-pedido/${pedido.id_pedido}`}>Abrir modal</Link>
+                                        <Link to={`/gestionar-pedido/${pedido.id_pedido}`} className='btn-action'><i className="fas fa-edit"></i></Link>
+                                        <Link to={`/items-pedido/${pedido.id_pedido}`} className='btn-action'><i class="fa-solid fa-tag "></i></Link>
+                                     {/*    <Link style={{background:"red"}} onClick={() => deletePedidos(pedido.id_pedido)} className='btn-action'><i className="fas fa-trash-alt" ></i></Link> */}
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
-                {showModal && (
+          {/*       {showModal && (
                     <div class="modal-pedidos">
                         <div class="modal-content-pedidos">
                             <div class="modal-body-pedidos">
                                 <p>Actualmente no tienes pedidos activos.</p>
                             </div>
                             <div class="modal-footer-pedidos">
-                                <button onClick={()=>{
+                                <button onClick={() => {
                                     setShowModal(false);
                                     navigate('/clientes')
                                 }}>Cerrar modal</button>
                             </div>
                         </div>
                     </div>
-                )}
+                )} */}
+                {showModal && (
+                <div className="modal" tabIndex="-1" role="dialog">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Actualmente no tienes pedidos activos.</h5>
+                                <button
+                                    type="button"
+                                    className="close"
+                                    onClick={() => {
+                                        setShowModal(false);
+                                        navigate('/mostrarUsuarios');
+                                    }}
+                                >
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <p>Los pedidos se encuentran finalizados o no has registrado ningun pedido.</p>
+                            </div>
+                            <div className="modal-footer">
+                                <button
+                                    type="button"
+                                    className="btn btn-primary"
+                                    onClick={() => {
+                                        setShowModal(false);
+                                        navigate('/clientes');
+                                    }}
+                                >
+                                    Cerrar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
             </div>
         </div>
     );

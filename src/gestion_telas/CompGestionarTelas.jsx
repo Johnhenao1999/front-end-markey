@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
@@ -15,8 +15,8 @@ const CompGestionTelas = () => {
     const [precio, setPrecio] = useState('');
     const [observaciones, setObservaciones] = useState('');
     const [precio_total, setPrecioTotal] = useState('');
-    const [fechaActualiacion,] = useState('');
-    const [, setDiasTranscurridos] = useState('');
+    const [fechaActualiacion,setFechaActualizacion] = useState('');
+    const [diasTranscurridos, setDiasTranscurridos] = useState('');
 
     const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ const CompGestionTelas = () => {
         const getTelas = async () => {
             let infoTelas = await axios.get(URI + id);
             setNombre(infoTelas.data[0].nombre);
+            setFechaActualizacion(infoTelas.data[0].fecha_registro);
             setColor(infoTelas.data[0].color);
             setMetros(infoTelas.data[0].metros);
             setPrecio(infoTelas.data[0].precio);
@@ -36,7 +37,7 @@ const CompGestionTelas = () => {
         }
     
         getTelas();
-    }, [id])
+    }, [id, diasTranscurridos])
 
     const actualizar = async () => {
         const fechaActual = new Date(fechaActualiacion).toISOString().slice(0, 10);
@@ -69,7 +70,20 @@ const CompGestionTelas = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
-                <p className='cmp-title-section-scree'>Registro de telas</p>
+            <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/telas'}>Telas</Link></li>
+                        <li><Link to={''}>Gestionar telas</Link></li>
+                    </ul>
+                </nav>
+                <p className='cmp-title-section-scree'>Gestionar información de la tela</p>
+                <div>
+                    <p style={{ color: "#4481eb", fontWeight: 700 }}>Última actualización: {fechaActualiacion ? new Date(fechaActualiacion).getDate() + ' ' + new Date(fechaActualiacion).toLocaleString('default', { month: 'long' }) + ' de ' + new Date(fechaActualiacion).getFullYear() : ''}</p>
+                    {diasTranscurridos && (
+                        <p style={{ color: "#4481eb", fontWeight: 700 }}>{diasTranscurridos} días han pasado desde la última actualización.</p>
+                    )}
+                </div>
                 <div className='markey-container-form-input'>
                     <ul className='cmp-markey-datos-input-employees'>
                         <li>

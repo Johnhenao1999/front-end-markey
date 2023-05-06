@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
@@ -30,8 +30,8 @@ const CompGestionInsumos = () => {
             const diasDiferencia = Math.floor((fechaActual - new Date(infoInsumos.data[0].fecha_ingreso)) / (1000 * 60 * 60 * 24));
             setDiasTranscurridos(diasDiferencia);
             console.log("que tra maquinas", infoInsumos)
-            console.log("diasTranscurridos" , diasTranscurridos)
-        } 
+            console.log("diasTranscurridos", diasTranscurridos)
+        }
         getInsumos();
     }, [id, diasTranscurridos])
 
@@ -40,7 +40,7 @@ const CompGestionInsumos = () => {
         const fechaActual = new Date(fechaActualiacion).toISOString().slice(0, 10);
         const maquinaria = { nombre, fecha_ingreso: fechaActual, cantidad, color, tamaño }
         let oe = await axios.put(URI + id, maquinaria)
-/*         window.location.href = "/insumos" */
+        /*         window.location.href = "/insumos" */
         console.log("Que envia maquina", oe)
     }
 
@@ -51,12 +51,20 @@ const CompGestionInsumos = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
-            <div>
-            <p style={{color: "#4481eb", fontWeight: 700}}>Última actualización: {fechaActualiacion ? new Date(fechaActualiacion).getDate() + ' ' + new Date(fechaActualiacion).toLocaleString('default', { month: 'long' }) + ' de ' + new Date(fechaActualiacion).getFullYear() : ''}</p>
-            {diasTranscurridos && (
-                <p style={{color: "#4481eb", fontWeight: 700}}>{diasTranscurridos} días han pasado desde la última actualización.</p>
-            )}
-        </div>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/insumos'}>Insumos</Link></li>
+                        <li><Link to={''}>Gestionar insumo</Link></li>
+                    </ul>
+                </nav>
+                <p className='cmp-title-section-scree'>Gestionar información del insumo</p>
+                <div>
+                    <p style={{ color: "#4481eb", fontWeight: 700 }}>Última actualización: {fechaActualiacion ? new Date(fechaActualiacion).getDate() + ' ' + new Date(fechaActualiacion).toLocaleString('default', { month: 'long' }) + ' de ' + new Date(fechaActualiacion).getFullYear() : ''}</p>
+                    {diasTranscurridos && (
+                        <p style={{ color: "#4481eb", fontWeight: 700 }}>{diasTranscurridos} días han pasado desde la última actualización.</p>
+                    )}
+                </div>
                 <div className='markey-container-form-input'>
                     <ul className='cmp-markey-datos-input-employees'>
                         <li>
@@ -78,7 +86,7 @@ const CompGestionInsumos = () => {
                                 className='markey-input-form'
                                 placeholder='Cantidad'
                                 value={cantidad}
-                                onChange={(e) => setCantidad(e.target.value)} 
+                                onChange={(e) => setCantidad(e.target.value)}
                             />
                         </li>
                     </ul>

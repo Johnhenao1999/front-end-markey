@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import './usuarios.css'
 import { useParams } from 'react-router-dom';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
@@ -30,15 +30,15 @@ const CompIngresarHora = () => {
 
     useEffect(() => {
         const getInformacionEmpleado = async (idEmpleado) => {
-          const resprueba = await axios.get(`${URIE}${idEmpleado}`);
-          setNombreEmpleado(resprueba.data);
-          console.log("Que trae resprueba", resprueba)
+            const resprueba = await axios.get(`${URIE}${idEmpleado}`);
+            setNombreEmpleado(resprueba.data);
+            console.log("Que trae resprueba", resprueba)
         };
-        
+
         if (idEmpleado) {
-          getInformacionEmpleado(idEmpleado);
+            getInformacionEmpleado(idEmpleado);
         }
-      }, [idEmpleado]);
+    }, [idEmpleado]);
 
     useEffect(() => {
         getConfiguraciones();
@@ -58,7 +58,7 @@ const CompIngresarHora = () => {
         const total = horasManana + horasTarde;
         setTotalHoras(total.toFixed(2));
         setTotalMultiplicado(total * valor_hora);
-      }, [horaEntradaManana, horaSalidaManana, horaIngreso, horaSalida, valor_hora]);
+    }, [horaEntradaManana, horaSalidaManana, horaIngreso, horaSalida, valor_hora]);
 
     // Función para calcular las horas entre dos tiempos en formato 'hh:mm'
     const calcularHoras = (horaInicio, horaFin) => {
@@ -92,6 +92,13 @@ const CompIngresarHora = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/empleados'}>Empleados</Link></li>
+                        <li><Link to={''}>Registro de horas</Link></li>
+                    </ul>
+                </nav>
                 {nombreEmpleado.length > 0 && (
                     <p className='cmp-title-section-scree'>
                         Registro horas del empleado - <p className='cmp-markey-nombreEmpleado'>{nombreEmpleado[0].nombre} {nombreEmpleado[0].apellido} </p>
@@ -103,7 +110,7 @@ const CompIngresarHora = () => {
                             <input
                                 type="text"
                                 className='markey-input-form'
-                                placeholder="Hora de ingreso" 
+                                placeholder="Hora de ingreso"
                                 value={horaEntradaManana}
                                 onChange={(e) => setHoraIngresoManana(e.target.value)} />
                         </li>

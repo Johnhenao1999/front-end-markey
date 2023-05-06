@@ -46,8 +46,14 @@ const CompMaquinaria = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={''}>Máquinaria</Link></li>
+                    </ul>
+                </nav>
                 <div className="cmp-screen-container-title">
-                    <p className='cmp-title-section-employees'>Maquinaria</p>
+                    <p className='cmp-title-section-employees'>Máquinaria</p>
                     <div className="container-search-add">
                         <div className='search-container'>
                             <input
@@ -81,7 +87,7 @@ const CompMaquinaria = () => {
                                     <td> {inventario.estado} </td>
                                     <td className="colum-table-actions">
                                         <Link to={`/gestionar-maquinaria/${inventario.id_maquina}`} className='btn-action'><i className="fas fa-edit "></i></Link>
-                                        <Link onClick={() => deleteInventario(inventario.id_maquina)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                        <Link style={{ background: "red" }} onClick={() => deleteInventario(inventario.id_maquina)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
                                     </td>
                                 </tr>
                             ))}

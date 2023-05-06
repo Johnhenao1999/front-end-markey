@@ -16,7 +16,7 @@ const CompConfiguraciones = () => {
         getConfiguraciones();
     }, [])
 
-    const getConfiguraciones = async () => { 
+    const getConfiguraciones = async () => {
         const res = await axios.get(URI_CONFIGURACIONES)
         setNombreAdmin(res.data[0].nombre_admin)
         setValorHora(res.data[0].valor_hora)
@@ -32,21 +32,19 @@ const CompConfiguraciones = () => {
         console.log("qUE ENVIA", holaaa)
     }
 
-    function formatoValor(valor) {
+
+    function handleChange(event) {
+        const valor = event.target.value.replace(/\D/g, "");
+        setValorHora(valor);
+    }
+
+    function formatValor(valor) {
         const formatter = new Intl.NumberFormat("es-CO", {
             style: "currency",
             currency: "COP",
             minimumFractionDigits: 0,
         });
-        return formatter.format(valor).replace("COP", "").trim();
-    }
-
-    function handleChange(event) {
-        const valor = event.target.value.replace(/\D/g, "");
-
-        if (event.target.name === "ValorHora") {
-            setValorHora(valor);
-        }
+        return formatter.format(valor);
     }
 
 
@@ -71,13 +69,13 @@ const CompConfiguraciones = () => {
                                 />
                             </li>
                         </ul>
-                    </div> 
+                    </div>
                     <div className='markey-container-form-input'>
-                        <ul className='cmp-markey-datos-input-employees'> 
+                        <ul className='cmp-markey-datos-input-employees'>
                             <li>
                                 <p className='cmp-subtitle-create-pedido'>Valor de la hora a pagar a los empleados</p>
                                 <input
-                                    value={formatoValor(valor_hora)}
+                                    value={formatValor(valor_hora)}
                                     onChange={handleChange}
                                     type="text"
                                     className='markey-input-form'

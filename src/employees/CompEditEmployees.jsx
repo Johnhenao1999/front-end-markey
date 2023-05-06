@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import ciudadesColombia from '../ciudadesColombia';
@@ -51,8 +51,7 @@ const CompEditarUsuarios = () => {
         const empleado = { idcedula, nombre, apellido, telefono, edad, ciudad, direccion, especialidad, estado_civil, estado_empleado, numero_emergencia }
         let hola = await axios.put(URI + id, empleado)
         console.log(hola)
-
-        window.location.href = "/empleados"
+        setShowModal(true);
     }
 
     const handleChange = (e) => {
@@ -86,7 +85,14 @@ const CompEditarUsuarios = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
-                <p className='cmp-title-section-scree'>Gestionar información del empleado</p>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/empleados'}>Empleados</Link></li>
+                        <li><Link to={''}>Gestionar empleado</Link></li>
+                    </ul>
+                </nav>
+                <p className='cmp-title-section-scree'>Gestionar información del empleado <span className='cmp-nombre-modal'> {nombre} {apellido} </span></p>
                 <form onSubmit={actualizar} className='cmp-screem-section-form'>
                     <div className='markey-container-form-input'>
                         <ul className='cmp-markey-datos-input-employees'>
@@ -205,14 +211,6 @@ const CompEditarUsuarios = () => {
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li>
-                                <p className='cmp-subtitle-create-pedido'>Estado del empleado</p>
-                                <select value={estado_empleado} onChange={(e) => setEstadoEmpleado(e.target.value)} className='cmp-markey-select'>
-                                    <option value="">Estado del empleado</option>
-                                    <option value="Soltero">Activo</option>
-                                    <option value="Casado">Inactivo</option>
-                                </select>
-                            </li>
-                            <li>
                                 <p className='cmp-subtitle-create-pedido'>Número de emergencia</p>
                                 <input
                                     value={numero_emergencia}
@@ -235,7 +233,7 @@ const CompEditarUsuarios = () => {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Usuario creado con éxito</h5>
+                                <h5 className="modal-title">¡La información del empleado se ha actualizado con éxito!</h5>
                                 <button
                                     type="button"
                                     className="close"
@@ -248,7 +246,7 @@ const CompEditarUsuarios = () => {
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <p>El usuario se ha creado exitosamente.</p>
+                                <p>Se ha actualizado la información de <span className='cmp-nombre-modal'> {nombre} {apellido} </span></p>
                             </div>
                             <div className="modal-footer">
                                 <button

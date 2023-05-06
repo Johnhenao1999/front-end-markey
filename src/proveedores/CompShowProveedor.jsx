@@ -10,7 +10,7 @@ const URI = 'http://localhost:8000/proveedor'
 const CompShowProveedor = () => {
 
     const [proveedores, setProveedores] = useState([])
-    const [loading, setLoading] = useState(true) // agregar estado loading
+    const [, setLoading] = useState(true) // agregar estado loading
 
     //Busqueda
     const [searchTerm, setSearchTerm] = useState('');
@@ -55,7 +55,13 @@ const CompShowProveedor = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
-            <div className="cmp-screen-container-title">
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/proveedores'}>Proveedores</Link></li>
+                    </ul>
+                </nav>
+                <div className="cmp-screen-container-title">
                     <p className='cmp-title-section-employees'>Proveedores</p>
                     <div className="container-search-add">
                         <div className='search-container'>
@@ -92,7 +98,7 @@ const CompShowProveedor = () => {
                                     <td> {proveedor.tipo_producto} </td>
                                     <td className="colum-table-actions">
                                         <Link to={`/actualizar-proveedor/${proveedor.id_proveedor}`} className='btn btn-info'><i className="fas fa-edit"></i></Link>
-                                        <Link onClick={() => deleteProveedor(proveedor.id_proveedor)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                        <Link style={{ background: "red" }} onClick={() => deleteProveedor(proveedor.id_proveedor)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
                                     </td>
                                 </tr>
                             ))}

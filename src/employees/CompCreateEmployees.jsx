@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import './usuarios.css'
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
@@ -124,6 +124,13 @@ const CompCreateUsuarios = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/empleados'}>Empleados</Link></li>
+                        <li><Link to={''}>Registrar empleado</Link></li>
+                    </ul>
+                </nav>
                 <p className='cmp-title-section-scree'>Ingresa los datos para registrar un nuevo empleado</p>
                 <form className='cmp-screem-section-form' onSubmit={guardar}>
                     <div className='markey-container-form-input'>
@@ -295,7 +302,7 @@ const CompCreateUsuarios = () => {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Usuario creado con éxito</h5>
+                                <h5 className="modal-title">Empleado creado con éxito</h5>
                                 <button
                                     type="button"
                                     className="close"
@@ -308,7 +315,7 @@ const CompCreateUsuarios = () => {
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <p>El usuario <span className='cmp-nombre-modal'> {nombre} </span>se ha creado exitosamente.</p>
+                                <p>El empleado <span className='cmp-nombre-modal'> {nombre} {apellido} </span>se ha creado exitosamente.</p>
                             </div>
                             <div className="modal-footer">
                                 <button

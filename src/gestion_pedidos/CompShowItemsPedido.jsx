@@ -80,7 +80,7 @@ const CompShowItemsPedido = () => {
           </div>
         )}
         <p className='cmp-title-section-scree'>
-          Detalle del pedido <br /> Cliente <span className='cmp-markey-nombreEmpleado'>{itemsPedido.nombre_comercial}</span>
+          Detalle del pedido cliente <span className='cmp-markey-nombreEmpleado'>{itemsPedido.nombre_comercial}</span>
         </p>
         <div className='table-empleados-container'>
           <table className='table-empleados'>

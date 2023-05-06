@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
@@ -30,7 +30,7 @@ const CompGestionarMaquinaria = () => {
             setFechaFuncionamiento(fechaFuncionamientoDate);
             setReferenciaAgujas(infoMaquinas.data[0].referencia_agujas)
             setEstadoMaquina(infoMaquinas.data[0].estado)
-            console.log("que tra maquinas", infoMaquinas) 
+            console.log("que tra maquinas", infoMaquinas)
         }
         getMaquinaria();
     }, [id])
@@ -49,11 +49,18 @@ const CompGestionarMaquinaria = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
-                <p className='cmp-title-section-scree'>Gestionar maquinaria</p>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/maquinaria'}>Máquinaria</Link></li>
+                        <li><Link to={'/proveedores'}>Gestionar máquinaria</Link></li>
+                    </ul>
+                </nav>
+                <p className='cmp-title-section-scree'>Gestionar información de la máquina</p>
                 <div className='markey-container-form-input'>
                     <ul className='cmp-markey-datos-input-employees'>
                         <li>
-                        <p className='cmp-subtitle-create-pedido'>Nombre de la maquina</p>
+                            <p className='cmp-subtitle-create-pedido'>Nombre</p>
                             <input
                                 type="text"
                                 className='markey-input-form'
@@ -66,7 +73,7 @@ const CompGestionarMaquinaria = () => {
                     </ul>
                     <ul className='cmp-markey-datos-input-employees'>
                         <li>
-                        <p className='cmp-subtitle-create-pedido'>Modelo de la maquina</p>
+                            <p className='cmp-subtitle-create-pedido'>Modelo</p>
                             <input
                                 type="text"
                                 name="modelo"
@@ -77,7 +84,7 @@ const CompGestionarMaquinaria = () => {
                             />
                         </li>
                         <li>
-                        <p className='cmp-subtitle-create-pedido'>Marca de la maquina</p>
+                            <p className='cmp-subtitle-create-pedido'>Marca</p>
                             <input
                                 type="text"
                                 className='markey-input-form'
@@ -90,7 +97,7 @@ const CompGestionarMaquinaria = () => {
                     </ul>
                     <ul className='cmp-markey-datos-input-employees'>
                         <li>
-                        <p className='cmp-subtitle-create-pedido'>Estado de la maquina</p>
+                            <p className='cmp-subtitle-create-pedido'>Estado</p>
                             <select value={estado} onChange={(e) => setEstadoMaquina(e.target.value)} className='cmp-markey-select'>
                                 <option value="">Estado de la maquina</option>
                                 <option value="Buena">Buena</option>
@@ -99,7 +106,7 @@ const CompGestionarMaquinaria = () => {
                             </select>
                         </li>
                         <li>
-                        <p className='cmp-subtitle-create-pedido'>Referencia de agujas</p>
+                            <p className='cmp-subtitle-create-pedido'>Referencia de agujas</p>
                             <input
                                 type="text"
                                 className='markey-input-form'
@@ -112,7 +119,7 @@ const CompGestionarMaquinaria = () => {
                     </ul>
                 </div>
                 <div className='markey-container-form-input'>
-                    <p className='markey-subtitle-employees'>Fecha de funcionamiento de la máquina</p>
+                    <p className='markey-subtitle-employees'>Fecha de funcionamiento</p>
                     <DatePicker
                         selected={fecha_funcionamiento}
                         onChange={(date) => setFechaFuncionamiento(date)}

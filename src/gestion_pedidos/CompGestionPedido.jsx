@@ -16,6 +16,7 @@ const CompGestionarPedido = () => {
     const [anticipo_pedido, setanticipo_pedido] = useState('');
     const [precio_pedido, setprecio_pedido] = useState('');
     const [precioFaltantePedido, setPrecioFaltante] = useState('');
+    const [factura_venta, setFacturaVenta] = useState('');
 
 
     useEffect(() => {
@@ -31,9 +32,10 @@ const CompGestionarPedido = () => {
             const fechaFinalizacionString = res.data[0].fecha_finalizacion;
             const fechaFinalizacionDate = new Date(fechaFinalizacionString);
             setFechaFinalizacion(fechaFinalizacionDate);
+            setFacturaVenta(res.data[0].factura_venta)
             console.log("Que tra gestion pedido", res)
         }
-    
+
         getPedido();
     }, [id])
 
@@ -42,7 +44,7 @@ const CompGestionarPedido = () => {
         e.preventDefault();
         const fechaFinalizacionPedido = new Date(fecha_finalizacion).toISOString().slice(0, 10);
         const rutaDestino = estado_pedido === "Pedido finalizado" ? "/pedidos-finalizados" : "/pedidos-activos"; // aquí se define la ruta de destino según el estado del pedido
-        const pedidosActivos = { precio_pedido, anticipo_pedido, estado_pedido, descripcion_pedido, fecha_finalizacion: fechaFinalizacionPedido };
+        const pedidosActivos = { precio_pedido, anticipo_pedido, estado_pedido, descripcion_pedido, fecha_finalizacion: fechaFinalizacionPedido, factura_venta };
         await axios.put(URI + id, pedidosActivos);
         window.location.href = rutaDestino; // se utiliza la variable rutaDestino para redirigir a la página correcta
     }
@@ -75,7 +77,7 @@ const CompGestionarPedido = () => {
 
     const diasRestantes = Math.ceil((fecha_finalizacion - fecha) / 86400000);
     console.log(diasRestantes)
-    
+
 
 
     return (
@@ -91,7 +93,20 @@ const CompGestionarPedido = () => {
                     {/*   <p className='cmp-markey-title-add-pedido'>Registro de pedido - <p className='cmp-markey-nombreCliente'> {nombreCliente[0].nombre_comercial}</p>  </p>  */}
                     <div className='markey-container-form-input'>
                         <p className='markey-subtitle-employees'>Gestión del pedido</p>
-                        <p>Faltan <span style={{color: '#4481eb', fontWeight: 700}}>{diasRestantes}</span> días para que se cumpla con el pedido</p>
+                        <p>Faltan <span style={{ color: '#4481eb', fontWeight: 700 }}>{diasRestantes}</span> días para que se cumpla con el pedido</p>
+                        <ul className='cmp-markey-datos-input-employees'>
+                            <li>
+                                <p className='cmp-subtitle-create-pedido'>Factura de venta</p>
+                                <input
+                                    type="text"
+                                    className='markey-input-form'
+                                    name="facturaVenta"
+                                    value={factura_venta}
+                                    placeholder='Factura de venta'
+                                    onChange={(e) => setFacturaVenta(e.target.value)}
+                                />
+                            </li>
+                        </ul>
                         <ul className='cmp-markey-datos-input-employees'>
                             <li>
                                 <p className='cmp-subtitle-create-pedido'>Escribe el valor del pedido</p>

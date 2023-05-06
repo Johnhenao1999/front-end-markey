@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import ciudadesColombia from '../ciudadesColombia';
@@ -10,7 +10,7 @@ const URI = 'http://localhost:8000/registro-clientes/'
 
 const CompCreateCustomer = () => {
     const [id_cliente, setCliente] = useState('');
-    const [nombre_comercial, setNombreComercial] = useState(''); 
+    const [nombre_comercial, setNombreComercial] = useState('');
     const [telefono, setTelefono] = useState('');
     const [departamento, setDepartamento] = useState('');
     const [ciudad, setCiudad] = useState('');
@@ -21,6 +21,14 @@ const CompCreateCustomer = () => {
     const [, setAdminNamesCiudades] = useState([]);
     const [sugerencias, setSugerencias] = useState([]);
     const [showModal, setShowModal] = useState('');
+
+    const [errorIdCliente, setErrorIdCliente] = useState(false);
+    const [errorNombre, setErrorNombre] = useState(false);
+    const [errorCiudad, setErrorCiudad] = useState(false);
+    const [errorDepartamento, setErrorDepartamento] = useState(false);
+    const [errorTelefono, setErrorTelefono] = useState(false);
+    const [errorDireccion, setErrorDireccion] = useState(false);
+
 
     /* 
         const [errorCedula, setErrorCedula] = useState(false);
@@ -45,6 +53,18 @@ const CompCreateCustomer = () => {
 
     const guardar = async (e) => {
         e.preventDefault();
+
+        // Verificar que todos los campos obligatorios estén llenos
+        if (!id_cliente || !nombre_comercial || !ciudad || !departamento || !direccion || !telefono) {
+            setErrorIdCliente(!id_cliente);
+            setErrorNombre(!nombre_comercial);
+            setErrorCiudad(!ciudad);
+            setErrorDepartamento(!departamento)
+            setErrorDireccion(!direccion);
+            setErrorTelefono(!telefono);
+            setErrorDireccion(!direccion);
+            return;
+        }
 
         await axios.post(URI, {
             id_cliente,
@@ -121,6 +141,13 @@ const CompCreateCustomer = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/clientes'}>Clientes</Link></li>
+                        <li><Link to={''}>Registrar cliente</Link></li>
+                    </ul>
+                </nav>
                 <p className='cmp-title-section-scree'>Ingresa los datos para registrar un nuevo cliente</p>
                 <form className='cmp-screem-section-form' onSubmit={guardar}>
                     <div className='markey-container-form-input'>
@@ -134,17 +161,10 @@ const CompCreateCustomer = () => {
                                     type="text"
                                     className='markey-input-form'
                                     placeholder='Nit o Cédula'
-                                /*       maxLength={10}
-                                      pattern="[0-9]{10}"
-                                      title="Debe contener exactamente 10 dígitos numéricos"
-                                      onKeyPress={(e) => {
-                                          const onlyNumbers = /[0-9]/;
-                                          const key = String.fromCharCode(e.keyCode || e.which);
-                                          if (!onlyNumbers.test(key)) {
-                                              e.preventDefault();
-                                          }
-                                      }} */
                                 />
+                                {errorIdCliente && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
+                                )}
                             </li>
                             <li className='cmp-markey-datos-input-container-employees'>
                                 <input
@@ -154,6 +174,9 @@ const CompCreateCustomer = () => {
                                     className='markey-input-form'
                                     placeholder='Nombre comercial'
                                 />
+                                {errorNombre && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
+                                )}
                             </li>
                         </ul>
                         <ul className='cmp-markey-datos-input-employees'>
@@ -165,6 +188,9 @@ const CompCreateCustomer = () => {
                                     className='markey-input-form'
                                     placeholder='Ciudad'
                                 />
+                                {errorCiudad && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
+                                )}
                                 <ul className='suggestions'>
                                     {sugerencias.map((suggestion) => (
                                         <li className='suggestion-item' key={suggestion} onClick={() => handleSuggestionClick(suggestion)}>
@@ -181,6 +207,9 @@ const CompCreateCustomer = () => {
                                     className='markey-input-form'
                                     placeholder='Departamento'
                                 />
+                                {errorDepartamento && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
+                                )}
                                 <ul className="suggestions">
                                     {sugerenciasDepartamento.map((suggestion) => (
                                         <li
@@ -203,6 +232,9 @@ const CompCreateCustomer = () => {
                                     className='markey-input-form'
                                     placeholder='Dirección'
                                 />
+                                {errorDireccion && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
+                                )}
                             </li>
                             <li className='cmp-markey-datos-input-container-employees'>
                                 <input
@@ -212,6 +244,9 @@ const CompCreateCustomer = () => {
                                     className='markey-input-form'
                                     placeholder='Teléfono'
                                 />
+                                {errorTelefono && (
+                                    <p className='text-danger'>Este campo es obligatorio</p>
+                                )}
                             </li>
 
                         </ul>

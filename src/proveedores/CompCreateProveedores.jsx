@@ -20,7 +20,7 @@ const CompCreateProveedores = () => {
     const [sugerencias, setSugerencias] = useState([]);
     const [sugerenciasDepartamento, setSugerenciasDepartamento] = useState([]);
     const [adminNames, setAdminNames] = useState([]);
-    const [adminNamesCiudades, setAdminNamesCiudades] = useState([]);
+    const [, setAdminNamesCiudades] = useState([]);
     const [showModal, setShowModal] = useState('');
 
     const navigate = useNavigate();
@@ -140,6 +140,13 @@ const CompCreateProveedores = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/proveedores'}>Proveedores</Link></li>
+                        <li><Link to={''}>Registrar proveedor</Link></li>
+                    </ul>
+                </nav>
                 <p className='cmp-title-section-scree'>Ingresa los datos para registrar un proveedor</p>
                 <form onSubmit={guardar} className='cmp-screem-section-form'>
                     <div className='markey-container-form-input'>

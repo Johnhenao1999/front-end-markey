@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import CompNavegacionVertical from "../navegacion_vertical/navegacion"; 
+import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
 const URI = 'http://localhost:8000/registro-pedidos/'
-const uriInfoCliente = 'http://localhost:8000/clientes/' 
+const uriInfoCliente = 'http://localhost:8000/clientes/'
 
 const CompCrearPedido = () => {
     const [descripcion_pedido, setDescripcionPedido] = useState('');
@@ -18,6 +18,7 @@ const CompCrearPedido = () => {
     const [precioPedido, setPrecioPedido] = useState('');
     const [precioFaltantePedido, setPrecioFaltante] = useState('');
     const [nombreCliente, setNombreCliente] = useState([]);
+    const [facturaVenta, setFacturaVenta] = useState('');
 
     const { id_cliente } = useParams();
 
@@ -46,19 +47,25 @@ const CompCrearPedido = () => {
     // Procedimiento para guardar ha un usuario
     const submitData = async () => {
         const data = {
-            estado_pedido: estado_pedido,
-            descripcion_pedido: descripcion_pedido,
-            fecha_finalizacion: fecha_finalizacion.toISOString().slice(0, 10),
-            precio_pedido: precioPedido,
-            anticipo_pedido: anticipoPedido,
-            precio_faltante: precioFaltantePedido.replace(/\D/g, "")
-
+          estado_pedido: estado_pedido,
+          descripcion_pedido: descripcion_pedido,
+          fecha_finalizacion: fecha_finalizacion.toISOString().slice(0, 10),
+          precio_pedido: precioPedido,
+          anticipo_pedido: anticipoPedido,
+          precio_faltante: precioFaltantePedido.replace(/\D/g, ""),
+          factura_venta: facturaVenta
         };
-
-        console.log("Que se esta enviando", data)
- 
-        await axios.post(`${URI}${id_cliente}`, data); // aquí agregamos el idEmpleado a la URL
-    };
+      
+        try {
+          const response = await axios.post(`${URI}${id_cliente}`, data);
+          console.log(response)
+          const id_pedido = response.data.id_pedido; // Extraemos el id_pedido de la respuesta
+          navigate(`/registro-items/${id_pedido}`); // Navegamos a la pantalla de registro de items del pedido
+        } catch (error) {
+          console.error(error);
+        }
+        console.log("Que esta enviando" , data)
+      };
 
     function formatoValor(valor) {
         const formatter = new Intl.NumberFormat("es-CO", {
@@ -84,13 +91,32 @@ const CompCrearPedido = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/clientes'}>Clientes</Link></li>
+                        <li><Link to={''}>Registrar pedido</Link></li>
+                    </ul>
+                </nav>
                 {nombreCliente.length > 0 && (
                     <p className='cmp-title-section-scree'>
-                        Registro de pedido - <p className='cmp-markey-nombreEmpleado'>{nombreCliente[0].nombre_comercial} </p>
+                        Registrar pedido del cliente <p className='cmp-markey-nombreEmpleado'>{nombreCliente[0].nombre_comercial} </p>
                     </p>)}
                 {/*   <p className='cmp-markey-title-add-pedido'>Registro de pedido - <p className='cmp-markey-nombreCliente'> {nombreCliente[0].nombre_comercial}</p>  </p>  */}
                 <div className='markey-container-form-input'>
                     <p className='markey-subtitle-employees'>Detalles iniciales del pedido</p>
+                    <ul className='cmp-markey-datos-input-employees'>
+                        <li>
+                            <input
+                                type="text"
+                                className='markey-input-form'
+                                name="facturaVenta"
+                                value={facturaVenta}
+                                placeholder='Factura de venta'
+                                onChange={(e) => setFacturaVenta(e.target.value)}
+                            />
+                        </li>
+                    </ul>
                     <ul className='cmp-markey-datos-input-employees'>
                         <li>
                             <p className='cmp-subtitle-create-pedido'>Escribe el valor del pedido</p>
@@ -162,7 +188,7 @@ const CompCrearPedido = () => {
                         className='button-enviar-form'
                         onClick={() => {
                             submitData();
-                            navigate(`/pedidos/${id_cliente}`);
+
                         }}
                     >
                         Guardar

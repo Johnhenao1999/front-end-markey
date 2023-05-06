@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
@@ -60,6 +60,13 @@ const CompRegistrarTelas = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
+            <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/telas'}>Telas</Link></li>
+                        <li><Link to={''}>Registrar telas</Link></li>
+                    </ul>
+                </nav>
                 <p className='cmp-title-section-scree'>Registro de telas</p>
                 <div className='markey-container-form-input'>
                     <ul className='cmp-markey-datos-input-employees'>

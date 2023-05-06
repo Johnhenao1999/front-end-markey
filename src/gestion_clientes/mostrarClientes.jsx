@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './mostrarClientes.css'
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
@@ -9,12 +9,14 @@ import imagesEmployees from './imgEmployees';
 
 const URI = 'http://localhost:8000/clientes'
 
-const CompShowClientes = () => { 
+const CompShowClientes = () => {
 
     const [clientes, setClientes] = useState([])
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredClientes, setFilteredClientes] = useState([]);
     const [, setLoading] = useState(true) // agregar estado loading
+    const [showDeleteErrorModal, setShowDeleteErrorModal] = useState(false);
+    const navigate = useNavigate();
     useEffect(() => {
         getClientes()
     }, [])
@@ -36,12 +38,15 @@ const CompShowClientes = () => {
         setFilteredClientes(results);
     }, [searchTerm, clientes]);
 
-    //procedimineto para eliminar un cliente
-    const deleteClientes = async (id_cliente) => {
-        const pruebadelete = await axios.delete(`${URI}/${id_cliente}`)
-        getClientes()
-        console.log("A ver", pruebadelete)
-    }
+    const deleteClientes = async (idCliente) => {
+        try {
+            await axios.delete(`URI/${idCliente}`);
+            // Eliminar el cliente de la lista
+        } catch (error) {
+            setShowDeleteErrorModal(true);
+        }
+    };
+
 
 
 
@@ -51,6 +56,12 @@ const CompShowClientes = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/clientes'}>Clientes</Link></li>
+                    </ul>
+                </nav>
                 <div className="cmp-screen-container-title">
                     <p className='cmp-title-section-employees'>Clientes</p>
                     <div className="container-search-add">
@@ -72,7 +83,7 @@ const CompShowClientes = () => {
                         <thead className='table-primary'>
                             <tr>
                                 <th>Nit o cédula</th>
-                                <th>Nombre comercial</th>
+                                <th>Nombre</th>
                                 <th>Ciudad</th>
                                 <th>Teléfono</th>
                                 <th>Operaciones</th>
@@ -87,16 +98,58 @@ const CompShowClientes = () => {
                                     <td> {cliente.telefono} </td>
                                     <td className="colum-table-actions">
                                         <Link to={`/editar-cliente/${cliente.id_cliente}`} className='btn-action'><i className="fas fa-edit "></i></Link>
+                                        <Link to={`/registro-pedidos/${cliente.id_cliente}`} className="btn-action"><i class="fa-solid fa-share-from-square" style={{
+                                            color
+                                                : "white"
+                                        }}></i></Link>
+                                        <Link to={`/pedidos/${cliente.id_cliente}`} className="btn-action"><i class="fa-solid fa-cart-shopping" style={{
+                                            color
+                                                : "white"
+                                        }}></i></Link>
                                         <Link onClick={() => deleteClientes(cliente.id_cliente)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
-                                        <Link to={`/pedidos/${cliente.id_cliente}`} className="btn-action"><i className="fas fa-dollar-sign"></i></Link>
-                                        <Link to={`/registro-pedidos/${cliente.id_cliente}`} className="btn-action"><i className="fas fa-dollar-sign"></i></Link>
-                 {/*                        <Link to={`/mostrar-items-pedido/${cliente.id_cliente}`} className="btn-action"><i className="fas fa-dollar-sign"></i></Link> */}
+                                        {/*                        <Link to={`/mostrar-items-pedido/${cliente.id_cliente}`} className="btn-action"><i className="fas fa-dollar-sign"></i></Link> */}
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
+                 {showDeleteErrorModal && (
+                <div className="modal" tabIndex="-1" role="dialog">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Error al eliminar cliente</h5>
+                                <button
+                                    type="button"
+                                    className="close"
+                                    onClick={() => {
+                                        setShowDeleteErrorModal(false);
+                                        navigate('/clientes');
+                                    }}
+                                >
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <p>Se ha producido un error al eliminar el cliente, ya que cuenta con pedidos registrados completamente.</p>
+                            </div>
+                            <div className="modal-footer">
+                                <button
+                                    type="button"
+                                    className="btn btn-primary"
+                                    onClick={() => {
+                                        setShowDeleteErrorModal(false);
+                                        navigate('/clientes');
+                                    }}
+                                >
+                                    Aceptar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
             </div>
         </div>
 

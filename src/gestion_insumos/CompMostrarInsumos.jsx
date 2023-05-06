@@ -48,6 +48,12 @@ const CompMostrarInsumos = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
+            <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/insumos'}>Insumos</Link></li>
+                    </ul>
+                </nav>
                 <div className="cmp-screen-container-title">
                     <p className='cmp-title-section-employees'>Insumos</p>
                     <div className="container-search-add">
@@ -85,7 +91,7 @@ const CompMostrarInsumos = () => {
                                     <td> {insumo.fecha_ingreso ? new Date(insumo.fecha_ingreso).getDate() + ' ' + new Date(insumo.fecha_ingreso).toLocaleString('default', { month: 'long' }) + ' de ' + new Date(insumo.fecha_ingreso).getFullYear() : ''} </td>
                                     <td className="colum-table-actions">
                                         <Link to={`/gestionar-insumos/${insumo.id_insumo}`} className='btn-action'><i className="fas fa-edit "></i></Link>
-                                        <Link onClick={() => deleteInsumos(insumo.id_insumo)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                        <Link style={{background:"red"}} onClick={() => deleteInsumos(insumo.id_insumo)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
                                     </td>
                                 </tr>
                             ))}

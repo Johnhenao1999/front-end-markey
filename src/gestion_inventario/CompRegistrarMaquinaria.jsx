@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
-const URI = 'http://localhost:8000/registrar-maquinaria' 
+const URI = 'http://localhost:8000/registrar-maquinaria'
 
 const CompRegistrarMaquinaria = () => {
     const [nombre, setNombre] = useState('');
@@ -41,7 +41,14 @@ const CompRegistrarMaquinaria = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
-            <p className='cmp-title-section-scree'>Detalles iniciales del pedido</p>
+                <nav class="breadcrumb">
+                    <ul>
+                        <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
+                        <li><Link to={'/maquinaria'}>Máquinaria</Link></li>
+                        <li><Link to={'/proveedores'}>Registrar máquinaria</Link></li>
+                    </ul>
+                </nav>
+                <p className='cmp-title-section-scree'>Registrar máquinaria</p>
                 <div className='markey-container-form-input'>
                     <ul className='cmp-markey-datos-input-employees'>
                         <li>
@@ -56,7 +63,7 @@ const CompRegistrarMaquinaria = () => {
                         </li>
                     </ul>
                     <ul className='cmp-markey-datos-input-employees'>
-                    <li>
+                        <li>
                             <input
                                 type="text"
                                 name="modelo"
@@ -78,7 +85,7 @@ const CompRegistrarMaquinaria = () => {
                         </li>
                     </ul>
                     <ul className='cmp-markey-datos-input-employees'>
-                    <li>
+                        <li>
                             <select value={estado} onChange={(e) => setEstadoMaquina(e.target.value)} className='cmp-markey-select'>
                                 <option value="">Estado de la maquina</option>
                                 <option value="Buena">Buena</option>
