@@ -1,4 +1,4 @@
-import axios from "axios";
+/* import axios from "axios";
 import { useEffect, useState } from "react";
 import { json, useNavigate, useParams } from "react-router-dom";
 
@@ -80,4 +80,4 @@ const CompPruebaRegistro = () => {
 
 }
 
-export default CompPruebaRegistro;
+export default CompPruebaRegistro; */
