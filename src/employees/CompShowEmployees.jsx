@@ -6,7 +6,7 @@ import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 
 import imagesEmployees from './imgEmployees';
 
-const URI = 'http://localhost:8000/empleados'
+const URI = 'https://markey-confecciones.up.railway.app/empleados'
 
 const CompShowUsuarios = () => {
 
