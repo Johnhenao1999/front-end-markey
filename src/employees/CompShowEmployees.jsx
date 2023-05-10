@@ -71,7 +71,7 @@ const CompShowUsuarios = () => {
     const deleteUsuarios = async (idcedula) => {
         const token = localStorage.getItem('token');
         try {
-            await axios.delete(`${URI}/${idcedula}`, {
+            await axios.delete(`${URL}/${idcedula}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
