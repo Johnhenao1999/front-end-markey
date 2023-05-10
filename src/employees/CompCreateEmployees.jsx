@@ -9,7 +9,7 @@ import ciudadesColombia from '../ciudadesColombia';
 
 let currentUrl = window.location.href;
 
-let URL = 'https://markey-confecciones.up.railway.app/holamundi';
+let URL = 'https://markey-confecciones.up.railway.app/holamundo';
 
 if (currentUrl.includes('localhost')) {
   URL = 'http://localhost:8000/holamundo';
