@@ -7,7 +7,13 @@ import CompHeader from "../header/header";
 import ciudadesColombia from '../ciudadesColombia';
 
 
-const URI = 'http://localhost:8000/holamundo/'
+let currentUrl = window.location.href;
+
+let URL = 'https://markey-confecciones.up.railway.app/empleados';
+
+if (currentUrl.includes('localhost')) {
+  URL = 'http://localhost:8000/empleados';
+}
 
 const CompCreateUsuarios = () => {
     const [idcedula, setCedula] = useState('');
@@ -72,7 +78,7 @@ const CompCreateUsuarios = () => {
         }
 
 
-        const hey = await axios.post(URI, {
+        const hey = await axios.post(URL, {
             idcedula,
             nombre,
             apellido,
