@@ -9,10 +9,10 @@ import ciudadesColombia from '../ciudadesColombia';
 
 let currentUrl = window.location.href;
 
-let URL = 'https://markey-confecciones.up.railway.app/empleados';
+let URL = 'https://markey-confecciones.up.railway.app/holamundi';
 
 if (currentUrl.includes('localhost')) {
-  URL = 'http://localhost:8000/empleados';
+  URL = 'http://localhost:8000/holamundo';
 }
 
 const CompCreateUsuarios = () => {
