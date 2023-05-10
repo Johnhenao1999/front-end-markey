@@ -6,7 +6,13 @@ import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 
 import imagesEmployees from './imgEmployees';
 
-const URI = 'https://markey-confecciones.up.railway.app/empleados'
+let currentUrl = window.location.href;
+
+let URL = 'https://markey-confecciones.up.railway.app/empleados';
+
+if (currentUrl.includes('localhost')) {
+  URL = 'http://localhost:8000/empleados';
+}
 
 const CompShowUsuarios = () => {
 
@@ -39,7 +45,7 @@ const CompShowUsuarios = () => {
         }
 
         try {
-            const res = await axios.get(URI, {
+            const res = await axios.get(URL, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
