@@ -4,7 +4,14 @@ import { useNavigate, Link } from 'react-router-dom';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
-const URI = 'http://localhost:8000/registrar-telas'
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/registrar-telas';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/registrar-telas'
+}
+
 
 const CompRegistrarTelas = () => {
     const [nombre, setNombre] = useState('');

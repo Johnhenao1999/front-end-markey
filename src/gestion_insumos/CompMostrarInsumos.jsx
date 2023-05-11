@@ -6,7 +6,14 @@ import CompHeader from "../header/header";
 import imagesEmployees from './imgEmployees';
 
 
-const URI = 'http://localhost:8000/insumos/'
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/insumos/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/insumos/'
+}
+
 
 const CompMostrarInsumos = () => {
 

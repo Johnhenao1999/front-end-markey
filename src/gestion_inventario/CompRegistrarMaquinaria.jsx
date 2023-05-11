@@ -6,7 +6,14 @@ import 'react-datepicker/dist/react-datepicker.css';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
-const URI = 'http://localhost:8000/registrar-maquinaria'
+
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/registrar-maquinaria';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/registrar-maquinaria'
+}
 
 const CompRegistrarMaquinaria = () => {
     const [nombre, setNombre] = useState('');

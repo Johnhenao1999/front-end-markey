@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import {useParams } from "react-router-dom";
 
-const URI = 'http://localhost:8000/mostrar-items-pedidos/'
+
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/mostrar-items-pedidos/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/mostrar-items-pedidos/'
+}
 
 const CompMostrarDetallePedidos = () => {
   const [pedidos, setPedidos] = useState([]);

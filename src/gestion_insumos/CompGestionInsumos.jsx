@@ -5,7 +5,13 @@ import { useParams } from 'react-router-dom';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
-const URI = 'http://localhost:8000/insumos/'
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/insumos/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/insumos/'
+}
 
 const CompGestionInsumos = () => {
     const { id } = useParams();

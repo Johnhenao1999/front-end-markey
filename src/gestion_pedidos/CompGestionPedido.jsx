@@ -5,7 +5,14 @@ import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import DatePicker from 'react-datepicker';
 
-const URI = 'http://localhost:8000/pedidos-cliente/'
+
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/pedidos-cliente/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/pedidos-cliente/'
+}
 
 const CompGestionarPedido = () => {
     const { id } = useParams();

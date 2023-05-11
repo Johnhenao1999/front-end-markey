@@ -189,13 +189,24 @@ import PiesChart from "./PiesChart";
 import CompHeader from "../header/header";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 
+let currentUrl = window.location.href;
 
-const URI = 'http://localhost:8000/pedidos/'
-const URI_PEDIDOS_FINALIZADOS = 'http://localhost:8000/pedidos-finalizados/'
-const URI_ITEMS_PEDIDOS = 'http://localhost:8000/items-pedidos-finalizados/'
-const URI_EMPLEADOS_REGISTRADOS = 'http://localhost:8000/empleados/'
-const URI_HORAS_REGISTRADAS = 'http://localhost:8000/registro-horas/'
-const URI_CONFIGURACIONES = 'http://localhost:8000/configuracion/'
+let URI_CONFIGURACIONES = 'https://markey-confecciones.up.railway.app/configuracion/'
+let URI = 'https://markey-confecciones.up.railway.app/pedidos/'
+let URI_PEDIDOS_FINALIZADOS = 'https://markey-confecciones.up.railway.app/pedidos-finalizados/'
+let URI_ITEMS_PEDIDOS = 'https://markey-confecciones.up.railway.app/items-pedidos-finalizados/'
+let URI_EMPLEADOS_REGISTRADOS = 'https://markey-confecciones.up.railway.app/empleados/'
+let URI_HORAS_REGISTRADAS = 'https://markey-confecciones.up.railway.app/registro-horas/'
+
+if (currentUrl.includes('localhost')) {
+  URI_CONFIGURACIONES = 'http://localhost:8000/configuracion/'
+  URI = 'http://localhost:8000/pedidos/'
+  URI_PEDIDOS_FINALIZADOS = 'http://localhost:8000/pedidos-finalizados/'
+  URI_ITEMS_PEDIDOS = 'http://localhost:8000/items-pedidos-finalizados/'
+  URI_EMPLEADOS_REGISTRADOS = 'http://localhost:8000/empleados/'
+  URI_HORAS_REGISTRADAS = 'http://localhost:8000/registro-horas/'
+}
+
 
 const CompHomePrincipalAdministrador = () => {
 

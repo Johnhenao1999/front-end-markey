@@ -7,7 +7,16 @@ import CompHeader from "../header/header";
 
 import imagesEmployees from './imgEmployees';
 
-const URI = 'http://localhost:8000/clientes'
+
+
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/clientes';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/clientes'
+}
+
 
 const CompShowClientes = () => {
 

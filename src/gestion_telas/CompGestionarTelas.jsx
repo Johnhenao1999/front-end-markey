@@ -5,7 +5,14 @@ import { useParams } from 'react-router-dom';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
-const URI = 'http://localhost:8000/telas/'
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/telas/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/telas/'
+}
+
 
 const CompGestionTelas = () => {
     const { id } = useParams();

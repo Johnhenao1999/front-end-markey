@@ -5,8 +5,14 @@ import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import imagesEmployees from './imgEmployees';
 
+let currentUrl = window.location.href;
 
-const URI = 'http://localhost:8000/telas/'
+let URI = 'https://markey-confecciones.up.railway.app/telas/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/telas/'
+}
+
 
 const CompMostrarTelas = () => {
 

@@ -6,7 +6,7 @@ import axios from 'axios';
 
 async function handleLogout() {
     try {
-        await axios.post('http://localhost:8000/logout/', {}, {
+        await axios.post('https://markey-confecciones.up.railway.app/logout/', {}, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }

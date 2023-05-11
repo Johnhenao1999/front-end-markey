@@ -7,8 +7,16 @@ import 'react-datepicker/dist/react-datepicker.css';
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
-const URI = 'http://localhost:8000/registro-pedidos/'
-const uriInfoCliente = 'http://localhost:8000/clientes/'
+
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/registro-pedidos/';
+let uriInfoCliente = 'https://markey-confecciones.up.railway.app/clientes/'
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/registro-pedidos/'
+    uriInfoCliente = 'http://localhost:8000/clientes/'
+}
 
 const CompCrearPedido = () => {
     const [descripcion_pedido, setDescripcionPedido] = useState('');

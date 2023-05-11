@@ -5,7 +5,13 @@ import { Link, useParams } from "react-router-dom";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
-const URI = 'http://localhost:8000/pedidos/'
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/pedidos/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/pedidos/'
+}
 
 const CompPedidoCliente = () => {
     const [pedidos, setPedidos] = useState([]);

@@ -5,7 +5,14 @@ import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import imagesEmployees from './imgEmployees';
 
-const URI = 'http://localhost:8000/maquinas/'
+
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/maquinas/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/maquinas/'
+}
 
 const CompMaquinaria = () => {
 

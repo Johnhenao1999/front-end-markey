@@ -6,7 +6,13 @@ import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import './pedidos.css'
 
-const URI = 'http://localhost:8000/registro-items/';
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/registro-items/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/registro-items/'
+}
 
 const CompRegistroItemsPedido = () => {
   const [items, setItems] = useState([{ cantidad: '', producto: '', precio_unitario: '', total: '' }]);

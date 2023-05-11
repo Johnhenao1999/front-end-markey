@@ -6,7 +6,14 @@ import CompHeader from "../header/header";
 import ciudadesColombia from '../ciudadesColombia';
 
 
-const URI = 'http://localhost:8000/registro-clientes/'
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/registro-clientes/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/registro-clientes/'
+}
+
 
 const CompCreateCustomer = () => {
     const [id_cliente, setCliente] = useState('');

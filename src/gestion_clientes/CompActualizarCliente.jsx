@@ -5,7 +5,14 @@ import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import ciudadesColombia from '../ciudadesColombia';
 
-const URI = 'http://localhost:8000/clientes/'
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/clientes/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/clientes/'
+}
+
 
 const CompActualizarCliente = () => {
     const { id } = useParams();
