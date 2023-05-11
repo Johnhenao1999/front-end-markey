@@ -17,7 +17,7 @@ let URI_CONFIGURACIONES = 'https://markey-confecciones.up.railway.app/configurac
 
 
 if (currentUrl.includes('localhost')) {
-  URL = 'http://localhost:8000/holamundo';
+  URL = 'http://localhost:8000/holamundo/';
   URIE = 'http://localhost:8000/empleados/';
   URI_CONFIGURACIONES = 'http://localhost:8000/configuracion/'
 }

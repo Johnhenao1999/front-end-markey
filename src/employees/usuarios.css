@@ -434,6 +434,33 @@
   .container-search-add {
     justify-content: center;
   }
+
+   .cmp-container-cards{
+    flex-direction: column
+  } 
+
+  .cmp-section-pedidos{
+    width: 100% !important;
+    margin: 2px !important;
+    display: flex !important;
+    height: 60px !important;
+  }
+
+  .cmp-valor-card{
+    font-weight: 700;
+  }
+
+  .cmp-container-graficas{
+    flex-direction: column
+  }
+
+  .cmp-markey-title-graficos{
+    text-align: center;
+  }
+
+  .cmp-markey-graficos{
+    width: 100% !important;
+  }
 }
 
 @media (width < 394px) {
