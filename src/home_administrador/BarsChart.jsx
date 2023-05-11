@@ -24,8 +24,15 @@ ChartJS.register(
     Filler
 );
 
-const URI = 'http://localhost:8000/pedidos-finalizados/'
+let currentUrl = window.location.href;
 
+let URI = 'https://markey-confecciones.up.railway.app/pedidos-finalizados/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/pedidos-finalizados/';
+}
+
+ 
 
 export default function Bars() {
     const [pedidos, setPedidos] = useState([]);

@@ -6,7 +6,15 @@ import { useState, useEffect } from "react";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const URI = 'http://localhost:8000/detalle-pedido/'
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/detalle-pedido/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/detalle-pedido/';
+}
+
+
 
 
 export default function Pies() {
