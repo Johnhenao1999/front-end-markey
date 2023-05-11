@@ -24,7 +24,14 @@ ChartJS.register(
     Filler
 );
 
-const URI = 'https://markey-confecciones.up.railway.app/pedidos-finalizados/'
+
+let currentUrl = window.location.href;
+
+let URL = 'https://markey-confecciones.up.railway.app/pedidos-finalizados/';
+
+if (currentUrl.includes('localhost')) {
+  URL = 'http://localhost:8000/pedidos-finalizados/';
+}
 
 
 export default function Bars() {
@@ -40,7 +47,7 @@ export default function Bars() {
 
     const getAllPedidos = async () => {
         try {
-            const res = await axios.get(URI);
+            const res = await axios.get(URL);
             setPedidos(res.data);
             console.log("PEDIDOS BARRA", res)
         } catch (error) {

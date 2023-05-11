@@ -6,7 +6,13 @@ import { useState, useEffect } from "react";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const URI = 'https://markey-confecciones.up.railway.app/detalle-pedido/'
+let currentUrl = window.location.href;
+
+let URL = 'https://markey-confecciones.up.railway.app/detalle-pedido/';
+
+if (currentUrl.includes('localhost')) {
+  URL = 'http://localhost:8000/detalle-pedido/';
+}
 
 
 export default function Pies() {
@@ -23,7 +29,7 @@ export default function Pies() {
 
     const getAllItemsPedidos = async () => {
         try {
-            const res = await axios.get(URI);
+            const res = await axios.get(URL);
             setItemsPedidos(res.data);
             console.log("items pedidos", res)
         } catch (error) {
