@@ -4,8 +4,14 @@ import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
 
+let currentUrl = window.location.href;
 
-const URI_CONFIGURACIONES = 'https://markey-confecciones.up.railway.app/configuracion/'
+let URI_CONFIGURACIONES = 'https://markey-confecciones.up.railway.app/configuracion/'
+
+if (currentUrl.includes('localhost')) {
+  URI_CONFIGURACIONES = 'http://localhost:8000/configuracion/'
+}
+
 
 const CompConfiguraciones = () => {
     const [nombre_admin, setNombreAdmin] = useState('');
