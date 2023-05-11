@@ -11,7 +11,7 @@ import CompHeader from "../header/header";
 
 let currentUrl = window.location.href;
 
-let URL = 'https://markey-confecciones.up.railway.app/holamundo'
+let URL = 'https://markey-confecciones.up.railway.app/holamundo/'
 let URIE = 'https://markey-confecciones.up.railway.app/empleados/';
 let URI_CONFIGURACIONES = 'https://markey-confecciones.up.railway.app/configuracion/'
 
