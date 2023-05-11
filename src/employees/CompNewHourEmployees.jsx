@@ -9,9 +9,19 @@ import CompHeader from "../header/header";
 
 
 
-const URI = 'http://localhost:8000/holamundo/'
-const URIE = 'http://localhost:8000/empleados/'
-const URI_CONFIGURACIONES = 'http://localhost:8000/configuracion/'
+let currentUrl = window.location.href;
+
+let URL = 'https://markey-confecciones.up.railway.app/holamundo'
+let URIE = 'https://markey-confecciones.up.railway.app/empleados/';
+let URI_CONFIGURACIONES = 'https://markey-confecciones.up.railway.app/configuracion/'
+
+
+if (currentUrl.includes('localhost')) {
+  URL = 'http://localhost:8000/holamundo';
+  URIE = 'http://localhost:8000/empleados/';
+  URI_CONFIGURACIONES = 'http://localhost:8000/configuracion/'
+}
+
 
 const CompIngresarHora = () => {
     const [horaEntradaManana, setHoraIngresoManana] = useState('');
@@ -83,7 +93,7 @@ const CompIngresarHora = () => {
             horaSalida: horaSalida,
         };
 
-        const prueba = await axios.post(`${URI}ingresar_fecha/${idEmpleado}`, data); // aquí agregamos el idEmpleado a la URL
+        const prueba = await axios.post(`${URL}ingresar_fecha/${idEmpleado}`, data); // aquí agregamos el idEmpleado a la URL
         console.log('Datos enviados correctamente');
         console.log("que trae data", prueba)
     };
@@ -97,7 +107,7 @@ const CompIngresarHora = () => {
                         <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
                         <li><Link to={'/empleados'}>Empleados</Link></li>
                         <li><Link to={''}>Registro de horas</Link></li>
-                    </ul>
+                    </ul> 
                 </nav>
                 {nombreEmpleado.length > 0 && (
                     <p className='cmp-title-section-scree'>
