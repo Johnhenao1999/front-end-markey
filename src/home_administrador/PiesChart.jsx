@@ -17,98 +17,85 @@ if (currentUrl.includes('localhost')) {
 
 export default function Pies() {
 
-    const [itemsPedidos, setItemsPedidos] = useState([]);
-    const [, setLoading] = useState(false);
+  const [itemsPedidos, setItemsPedidos] = useState([]);
+  const [, setLoading] = useState(false);
 
 
-    useEffect(() => {
-        setLoading(true);
-        getAllItemsPedidos();
+  useEffect(() => {
+    setLoading(true);
+    getAllItemsPedidos();
 
-    }, []);
+  }, []);
 
-    const getAllItemsPedidos = async () => {
-        try {
-            const res = await axios.get(URL);
-            setItemsPedidos(res.data);
-            console.log("items pedidos", res)
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
+  const getAllItemsPedidos = async () => {
+    try {
+      const res = await axios.get(URL);
+      if (!Array.isArray(res.data)) {
+        console.error("La respuesta del servidor no es un array válido.");
+        return;
+      }
+      setItemsPedidos(res.data);
+      console.log("items pedidos", res)
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-/*     const productos = itemsPedidos.reduce((acumulador, item) => {
-        const producto = item.producto;
-        const cantidad = parseInt(item.cantidad);
-      
-        if (!acumulador[producto]) {
-          acumulador[producto] = 0;
-        }
-      
-        acumulador[producto] += cantidad;
-      
-        return acumulador;
-      }, {});
-      
-      const nombresProductos = Object.keys(productos);
-      const cantidadesProductos = Object.values(productos); */
+  
 
-      const productos = itemsPedidos.reduce((acumulador, item) => {
-        const producto = item.producto;
-        const cantidad = parseInt(item.cantidad);
-      
-        if (!acumulador[producto]) {
-          acumulador[producto] = 0;
-        }
-      
-        acumulador[producto] += cantidad;
-      
-        return acumulador;
-      }, {});
-      
-/*       const nombresProductos = Object.keys(productos);
-      const cantidadesProductos = Object.values(productos); */
-      
-      // Ordena los objetos en base a sus valores y toma los primeros 5
-      const topProductos = Object.entries(productos)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5);
-      
-      const nombresTopProductos = topProductos.map(producto => producto[0]);
-      const cantidadesTopProductos = topProductos.map(producto => producto[1]);
+  const productos = itemsPedidos.reduce((acumulador, item) => {
+    const producto = item.producto;
+    const cantidad = parseInt(item.cantidad);
+
+    if (!acumulador[producto]) {
+      acumulador[producto] = 0;
+    }
+
+    acumulador[producto] += cantidad;
+
+    return acumulador;
+  }, {});
+
+  // Ordena los objetos en base a sus valores y toma los primeros 5
+  const topProductos = Object.entries(productos)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
+
+  const nombresTopProductos = topProductos.map(producto => producto[0]);
+  const cantidadesTopProductos = topProductos.map(producto => producto[1]);
 
 
-      var options = {
-        responsive: true,
-        maintainAspectRatio: false,
-      };
+  var options = {
+    responsive: true,
+    maintainAspectRatio: false,
+  };
 
-    var data = {
-        labels: nombresTopProductos,
-        datasets: [
-            {
-                data: cantidadesTopProductos,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                ],
-                borderWidth: 1,
-            },
+  var data = {
+    labels: nombresTopProductos,
+    datasets: [
+      {
+        data: cantidadesTopProductos,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
         ],
-    };
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
 
 
-    return <Pie data={data} options={options} />
+  return <Pie data={data} options={options} />
 }

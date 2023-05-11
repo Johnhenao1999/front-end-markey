@@ -41,7 +41,7 @@ const CompShowPedidosFinalizados = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
-                <nav class="breadcrumb">
+                <nav className="breadcrumb">
                     <ul>
                         <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
                         <li><Link to={'/pedidos-finalizados'}>Pedidos finalizados</Link></li>
@@ -53,7 +53,7 @@ const CompShowPedidosFinalizados = () => {
                 <div className='table-empleados-container'>
                     <table className='table-empleados'>
                         <thead className='table-primary'>
-                            <tr>
+                            <tr>  
                                 <th>Empresa</th>
                                 <th>Factura</th>
                                 <th>Fecha registro</th>

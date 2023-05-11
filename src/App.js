@@ -8,7 +8,6 @@ import CompEditarUsuarios from './employees/CompEditEmployees';
 import CompHomePrincipalAdministrador from './home_administrador/homePrincipalAdministrador';
 import CompMostrarMaquinaria from './gestion_inventario/CompMostrarMaquinaria';
 import CompHomePrincipal from './home_principal/homePrincipal';
-import CompPruebaRegistro from './registro_horas_empleados/registrarHorasEmpleados';
 import CompMostrarHorasEmpleado from './employees/CompShowEmployeesTime';
 import CompIngresarHora from './employees/CompNewHourEmployees';
 import CompCreateCustomer from './gestion_clientes/CompCreateCustomer';
@@ -45,7 +44,6 @@ function App() {
           <Route path='/homeAdministrador' element={<CompHomePrincipalAdministrador />} />
           <Route path='/empleados' element={<CompShowUsuarios />} />
           <Route path='/create-employees' element={<CompCreateUsuarios />} />
-          <Route path='/pruebaRegistro/:id' element={<CompPruebaRegistro />} />
           <Route path='/edit/:id' element={<CompEditarUsuarios />} />
           <Route path='/registro-horas-empleado/:idEmpleado' element={<CompMostrarHorasEmpleado />} />
           <Route path='/ingresar_fecha/:idEmpleado' element={<CompIngresarHora />} />
