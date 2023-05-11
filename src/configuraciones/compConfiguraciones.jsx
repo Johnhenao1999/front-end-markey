@@ -5,7 +5,7 @@ import CompHeader from "../header/header";
 
 
 
-const URI_CONFIGURACIONES = 'http://localhost:8000/configuracion/'
+const URI_CONFIGURACIONES = 'https://markey-confecciones.up.railway.app/configuracion/'
 
 const CompConfiguraciones = () => {
     const [nombre_admin, setNombreAdmin] = useState('');
