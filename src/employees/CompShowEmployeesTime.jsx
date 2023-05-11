@@ -202,8 +202,17 @@ import { useParams, Link } from "react-router-dom";
 import CompHeader from "../header/header";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 
+let currentUrl = window.location.href;
 
-const URI = 'http://localhost:8000/registro-horas-empleado/'
+
+let URI = 'https://markey-confecciones.up.railway.app/registro-horas-empleado/'
+
+
+if (currentUrl.includes('localhost')) {
+  URI = 'http://localhost:8000/registro-horas-empleado/';
+}
+
+
 
 const CompMostrarHorasEmpleado = () => {
   const [ingresos, setIngresos] = useState([]);
