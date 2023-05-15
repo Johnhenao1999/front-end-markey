@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import CompHeader from "../header/header";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
+import Tooltip from '../ComponentTooltip/Tooltip';
 
 import imagesEmployees from './imgEmployees';
 
@@ -132,15 +133,23 @@ const CompShowUsuarios = () => {
                                     <td>     {usuario.telefono} </td>
                                     <td> {usuario.especialidad} </td>
                                     <td className="colum-table-actions">
-                                        <Link to={`/edit/${usuario.idcedula}`} className='btn-action'><i className="fas fa-edit"></i></Link>
-                                        <Link to={`/ingresar_fecha/${usuario.idcedula}`} className="btn-action"><i class="fa-solid fa-share-from-square" style={{
+                                        <Tooltip text="Gestionar">
+                                            <Link to={`/edit/${usuario.idcedula}`} className='btn-action'><i className="fas fa-edit"></i></Link>
+                                        </Tooltip>
+                                        <Tooltip text="Agregar">
+                                            <Link to={`/ingresar_fecha/${usuario.idcedula}`} className="btn-action"><i class="fa-solid fa-share-from-square" style={{
                                             color
                                                 : "white"
-                                        }}></i></Link>
-                                        <Link to={`/registro-horas-empleado/${usuario.idcedula}`} className="btn-action"><i class="fa-regular fa-clock"></i></Link>
+                                            }}></i></Link>
+                                        </Tooltip>
+                                        <Tooltip text="Historial">
+                                            <Link to={`/registro-horas-empleado/${usuario.idcedula}`} className="btn-action"><i class="fa-regular fa-clock"></i></Link>
+                                        </Tooltip>
                                         {/*   <Link onClick={() => deleteUsuarios(usuario.idcedula)} className='btn-action'><i className="fas fa-trash-alt"></i></Link> */}
                                         {/* <Link to={`/registro-horas-empleado/${usuario.idcedula}`} className="btn-action"><i class="fa-sharp fa-regular fa-clock fa-2xl"></i></Link> */}
-                                        <Link onClick={() => deleteUsuarios(usuario.idcedula)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                        <Tooltip text="Eliminar">
+                                            <Link onClick={() => deleteUsuarios(usuario.idcedula)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                        </Tooltip>
                                     </td>
                                 </tr>
                             ))}

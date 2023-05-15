@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
+import Tooltip from '../ComponentTooltip/Tooltip';
 
 let currentUrl = window.location.href;
 
@@ -87,9 +88,13 @@ const CompShowPedidos = () => {
                                     <td> {pedido.fecha_finalizacion ? new Date(pedido.fecha_finalizacion).getDate() + ' ' + new Date(pedido.fecha_finalizacion).toLocaleString('default', { month: 'long' }) + ' de ' + new Date(pedido.fecha_finalizacion).getFullYear() : ''} </td>
                                     <td> {pedido.estado_pedido} </td>
                                     <td className="colum-table-actions">
-                                        <Link to={`/gestionar-pedido/${pedido.id_pedido}`} className='btn-action'><i className="fas fa-edit"></i></Link>
-                                        <Link to={`/items-pedido/${pedido.id_pedido}`} className='btn-action'><i class="fa-solid fa-tag "></i></Link>
-                                     {/*    <Link style={{background:"red"}} onClick={() => deletePedidos(pedido.id_pedido)} className='btn-action'><i className="fas fa-trash-alt" ></i></Link> */}
+                                        <Tooltip text="Gestionar">
+                                            <Link to={`/gestionar-pedido/${pedido.id_pedido}`} className='btn-action'><i className="fas fa-edit"></i></Link>
+                                        </Tooltip>
+                                        <Tooltip text="Detalles">
+                                            <Link to={`/items-pedido/${pedido.id_pedido}`} className='btn-action'><i class="fa-solid fa-tag "></i></Link>
+                                            {/*    <Link style={{background:"red"}} onClick={() => deletePedidos(pedido.id_pedido)} className='btn-action'><i className="fas fa-trash-alt" ></i></Link> */}
+                                        </Tooltip>
                                     </td>
                                 </tr>
                             ))}

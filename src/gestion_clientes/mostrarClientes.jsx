@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import './mostrarClientes.css'
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
+import Tooltip from '../ComponentTooltip/Tooltip';
 
 import imagesEmployees from './imgEmployees';
 
@@ -106,17 +107,25 @@ const CompShowClientes = () => {
                                     <td> {cliente.ciudad} </td>
                                     <td> {cliente.telefono} </td>
                                     <td className="colum-table-actions">
-                                        <Link to={`/editar-cliente/${cliente.id_cliente}`} className='btn-action'><i className="fas fa-edit "></i></Link>
-                                        <Link to={`/registro-pedidos/${cliente.id_cliente}`} className="btn-action"><i class="fa-solid fa-share-from-square" style={{
-                                            color
-                                                : "white"
-                                        }}></i></Link>
-                                        <Link to={`/pedidos/${cliente.id_cliente}`} className="btn-action"><i class="fa-solid fa-cart-shopping" style={{
-                                            color
-                                                : "white"
-                                        }}></i></Link>
-                                        <Link onClick={() => deleteClientes(cliente.id_cliente)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
-                                        {/*                        <Link to={`/mostrar-items-pedido/${cliente.id_cliente}`} className="btn-action"><i className="fas fa-dollar-sign"></i></Link> */}
+                                        <Tooltip text="Gestionar">
+                                            <Link to={`/editar-cliente/${cliente.id_cliente}`} className='btn-action'><i className="fas fa-edit "></i></Link>
+                                        </Tooltip>
+                                        <Tooltip text="Registrar">
+                                            <Link to={`/registro-pedidos/${cliente.id_cliente}`} className="btn-action"><i class="fa-solid fa-share-from-square" style={{
+                                                color
+                                                    : "white"
+                                            }}></i></Link>
+                                        </Tooltip>
+                                        <Tooltip text="Historial">
+                                            <Link to={`/pedidos/${cliente.id_cliente}`} className="btn-action"><i class="fa-solid fa-cart-shopping" style={{
+                                                color
+                                                    : "white"
+                                            }}></i></Link>
+                                        </Tooltip>
+                                        <Tooltip text="Eliminar">
+                                            <Link onClick={() => deleteClientes(cliente.id_cliente)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                            {/*                        <Link to={`/mostrar-items-pedido/${cliente.id_cliente}`} className="btn-action"><i className="fas fa-dollar-sign"></i></Link> */}
+                                        </Tooltip>
                                     </td>
                                 </tr>
                             ))}
