@@ -87,6 +87,11 @@ const CompMaquinaria = () => {
                             </tr>
                         </thead>
                         <tbody>
+                        {filteredMaquinaria.length === 0 && (
+                                <tr>
+                                    <td colSpan="7">No se encuentran resultados.</td>
+                                </tr>
+                            )}
                             {filteredMaquinaria.map((inventario) => (
                                 <tr key={inventario.id}>
                                     <td> {inventario.nombre} </td>
