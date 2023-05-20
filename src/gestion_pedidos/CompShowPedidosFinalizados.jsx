@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
+import Tooltip from '../ComponentTooltip/Tooltip';
 
 let currentUrl = window.location.href;
 
@@ -17,13 +18,22 @@ const CompShowPedidosFinalizados = () => {
 
     const [pedidosFinalizados, setPedidosFinalizados] = useState([])
     const [showModal, setShowModal] = useState(false);
-    const [, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
 
     useEffect(() => {
         getPedidosFinalizados();
     }, []);
+
+    useEffect(() => {
+        if (!loading && pedidosFinalizados.length === 0) {
+            setShowModal(true);
+        } else {
+            setShowModal(false);
+        }
+    }, [pedidosFinalizados, loading]);
+
 
     const getPedidosFinalizados = async () => {
         try {
@@ -71,8 +81,12 @@ const CompShowPedidosFinalizados = () => {
                                     <td> {pedido.fecha_finalizacion ? new Date(pedido.fecha_finalizacion).getDate() + ' ' + new Date(pedido.fecha_finalizacion).toLocaleString('default', { month: 'long' }) + ' de ' + new Date(pedido.fecha_finalizacion).getFullYear() : ''} </td>
                                     <td> {pedido.estado_pedido} </td>
                                     <td className="colum-table-actions">
+                                        <Tooltip text="Gestionar">
                                         <Link to={`/gestionar-pedido/${pedido.id_pedido}`} className='btn-action'><i className="fas fa-edit"></i></Link>
+                                        </Tooltip>
+                                        <Tooltip text="Detalles">
                                         <Link to={`/items-pedido/${pedido.id_pedido}`} className='btn btn-info'><i class="fa-solid fa-tag "></i></Link>
+                                        </Tooltip>
                                     </td>
                                 </tr>
                             ))}
@@ -94,42 +108,42 @@ const CompShowPedidosFinalizados = () => {
                         </div>
                     </div>
                 )} */}
-                {showModal && (
-                    <div className="modal" tabIndex="-1" role="dialog">
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">Empleado creado con éxito</h5>
-                                    <button
-                                        type="button"
-                                        className="close"
-                                        onClick={() => {
-                                            setShowModal(false);
-                                            navigate('/pedidos-activos');
-                                        }}
-                                    >
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div className="modal-body">
-                                    <p>El empleado se ha creado exitosamente.</p>
-                                </div>
-                                <div className="modal-footer">
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary"
-                                        onClick={() => {
-                                            setShowModal(false);
-                                            navigate('/empleados');
-                                        }}
-                                    >
-                                        Aceptar
-                                    </button>
-                                </div>
+                      {showModal && (
+                <div className="modal" tabIndex="-1" role="dialog">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Actualmente no tienes pedidos finalizados.</h5>
+                                <button
+                                    type="button"
+                                    className="close"
+                                    onClick={() => {
+                                        setShowModal(false);
+                                        navigate('/mostrarUsuarios');
+                                    }}
+                                >
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <p>No se han encontrado pedidos finalizados, por favor revisa los pedidos activos.</p>
+                            </div>
+                            <div className="modal-footer">
+                                <button
+                                    type="button"
+                                    className="btn btn-primary"
+                                    onClick={() => {
+                                        setShowModal(false);
+                                        navigate('/pedidos-activos');
+                                    }}
+                                >
+                                    Cerrar
+                                </button>
                             </div>
                         </div>
                     </div>
-                )}
+                </div>
+            )}
             </div>
         </div>
 

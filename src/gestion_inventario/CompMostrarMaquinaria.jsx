@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import imagesEmployees from './imgEmployees';
+import Tooltip from '../ComponentTooltip/Tooltip';
 
 
 let currentUrl = window.location.href;
@@ -93,8 +94,12 @@ const CompMaquinaria = () => {
                                     <td> {inventario.referencia_agujas} </td>
                                     <td> {inventario.estado} </td>
                                     <td className="colum-table-actions">
-                                        <Link to={`/gestionar-maquinaria/${inventario.id_maquina}`} className='btn-action'><i className="fas fa-edit "></i></Link>
-                                        <Link style={{ background: "red" }} onClick={() => deleteInventario(inventario.id_maquina)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                        <Tooltip text="Gestionar">
+                                            <Link to={`/gestionar-maquinaria/${inventario.id_maquina}`} className='btn-action'><i className="fas fa-edit "></i></Link>
+                                        </Tooltip>
+                                        <Tooltip text="Eliminar">
+                                            <Link style={{ background: "#4481eb" }} onClick={() => deleteInventario(inventario.id_maquina)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                        </Tooltip>
                                     </td>
                                 </tr>
                             ))}

@@ -10,6 +10,7 @@ import imagesEmployees from './imgEmployees';
 
 
 
+
 let currentUrl = window.location.href;
 
 let URI = 'https://markey-confecciones.up.railway.app/clientes';
@@ -50,8 +51,14 @@ const CompShowClientes = () => {
 
     const deleteClientes = async (idCliente) => {
         try {
-            await axios.delete(`URI/${idCliente}`);
-            // Eliminar el cliente de la lista
+            let clientes = await axios.delete(`${URI}/${idCliente}`);
+            if (clientes.data.errno === 1451) {
+                setShowDeleteErrorModal(true);
+            }else{
+                await getClientes();
+            }
+            console.log("eliminar cliente", clientes)
+            // Eliminar el cliente de la listac
         } catch (error) {
             setShowDeleteErrorModal(true);
         }
@@ -100,6 +107,11 @@ const CompShowClientes = () => {
                             </tr>
                         </thead>
                         <tbody>
+                        {filteredClientes.length === 0 && (
+                                <tr>
+                                    <td colSpan="7">No se encuentran resultados.</td>
+                                </tr>
+                            )}
                             {filteredClientes.map((cliente) => (
                                 <tr key={cliente.id_cliente}>
                                     <td> {cliente.id_cliente} </td>
@@ -132,42 +144,42 @@ const CompShowClientes = () => {
                         </tbody>
                     </table>
                 </div>
-                 {showDeleteErrorModal && (
-                <div className="modal" tabIndex="-1" role="dialog">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">Error al eliminar cliente</h5>
-                                <button
-                                    type="button"
-                                    className="close"
-                                    onClick={() => {
-                                        setShowDeleteErrorModal(false);
-                                        navigate('/clientes');
-                                    }}
-                                >
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div className="modal-body">
-                                <p>Se ha producido un error al eliminar el cliente, ya que cuenta con pedidos registrados completamente.</p>
-                            </div>
-                            <div className="modal-footer">
-                                <button
-                                    type="button"
-                                    className="btn btn-primary"
-                                    onClick={() => {
-                                        setShowDeleteErrorModal(false);
-                                        navigate('/clientes');
-                                    }}
-                                >
-                                    Aceptar
-                                </button>
+                {showDeleteErrorModal && (
+                    <div className="modal" tabIndex="-1" role="dialog">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Error al eliminar cliente</h5>
+                                    <button
+                                        type="button"
+                                        className="close"
+                                        onClick={() => {
+                                            setShowDeleteErrorModal(false);
+                                            navigate('/clientes');
+                                        }}
+                                    >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    <p>Se ha producido un error al eliminar el cliente, ya que cuenta con pedidos registrados.</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary"
+                                        onClick={() => {
+                                            setShowDeleteErrorModal(false);
+                                            navigate('/clientes');
+                                        }}
+                                    >
+                                        Aceptar
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
             </div>
         </div>
 

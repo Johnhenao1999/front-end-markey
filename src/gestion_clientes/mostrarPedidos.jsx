@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 
@@ -16,7 +16,8 @@ if (currentUrl.includes('localhost')) {
 const CompPedidoCliente = () => {
     const [pedidos, setPedidos] = useState([]);
     const { id_cliente } = useParams(); // obtiene el parámetro de la URL (el ID del empleado)
-
+    const [showDeleteErrorModal, setShowDeleteErrorModal] = useState(false);
+    const navigate = useNavigate();
     useEffect(() => {
         if (id_cliente) {
             getPedidos(id_cliente);
@@ -27,18 +28,22 @@ const CompPedidoCliente = () => {
 
     const getPedidos = async (id_cliente) => {
         const resprueba = await axios.get(`${URI}${id_cliente}`);
+        if (resprueba.data.length === 0) {
+            setShowDeleteErrorModal(true);
+
+        }
         const sortedPedidos = resprueba.data.sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
         setPedidos(sortedPedidos);
         console.log("Que trae resprueba", resprueba)
     };
 
- /*    const validarItemsRegistrados = async (id_pedido) => {
-        const respuesta = await axios.get(`http://localhost:8000/detalle-pedido/${id_pedido}`);
-        if (respuesta.data.items.length > 0) {
-            alert('Este pedido ya tiene items registrados.');
-            // deshabilitar el formulario para registrar nuevos items
-        }
-    } */
+    /*    const validarItemsRegistrados = async (id_pedido) => {
+           const respuesta = await axios.get(`http://localhost:8000/detalle-pedido/${id_pedido}`);
+           if (respuesta.data.items.length > 0) {
+               alert('Este pedido ya tiene items registrados.');
+               // deshabilitar el formulario para registrar nuevos items
+           }
+       } */
 
     const totalPedidos = pedidos.reduce((total, pedido) => {
         return total + parseFloat(pedido.precio_pedido);
@@ -99,6 +104,42 @@ const CompPedidoCliente = () => {
                         </tr>
                     </table>
                 </div>
+                {showDeleteErrorModal && (
+                    <div className="modal" tabIndex="-1" role="dialog">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Error al consultar el historial de pedidos.</h5>
+                                    <button
+                                        type="button"
+                                        className="close"
+                                        onClick={() => {
+                                            setShowDeleteErrorModal(false);
+                                            navigate('/clientes');
+                                        }}
+                                    >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    <p>Actualmente este cliente no tiene registro de pedidos.</p>
+                                </div>
+                                <div className="modal-footer">
+                                    {<button
+                                        type="button"
+                                        className="btn btn-primary"
+                                        onClick={() => {
+                                            setShowDeleteErrorModal(false);
+                                            navigate(`/clientes`);
+                                        }}
+                                    >
+                                        Aceptar
+                                    </button>}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );

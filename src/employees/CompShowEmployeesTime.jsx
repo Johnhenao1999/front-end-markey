@@ -1,27 +1,152 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import CompHeader from "../header/header";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
+import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 
 let currentUrl = window.location.href;
 
 
 let URI = 'https://markey-confecciones.up.railway.app/registro-horas-empleado/'
+let URI_DELETE = 'https://markey-confecciones.up.railway.app/ingreso_empleados'
 
 
 if (currentUrl.includes('localhost')) {
   URI = 'http://localhost:8000/registro-horas-empleado/';
+  URI_DELETE = 'http://localhost:8000/ingreso_empleados';
 }
-
-
 
 const CompMostrarHorasEmpleado = () => {
   const [ingresos, setIngresos] = useState([]);
   const { idEmpleado } = useParams(); // obtiene el parámetro de la URL (el ID del empleado)
   const [nombre, setNombre] = useState(''); // Agregamos el estado de nombre
+  const [apellido, setApellido] = useState(''); // Agregamos el estado de apellido
   const [fechaInicial, setFechaInicial] = useState('');
   const [fechaFinal, setFechaFinal] = useState('');
+  const [showDeleteErrorModal, setShowDeleteErrorModal] = useState(false);
+  const navigate = useNavigate();
+
+  const generarYDescargarPDF = async () => {
+    try {
+      const pdfDoc = await PDFDocument.create();
+      const page = pdfDoc.addPage();
+
+      const tituloMarkey = `Markey Confecciones`;
+
+      // Dibujar el título en el PDF
+      const tituloOptionsMarkey = {
+        x: 50,
+        y: page.getHeight() - 50,
+        size: 16,
+        font: await pdfDoc.embedFont(StandardFonts.HelveticaBold),
+        color: rgb(0, 0, 0),
+      };
+
+      page.drawText(tituloMarkey, tituloOptionsMarkey);
+
+
+      const titulo = `Registro horas de ${nombre} ${apellido}`;
+
+      // Dibujar el título en el PDF
+      const tituloOptions = {
+        x: 50,
+        y: page.getHeight() - 70,
+        size: 16,
+        font: await pdfDoc.embedFont(StandardFonts.HelveticaBold),
+        color: rgb(0, 0, 0),
+      };
+
+      page.drawText(titulo, tituloOptions);
+
+
+      const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+      const fontSize = 10;
+
+      let y = page.getHeight() - 70;
+
+      const encabezados = 'Fecha registro      Ingreso mañana      Salida mañana      Ingreso tarde      Salida tarde      Valor del día';
+      const encabezadosY = y - 20;
+
+      const tablaEstilos = {
+        encabezado: {
+          textColor: rgb(0, 0, 0),
+          font: await pdfDoc.embedFont(StandardFonts.HelveticaBold),
+          fontSize: 10,
+        },
+        registro: {
+          textColor: rgb(0, 0, 0),
+          font: await pdfDoc.embedFont(StandardFonts.Helvetica),
+          fontSize: 10,
+        },
+      };
+
+      const drawTextWithOptions = (text, options) => {
+        const { x, y, font, fontSize, textColor } = options;
+        page.setFont(font);
+        page.setFontSize(fontSize);
+        page.drawText(text, { x, y, color: textColor });
+      };
+
+      drawTextWithOptions(encabezados, { x: 50, y: encabezadosY, ...tablaEstilos.encabezado });
+
+      y -= 40; // Espacio para el encabezado
+
+      ingresos.forEach((empleado) => {
+
+        const registrosFiltrados = empleado.registros.filter((registro) => {
+          if (!fechaInicial || !fechaFinal) {
+            return true;
+          }
+          const fechaRegistro = new Date(registro.fecha_registro);
+          fechaRegistro.setHours(0, 0, 0, 0);
+          const fechaInicialConHora = new Date(fechaInicial);
+          fechaInicialConHora.setHours(new Date().getHours(), new Date().getMinutes(), new Date().getSeconds(), new Date().getMilliseconds());
+          const fechaFinalConHora = new Date(fechaFinal);
+          fechaFinalConHora.setHours(new Date().getHours(), new Date().getMinutes(), new Date().getSeconds(), new Date().getMilliseconds());
+          return fechaRegistro >= fechaInicialConHora && fechaRegistro <= fechaFinalConHora.getTime() + 86399999;
+        });
+
+        let totalPagarSuma = 0;
+
+        registrosFiltrados.forEach((registro) => {
+
+          const fecha = registro.fecha_registro ? new Date(registro.fecha_registro).toLocaleDateString('es-ES') : '';
+          const horaIngresoManana = registro.hora_ingreso_manana ? registro.hora_ingreso_manana + ' AM' : '';
+          const horaSalidaManana = registro.hora_salida_manana ? registro.hora_salida_manana + ' AM' : '';
+          const horaIngreso = registro.hora_ingreso ? registro.hora_ingreso + ' PM' : '';
+          const horaSalida = registro.hora_salida ? registro.hora_salida + ' PM' : '';
+          const totalPagar = registro.total_pagar ? parseFloat(registro.total_pagar.replace(/[^0-9.-]+/g, "")) : 0;
+          const totalPagarFormateado = totalPagar.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
+
+          const text = `     ${fecha}                 ${horaIngresoManana}                 ${horaSalidaManana}              ${horaIngreso}              ${horaSalida}              ${totalPagarFormateado}`;
+          page.drawText(text, { x: 50, y, size: fontSize, font });
+
+          y -= 20;
+          // Sumar el valor al totalPagarSuma
+          if (registro.total_pagar) {
+            totalPagarSuma += totalPagar;
+          }
+        });
+
+        // Mostrar la suma total en la última fila
+        const totalPagarTexto = `     Total a Pagar: ${totalPagarSuma.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}`;
+        page.drawText(totalPagarTexto, { x: 50, y, size: fontSize, font });
+      });
+
+      const pdfBytes = await pdfDoc.save();
+      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'registro_horas.pdf';
+      link.click();
+
+      console.log('PDF generado y descargado con éxito');
+    } catch (error) {
+      console.error('Error al generar el PDF:', error);
+    }
+  };
 
   useEffect(() => {
     if (idEmpleado) {
@@ -37,11 +162,16 @@ const CompMostrarHorasEmpleado = () => {
 
   const getIngresos = async (idEmpleado, fechaInicial, fechaFinal) => {
     const resprueba = await axios.get(`${URI}${idEmpleado}?fechaInicial=${fechaInicial}&fechaFinal=${fechaFinal}`);
+    if (resprueba.data.length === 0) {
+      setShowDeleteErrorModal(true);
+    }
     setIngresos(resprueba.data);
     setNombre(resprueba.data[0].nombre)
+    setApellido(resprueba.data[0].apellido)
+    console.log(resprueba)
   };
 
-  const eliminarRegistro = async (idRegistro) => {
+  /* const eliminarRegistro = async (idRegistro) => {
     try {
       await axios.delete(`https://markey-confecciones.up.railway.app/ingreso_empleados/${idRegistro}`);
       setIngresos(ingresos.map((empleado) => {
@@ -53,7 +183,21 @@ const CompMostrarHorasEmpleado = () => {
     } catch (error) {
       console.error(error);
     }
-  }
+  } */
+
+  const eliminarRegistro = async (idRegistro) => {
+    try {
+      await axios.delete(`${URI_DELETE}/${idRegistro}`);
+      setIngresos(ingresos.map((empleado) => {
+        return {
+          ...empleado,
+          registros: empleado.registros.filter(registro => registro.idingreso !== idRegistro)
+        };
+      }));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const renderRegistros = (empleado) => {
 
@@ -84,6 +228,11 @@ const CompMostrarHorasEmpleado = () => {
 
     return (
       <>
+        {gruposDeCincoRegistros.length === 0 && (
+          <tr>
+            <td colSpan="7">No hay registros para la fecha seleccionada.</td>
+          </tr>
+        )}
         {gruposDeCincoRegistros.map((grupo, indice) => (
           <>
             {grupo.map((registro) => (
@@ -95,7 +244,7 @@ const CompMostrarHorasEmpleado = () => {
                 <td>{registro.hora_salida} PM</td>
                 <td>{registro.total_pagar.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
                 <td className="colum-table-actions-hours">
-                  <Link onClick={() => eliminarRegistro(registro.idingreso)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                  <Link onClick={() => eliminarRegistro(registro.idingreso)} style={{background:"#4481eb"}} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
                 </td>
               </tr>
             ))}
@@ -129,11 +278,11 @@ const CompMostrarHorasEmpleado = () => {
             </ul>
           </nav>
           <p className='cmp-title-section-scree'>
-            Registro horas de <p className='cmp-markey-nombreEmpleado'>{nombre} </p>
+            Registro horas de <p className='cmp-markey-nombreEmpleado'>{nombre} {apellido} </p>
           </p>
           <div style={{ display: "flex" }}>
             <div>
-              <p style={{marginBottom:"4px"}}>Fecha inicial</p>
+              <p style={{ marginBottom: "4px" }}>Fecha inicial</p>
               <input
                 type='date'
                 id='fecha-inicial'
@@ -143,7 +292,7 @@ const CompMostrarHorasEmpleado = () => {
               />
             </div>
             <div>
-            <p style={{marginBottom:"4px"}}>Fecha final</p>
+              <p style={{ marginBottom: "4px" }}>Fecha final</p>
               <input
                 type='date'
                 id='fecha-final'
@@ -152,13 +301,15 @@ const CompMostrarHorasEmpleado = () => {
                 class='input-field'
               />
             </div>
-            <div>
-              <p style={{color:"transparent", marginBottom:"4px"}}>Hola</p>
+            <div className="cmp-container-buttons-pdf">
               <button onClick={() => {
                 setFechaInicial('');
                 setFechaFinal('');
               }} class='clear-button'>
                 <i class='fa fa-arrow-left'></i>
+              </button>
+              <button onClick={generarYDescargarPDF} className='button-pdf'>
+                <i className='fa fa-download'></i> Descargar PDF
               </button>
             </div>
           </div>
@@ -181,6 +332,42 @@ const CompMostrarHorasEmpleado = () => {
             </tbody>
           </table>
         </div>
+        {showDeleteErrorModal && (
+          <div className="modal" tabIndex="-1" role="dialog">
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Error al visualizar el historial de horas del empleado.</h5>
+                  <button
+                    type="button"
+                    className="close"
+                    onClick={() => {
+                      setShowDeleteErrorModal(false);
+                      navigate('/clientes');
+                    }}
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div className="modal-body">
+                  <p>Actualmente este empleado no tienes horas registradas.</p>
+                </div>
+                <div className="modal-footer">
+                  {<button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => {
+                      setShowDeleteErrorModal(false);
+                      navigate(`/empleados`);
+                    }}
+                  >
+                    Aceptar
+                  </button>}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

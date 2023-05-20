@@ -4,9 +4,15 @@ import './menuVertical.css'
 import imagesBarNav from './script';
 import axios from 'axios';
 
+let URI = "https://markey-confecciones.up.railway.app/logout/";
+  
+    if (window.location.href.includes("localhost")) {
+      URI = "http://localhost:8000/logout/";
+    }
+
 async function handleLogout() {
     try {
-        await axios.post('https://markey-confecciones.up.railway.app/logout/', {}, {
+        await axios.post(URI, {}, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`
             }

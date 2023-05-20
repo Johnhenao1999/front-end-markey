@@ -95,7 +95,7 @@ const CompIngresarHora = () => {
 
         const prueba = await axios.post(`${URL}ingresar_fecha/${idEmpleado}`, data); // aquí agregamos el idEmpleado a la URL
         console.log('Datos enviados correctamente');
-        console.log("que trae data", prueba)
+        console.log("que se esta enviando en horas empleado", prueba)
     };
     return (
         <div className='cmp-markey-container-create-employees'>
@@ -174,7 +174,7 @@ const CompIngresarHora = () => {
                 </div>
                 <button className='button-enviar-form' onClick={() => {
                     submitData();
-                    navigate('/empleados')
+                    navigate(`/registro-horas-empleado/${idEmpleado}`)
                 }}>Guardar</button>
             </div>
         </div>

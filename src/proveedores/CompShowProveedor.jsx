@@ -90,6 +90,11 @@ const CompShowProveedor = () => {
                             </tr>
                         </thead>
                         <tbody>
+                        {filteredProveedores.length === 0 && (
+                                <tr>
+                                    <td colSpan="7">No se encuentran resultados.</td>
+                                </tr>
+                            )}
                             {filteredProveedores.map((proveedor) => (
                                 <tr key={proveedor.id_proveedor}>
                                     <td> {proveedor.nombre_empresa} </td>
@@ -102,7 +107,7 @@ const CompShowProveedor = () => {
                                             <Link to={`/actualizar-proveedor/${proveedor.id_proveedor}`} className='btn btn-info'><i className="fas fa-edit"></i></Link>
                                         </Tooltip>
                                         <Tooltip text="Eliminar">
-                                            <Link style={{ background: "red" }} onClick={() => deleteProveedor(proveedor.id_proveedor)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                            <Link style={{ background: "#4481eb" }} onClick={() => deleteProveedor(proveedor.id_proveedor)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
                                         </Tooltip>
                                     </td>
                                 </tr>

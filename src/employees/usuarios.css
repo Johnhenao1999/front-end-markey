@@ -416,6 +416,8 @@
   .btn-add-new p {
     display: none;
   }
+
+  
 }
 
 
@@ -461,6 +463,10 @@
   }
 
   .cmp-markey-graficos{
+    width: 100% !important;
+  }
+
+  .cmp-markey-textarea{
     width: 100% !important;
   }
 }
@@ -827,3 +833,16 @@ td {
   content: none;
 }
 
+.cmp-container-buttons-pdf{
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.button-pdf{
+  color: #4481eb;
+}
+
+.button-pdf:hover {
+  color: #2c3e50;
+}

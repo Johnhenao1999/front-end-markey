@@ -28,26 +28,29 @@ const CompHomePrincipal = ({ token }) => {
     } else {
       setUsernameError("");
     }
-
+  
     if (!password) {
       setPasswordError("El campo de contraseña es obligatorio");
     } else {
       setPasswordError("");
     }
-
+  
     if (!username || !password) {
       return;
     }
-
+  
+    let URI = "https://markey-confecciones.up.railway.app/login/";
+  
+    if (window.location.href.includes("localhost")) {
+      URI = "http://localhost:8000/login/";
+    }
+  
     try {
-      const response = await axios.post(
-        "https://markey-confecciones.up.railway.app/login/",
-        { username, password }
-      );
+      const response = await axios.post(URI, { username, password });
       if (response.status === 200) {
         // Guardar el token en el almacenamiento local del navegador
         localStorage.setItem("token", response.data.token);
-
+  
         // Configurar el encabezado de autorización para todas las solicitudes
         axios.defaults.headers.common[
           "Authorization"

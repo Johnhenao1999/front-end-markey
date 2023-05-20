@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import imagesEmployees from './imgEmployees';
+import Tooltip from '../ComponentTooltip/Tooltip';
 
 
 let currentUrl = window.location.href;
@@ -55,7 +56,7 @@ const CompMostrarInsumos = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
-            <nav class="breadcrumb">
+                <nav class="breadcrumb">
                     <ul>
                         <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
                         <li><Link to={'/insumos'}>Insumos</Link></li>
@@ -89,6 +90,11 @@ const CompMostrarInsumos = () => {
                             </tr>
                         </thead>
                         <tbody>
+                            {filteredInsumos.length === 0 && (
+                                <tr>
+                                    <td colSpan="7">No se encuentran resultados.</td>
+                                </tr>
+                            )}
                             {filteredInsumos.map((insumo) => (
                                 <tr key={insumo.id}>
                                     <td> {insumo.nombre} </td>
@@ -97,8 +103,12 @@ const CompMostrarInsumos = () => {
                                     <td> {insumo.tamaño} </td>
                                     <td> {insumo.fecha_ingreso ? new Date(insumo.fecha_ingreso).getDate() + ' ' + new Date(insumo.fecha_ingreso).toLocaleString('default', { month: 'long' }) + ' de ' + new Date(insumo.fecha_ingreso).getFullYear() : ''} </td>
                                     <td className="colum-table-actions">
-                                        <Link to={`/gestionar-insumos/${insumo.id_insumo}`} className='btn-action'><i className="fas fa-edit "></i></Link>
-                                        <Link style={{background:"red"}} onClick={() => deleteInsumos(insumo.id_insumo)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                        <Tooltip text="Gestionar">
+                                            <Link to={`/gestionar-insumos/${insumo.id_insumo}`} className='btn-action'><i className="fas fa-edit "></i></Link>
+                                        </Tooltip>
+                                        <Tooltip text="Eliminar">
+                                            <Link style={{ background: "#4481eb" }} onClick={() => deleteInsumos(insumo.id_insumo)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                        </Tooltip>
                                     </td>
                                 </tr>
                             ))}

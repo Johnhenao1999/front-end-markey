@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CompHeader from "../header/header";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import Tooltip from '../ComponentTooltip/Tooltip';
@@ -12,18 +12,19 @@ let currentUrl = window.location.href;
 let URL = 'https://markey-confecciones.up.railway.app/empleados';
 
 if (currentUrl.includes('localhost')) {
-  URL = 'http://localhost:8000/empleados';
+    URL = 'http://localhost:8000/empleados';
 }
 
 const CompShowUsuarios = () => {
 
     const [usuarios, setUsuarios] = useState([])
     const [, setLoading] = useState(true) // agregar estado loading
-
+    const navigate = useNavigate();
+    const [selectedCedula, setSelectedCedula] = useState(null);
     //Busqueda 
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredUsuarios, setFilteredUsuarios] = useState([]);
-
+    const [showDeleteErrorModal, setShowDeleteErrorModal] = useState(false);
 
     useEffect(() => {
         let token = localStorage.getItem('token');
@@ -72,18 +73,24 @@ const CompShowUsuarios = () => {
     const deleteUsuarios = async (idcedula) => {
         const token = localStorage.getItem('token');
         try {
-            await axios.delete(`${URL}/${idcedula}`, {
+            const response = await axios.delete(`${URL}/${idcedula}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            // Espera a que se complete la eliminación antes de llamar a getUsuarios
-            await getUsuarios(token);
-            console.log('Usuario eliminado');
+            setSelectedCedula(idcedula);
+
+            if (response.data.errno === 1451) {
+                setShowDeleteErrorModal(true);
+                console.log("Que trae usu", response);
+            } else {
+                await getUsuarios(token); // Actualizar la lista de usuarios
+            }
         } catch (error) {
             console.error(error);
+            setShowDeleteErrorModal(true);
         }
-    }
+    };
 
 
 
@@ -126,6 +133,11 @@ const CompShowUsuarios = () => {
                             </tr>
                         </thead>
                         <tbody>
+                            {filteredUsuarios.length === 0 && (
+                                <tr>
+                                    <td colSpan="7">No se encuentran resultados.</td>
+                                </tr>
+                            )}
                             {filteredUsuarios.map((usuario) => (
                                 <tr key={usuario.idcedula}>
                                     <td> {usuario.nombre} </td>
@@ -136,10 +148,10 @@ const CompShowUsuarios = () => {
                                         <Tooltip text="Gestionar">
                                             <Link to={`/edit/${usuario.idcedula}`} className='btn-action'><i className="fas fa-edit"></i></Link>
                                         </Tooltip>
-                                        <Tooltip text="Agregar">
+                                        <Tooltip text="Registro">
                                             <Link to={`/ingresar_fecha/${usuario.idcedula}`} className="btn-action"><i class="fa-solid fa-share-from-square" style={{
-                                            color
-                                                : "white"
+                                                color
+                                                    : "white"
                                             }}></i></Link>
                                         </Tooltip>
                                         <Tooltip text="Historial">
@@ -156,6 +168,42 @@ const CompShowUsuarios = () => {
                         </tbody>
                     </table>
                 </div>
+                {showDeleteErrorModal && (
+                    <div className="modal" tabIndex="-1" role="dialog">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Error al eliminar empleado.</h5>
+                                    <button
+                                        type="button"
+                                        className="close"
+                                        onClick={() => {
+                                            setShowDeleteErrorModal(false);
+                                            navigate('/clientes');
+                                        }}
+                                    >
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    <p>Se ha producido un error al eliminar el empleado, ya que cuenta horas registradas.</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary"
+                                        onClick={() => {
+                                            setShowDeleteErrorModal(false);
+                                            navigate(`/registro-horas-empleado/${selectedCedula}`);
+                                        }}
+                                    >
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
 

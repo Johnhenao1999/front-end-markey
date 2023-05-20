@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import imagesEmployees from './imgEmployees';
+import Tooltip from '../ComponentTooltip/Tooltip';
 
 let currentUrl = window.location.href;
 
@@ -87,6 +88,11 @@ const CompMostrarTelas = () => {
                             </tr>
                         </thead>
                         <tbody>
+                        {filteredTelas.length === 0 && (
+                                <tr>
+                                    <td colSpan="7">No se encuentran resultados.</td>
+                                </tr>
+                            )}
                             {filteredTelas.map((tela) => (
                                 <tr key={tela.id}>
                                     <td> {tela.nombre} </td>
@@ -94,8 +100,12 @@ const CompMostrarTelas = () => {
                                     <td> {tela.metros} </td>
                                     <td> {tela.fecha_registro ? new Date(tela.fecha_registro).getDate() + ' ' + new Date(tela.fecha_registro).toLocaleString('default', { month: 'long' }) + ' de ' + new Date(tela.fecha_registro).getFullYear() : ''} </td>
                                     <td className="colum-table-actions">
+                                        <Tooltip text="Gestionar">
                                         <Link to={`/gestionar-telas/${tela.id_telas}`} className='btn-action'><i className="fas fa-edit "></i></Link>
-                                        <Link style={{background:"red"}} onClick={() => deleteTelas(tela.id_telas)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                        </Tooltip>
+                                        <Tooltip text="Eliminar">
+                                        <Link style={{background:"#4481eb"}} onClick={() => deleteTelas(tela.id_telas)} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                                        </Tooltip>
                                     </td>
                                 </tr>
                             ))}
