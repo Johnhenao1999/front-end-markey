@@ -4,6 +4,8 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import CompHeader from "../header/header";
 import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import logo from "../assets/logo.png";
+
 
 let currentUrl = window.location.href;
 
@@ -32,26 +34,32 @@ const CompMostrarHorasEmpleado = () => {
       const pdfDoc = await PDFDocument.create();
       const page = pdfDoc.addPage();
 
-      const tituloMarkey = `Markey Confecciones`;
+      const imageUrl = logo;
 
-      // Dibujar el título en el PDF
-      const tituloOptionsMarkey = {
-        x: 50,
-        y: page.getHeight() - 50,
-        size: 16,
-        font: await pdfDoc.embedFont(StandardFonts.HelveticaBold),
-        color: rgb(0, 0, 0),
+      // Descargar la imagen desde la URL
+      const response = await fetch(imageUrl);
+      const imageBytes = await response.arrayBuffer();
+
+
+      // Agregar la imagen al PDF
+      const image = await pdfDoc.embedPng(imageBytes);
+
+      // Dibuja la imagen en una posición específica del PDF
+      const imageOptions = {
+        x: 420, // Coordenada X del origen de la imagen
+        y: 740, // Coordenada Y del origen de la imagen
+        width: 150, // Ancho de la imagen
+        height: 100, // Altura de la imagen
       };
 
-      page.drawText(tituloMarkey, tituloOptionsMarkey);
-
+      page.drawImage(image, imageOptions);
 
       const titulo = `Registro horas de ${nombre} ${apellido}`;
 
       // Dibujar el título en el PDF
       const tituloOptions = {
         x: 50,
-        y: page.getHeight() - 70,
+        y: page.getHeight() - 60,
         size: 16,
         font: await pdfDoc.embedFont(StandardFonts.HelveticaBold),
         color: rgb(0, 0, 0),
@@ -63,10 +71,10 @@ const CompMostrarHorasEmpleado = () => {
       const font = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
       const fontSize = 10;
 
-      let y = page.getHeight() - 70;
+      let y = page.getHeight() - 30;
 
       const encabezados = 'Fecha registro      Ingreso mañana      Salida mañana      Ingreso tarde      Salida tarde      Valor del día';
-      const encabezadosY = y - 20;
+      const encabezadosY = y - 80;
 
       const tablaEstilos = {
         encabezado: {
@@ -90,7 +98,7 @@ const CompMostrarHorasEmpleado = () => {
 
       drawTextWithOptions(encabezados, { x: 50, y: encabezadosY, ...tablaEstilos.encabezado });
 
-      y -= 40; // Espacio para el encabezado
+      y -= 100; // Espacio valores
 
       ingresos.forEach((empleado) => {
 
@@ -122,7 +130,7 @@ const CompMostrarHorasEmpleado = () => {
           const text = `     ${fecha}                 ${horaIngresoManana}                 ${horaSalidaManana}              ${horaIngreso}              ${horaSalida}              ${totalPagarFormateado}`;
           page.drawText(text, { x: 50, y, size: fontSize, font });
 
-          y -= 20;
+          y -= 20; //Espacio entre filas
           // Sumar el valor al totalPagarSuma
           if (registro.total_pagar) {
             totalPagarSuma += totalPagar;
@@ -170,20 +178,6 @@ const CompMostrarHorasEmpleado = () => {
     setApellido(resprueba.data[0].apellido)
     console.log(resprueba)
   };
-
-  /* const eliminarRegistro = async (idRegistro) => {
-    try {
-      await axios.delete(`https://markey-confecciones.up.railway.app/ingreso_empleados/${idRegistro}`);
-      setIngresos(ingresos.map((empleado) => {
-        return {
-          ...empleado,
-          registros: empleado.registros.filter(registro => registro.idingreso !== idRegistro)
-        };
-      }));
-    } catch (error) {
-      console.error(error);
-    }
-  } */
 
   const eliminarRegistro = async (idRegistro) => {
     try {
@@ -244,7 +238,7 @@ const CompMostrarHorasEmpleado = () => {
                 <td>{registro.hora_salida} PM</td>
                 <td>{registro.total_pagar.toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}</td>
                 <td className="colum-table-actions-hours">
-                  <Link onClick={() => eliminarRegistro(registro.idingreso)} style={{background:"#4481eb"}} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
+                  <Link onClick={() => eliminarRegistro(registro.idingreso)} style={{ background: "#4481eb" }} className='btn-action'><i className="fas fa-trash-alt"></i></Link>
                 </td>
               </tr>
             ))}
