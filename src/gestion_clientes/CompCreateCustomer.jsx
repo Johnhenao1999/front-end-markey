@@ -35,6 +35,7 @@ const CompCreateCustomer = () => {
     const [errorDepartamento, setErrorDepartamento] = useState(false);
     const [errorTelefono, setErrorTelefono] = useState(false);
     const [errorDireccion, setErrorDireccion] = useState(false);
+    const [loading, setLoading] = useState(false);
 
 
     /* 
@@ -72,17 +73,25 @@ const CompCreateCustomer = () => {
             setErrorDireccion(!direccion);
             return;
         }
+        setLoading(true);
+        try {
+            await axios.post(URI, {
+                id_cliente,
+                nombre_comercial,
+                departamento,
+                ciudad,
+                direccion,
+                telefono,
+                referencia_comercial
+            });
+            setShowModal(true);
+            setLoading(false);
+        }
+        catch (error) {
+            setLoading(false); // Establecer el estado de carga en false en caso de error
+            console.error("Error al enviar los datos", error);
+        }
 
-        await axios.post(URI, {
-            id_cliente,
-            nombre_comercial,
-            departamento,
-            ciudad,
-            direccion,
-            telefono,
-            referencia_comercial
-        });
-        setShowModal(true);
     };
 
     const handleChange = (e) => {
@@ -297,11 +306,12 @@ const CompCreateCustomer = () => {
                                     type="button"
                                     className="btn btn-primary"
                                     onClick={() => {
+                                        guardar();
                                         setShowModal(false);
-                                        navigate('/clientes');
+                                        navigate('/clientes')
                                     }}
                                 >
-                                    Aceptar
+                                    {loading ? "Guardando..." : "Guardar"}
                                 </button>
                             </div>
                         </div>

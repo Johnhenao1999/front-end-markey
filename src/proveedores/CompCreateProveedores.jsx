@@ -22,6 +22,7 @@ const CompCreateProveedores = () => {
     const [adminNames, setAdminNames] = useState([]);
     const [, setAdminNamesCiudades] = useState([]);
     const [showModal, setShowModal] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -31,18 +32,23 @@ const CompCreateProveedores = () => {
 
     const guardar = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        try {
+            const prueba = await axios.post(URI, {
+                nombre_empresa,
+                email,
+                telefono,
+                departamento,
+                ciudad,
+                direccion,
+                tipo_producto
+            });
+            setShowModal(true);
+            setLoading(false);
+            console.log("Que envia provee", prueba)
+        } catch (error) {
 
-        const prueba = await axios.post(URI, {
-            nombre_empresa,
-            email,
-            telefono,
-            departamento,
-            ciudad,
-            direccion,
-            tipo_producto
-        });
-        setShowModal(true);
-        console.log("Que envia provee", prueba)
+        }
     };
 
     /*     const handleChange = (e) => {
@@ -251,13 +257,13 @@ const CompCreateProveedores = () => {
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Usuario creado con éxito</h5>
+                                <h5 className="modal-title">Proveedor creado con éxito</h5>
                                 <button
                                     type="button"
                                     className="close"
                                     onClick={() => {
                                         setShowModal(false);
-                                        navigate('/mostrarUsuarios');
+                                        navigate('/proveedores');
                                     }}
                                 >
                                     <span aria-hidden="true">&times;</span>
@@ -268,14 +274,15 @@ const CompCreateProveedores = () => {
                             </div>
                             <div className="modal-footer">
                                 <button
-                                    type="button"
+                                     type="button"
                                     className="btn btn-primary"
                                     onClick={() => {
+                                        guardar();
                                         setShowModal(false);
                                         navigate('/proveedores');
                                     }}
                                 >
-                                    Aceptar
+                                    {loading ? "Guardando..." : "Aceptar"}
                                 </button>
                             </div>
                         </div>

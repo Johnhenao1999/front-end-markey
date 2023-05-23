@@ -21,6 +21,7 @@ const CompRegistrarTelas = () => {
     const [observaciones, setObservaciones] = useState('');
     const [precio_total, setPrecioTotal] = useState('');
     const [, setPrecioTotalFormateado] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -32,16 +33,23 @@ const CompRegistrarTelas = () => {
 
     // Procedimiento para guardar una maquina
     const submitData = async () => {
-        const data = await axios.post(URI, {
-            nombre: nombre,
-            color: color,
-            metros: metros,
-            precio: precio,
-            observaciones: observaciones,
-            precio_total: precio_total
-        });
-
-        console.log("Que se esta enviando", data)
+        setLoading(true);
+        try {
+            const data = await axios.post(URI, {
+                nombre: nombre,
+                color: color,
+                metros: metros,
+                precio: precio,
+                observaciones: observaciones,
+                precio_total: precio_total
+            });
+            setLoading(false);
+            navigate('/telas');
+            console.log("Que se esta enviando", data)
+        } catch (error) {
+            setLoading(false);
+            console.error("Error al enviar los datos", error);
+        }
     };
 
     function formatoValor(valor) {
@@ -67,7 +75,7 @@ const CompRegistrarTelas = () => {
             <CompHeader />
             <CompNavegacionVertical />
             <div className='cmp-screen-container'>
-            <nav class="breadcrumb">
+                <nav class="breadcrumb">
                     <ul>
                         <li><Link to={'/homeAdministrador'}>Inicio</Link></li>
                         <li><Link to={'/telas'}>Telas</Link></li>
@@ -151,10 +159,9 @@ const CompRegistrarTelas = () => {
                         className='button-enviar-form'
                         onClick={() => {
                             submitData();
-                            navigate('/telas');
                         }}
                     >
-                        Guardar
+                        {loading ? "Guardando..." : "Guardar"}
                     </button>
                 </div>
             </div>

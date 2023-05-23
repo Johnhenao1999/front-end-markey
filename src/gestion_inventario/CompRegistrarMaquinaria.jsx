@@ -22,6 +22,7 @@ const CompRegistrarMaquinaria = () => {
     const [fecha_funcionamiento, setFechaFuncionamiento] = useState(new Date());
     const [referencia_agujas, setReferenciaAgujas] = useState('');
     const [estado, setEstadoMaquina] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -29,17 +30,24 @@ const CompRegistrarMaquinaria = () => {
 
     // Procedimiento para guardar una maquina
     const submitData = async () => {
-        const data = await axios.post(URI, {
-            nombre: nombre,
-            modelo: modelo,
-            marca: marca,
-            fecha_funcionamiento: fecha_funcionamiento.toISOString().slice(0, 10),
-            referencia_agujas: referencia_agujas,
-            estado: estado
+        setLoading(true);
+        try {
+            const data = await axios.post(URI, {
+                nombre: nombre,
+                modelo: modelo,
+                marca: marca,
+                fecha_funcionamiento: fecha_funcionamiento.toISOString().slice(0, 10),
+                referencia_agujas: referencia_agujas,
+                estado: estado
 
-        });
-
-        console.log("Que se esta enviando", data)
+            });
+            setLoading(false);
+            navigate('/maquinaria');
+            console.log("Datos enviados", data);
+        } catch (error) {
+            setLoading(false); // Establecer el estado de carga en false en caso de error
+            console.error("Error al enviar los datos", error);
+        }
     };
 
 
@@ -124,14 +132,13 @@ const CompRegistrarMaquinaria = () => {
                     />
                 </div>
                 <div>
-                    <button
+                <button
                         className='button-enviar-form'
                         onClick={() => {
                             submitData();
-                            navigate('/maquinaria');
                         }}
                     >
-                        Guardar
+                        {loading ? "Guardando..." : "Guardar"}
                     </button>
                 </div>
             </div>

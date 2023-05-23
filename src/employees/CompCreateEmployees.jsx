@@ -12,7 +12,7 @@ let currentUrl = window.location.href;
 let URL = 'https://markey-confecciones.up.railway.app/holamundo';
 
 if (currentUrl.includes('localhost')) {
-  URL = 'http://localhost:8000/holamundo';
+    URL = 'http://localhost:8000/holamundo';
 }
 
 const CompCreateUsuarios = () => {
@@ -39,6 +39,7 @@ const CompCreateUsuarios = () => {
     const [errorEspecialidad, setErrorEspecialidad] = useState(false);
     const [errorEstadoCivil, setErrorEstadoCivil] = useState(false);
     const [errorNumeroEmergencia, setErrorNumeroEmergencia] = useState(false);
+    const [loading, setLoading] = useState(false);
 
 
     const [errorTelefono, setErrorTelefono] = useState(false);
@@ -77,22 +78,29 @@ const CompCreateUsuarios = () => {
             return;
         }
 
+        setLoading(true);
+        try {
+            const hey = await axios.post(URL, {
+                idcedula,
+                nombre,
+                apellido,
+                telefono,
+                edad,
+                ciudad,
+                direccion,
+                especialidad,
+                estado_civil,
+                numero_emergencia
 
-        const hey = await axios.post(URL, {
-            idcedula,
-            nombre,
-            apellido,
-            telefono,
-            edad,
-            ciudad,
-            direccion,
-            especialidad,
-            estado_civil,
-            numero_emergencia
+            });
+            setShowModal(true);
+            setLoading(false);
+            console.log(hey)
+        } catch (error) {
+            setLoading(false); // Establecer el estado de carga en false en caso de error
+            console.error("Error al enviar los datos", error);
+        }
 
-        });
-        setShowModal(true);
-        console.log(hey)
     };
 
 
@@ -332,7 +340,7 @@ const CompCreateUsuarios = () => {
                                         navigate('/empleados');
                                     }}
                                 >
-                                    Aceptar
+                                    {loading ? "Guardando..." : "Guardar"}
                                 </button>
                             </div>
                         </div>
