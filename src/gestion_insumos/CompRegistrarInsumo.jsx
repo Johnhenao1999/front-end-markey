@@ -18,13 +18,14 @@ const CompRegistrarInsumos = () => {
     const [cantidad, setCantidad] = useState('');
     const [color, setColor] = useState('');
     const [tamaño, setTamaño] = useState('');
+    const [loading, setLoading] = useState(false); 
 
     const navigate = useNavigate();
 
 
 
     // Procedimiento para guardar una maquina
-    const submitData = async () => {
+/*     const submitData = async () => {
         const data = await axios.post(URI, {
             nombre: nombre,
             cantidad: cantidad,
@@ -33,6 +34,23 @@ const CompRegistrarInsumos = () => {
         });
 
         console.log("Que se esta enviando", data)
+    }; */
+    const submitData = async () => {
+        setLoading(true); // Establecer el estado de carga en true antes de hacer la solicitud
+        try {
+            const response = await axios.post(URI, {
+                nombre: nombre,
+                cantidad: cantidad,
+                color: color,
+                tamaño: tamaño
+            });
+            console.log("Datos enviados", response.data);
+            setLoading(false); // Establecer el estado de carga en false después de recibir la respuesta
+            navigate('/insumos');
+        } catch (error) {
+            setLoading(false); // Establecer el estado de carga en false en caso de error
+            console.error("Error al enviar los datos", error);
+        }
     };
 
 
@@ -94,14 +112,13 @@ const CompRegistrarInsumos = () => {
                     </ul>
                 </div>
                 <div>
-                    <button
+                <button
                         className='button-enviar-form'
                         onClick={() => {
                             submitData();
-                            navigate('/insumos');
                         }}
                     >
-                        Guardar
+                        {loading ? "Guardando..." : "Guardar"}
                     </button>
                 </div>
             </div>
