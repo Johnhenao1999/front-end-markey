@@ -5,8 +5,13 @@ import CompNavegacionVertical from "../navegacion_vertical/navegacion";
 import CompHeader from "../header/header";
 import ciudadesColombia from '../ciudadesColombia';
 
+let currentUrl = window.location.href;
 
-const URI = 'http://localhost:8000/create-proveedor/'
+let URI = 'https://markey-confecciones.up.railway.app/create-proveedor/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/create-proveedor/';
+}
 
 const CompCreateProveedores = () => {
 

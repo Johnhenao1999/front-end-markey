@@ -6,7 +6,13 @@ import CompHeader from "../header/header";
 import ciudadesColombia from '../ciudadesColombia';
 
 
-const URI = 'http://localhost:8000/proveedor/'
+let currentUrl = window.location.href;
+
+let URI = 'https://markey-confecciones.up.railway.app/proveedor/';
+
+if (currentUrl.includes('localhost')) {
+    URI = 'http://localhost:8000/proveedor/';
+}
 
 const CompUpdateProveedor = () => {
 
